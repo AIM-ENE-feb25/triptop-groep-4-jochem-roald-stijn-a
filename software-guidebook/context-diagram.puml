@@ -1,0 +1,32 @@
+@startuml
+title C4 Context diagram voor TripTop
+!include <C4/C4_Container.puml>
+
+'LAYOUT_WITH_LEGEND()
+SHOW_PERSON_OUTLINE()
+
+Person(reiziger, "Reiziger", "Primaire gebruiker van het systeem. Kan reizen plannen en afstemmen")
+Person(reisagent, "ReisAgent", "Is te raadplegen voor tweedelijns support")
+
+'System_Boundary(system, "TripTop") {
+Container(triptop, "TripTop", "", "Applicatie voor het plannen van vakantie trips")
+'}
+
+Rel(reiziger, triptop, "Kan reizen samenstellen, boeken, beheren en betalen in")
+Rel(reisagent, triptop, "Wordt geraadpleegd door reizigers voor support in")
+
+System_Ext(overnachting, "Overnachting API", "Biedt overnachtingen aan van bijv. Booking.com, Airbnb, eigen beheer")
+System_Ext(vervoer, "Vervoer tussen overnachtingen API", "Biedt vervoer tussen overnachtingen aan van bijv. treinen via NS of Deutsche Bahn, vliegtuig via KLM")
+System_Ext(reis, "Heen en terugreis API", "Biedt heen en terugreis aan van bijv. eigen vervoer, KLM shuttle, trein")
+System_Ext(autohuur, "Autohuur API", "Biedt autoverhuur aan van bijv. huurauto via Sixt, Hertz")
+System_Ext(activiteiten, "Excursies / activiteiten API", "Biedt excursies en activiteiten aan van bijv. via GetYourGuide, Tripadvisor")
+System_Ext(eten, "Eten en drinken API", "Biedt restaurants en winkels voor eten en drinken aan van bijv. via Takeaway, Eet.nu")
+
+Rel(triptop, overnachting, "Zoekt en boekt overnachtingen via")
+Rel(triptop, vervoer, "Zoekt en boekt vervoer tussen overnachtingen via")
+Rel(triptop, reis, "Zoekt en boekt heen en terugreis via")
+Rel(triptop, autohuur, "Zoekt en boekt autohuur via")
+Rel(triptop, activiteiten, "Zoekt en boekt excursies / activiteiten via")
+Rel(triptop, eten, "Zoekt beschikbare plekken voor eten en drinken via")
+
+@enduml
