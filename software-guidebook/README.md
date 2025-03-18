@@ -11,7 +11,8 @@ Dit software guidebook geeft een overzicht van de Triptop-applicatie. Het bevat 
 
 [//]: # (> [!IMPORTANT])
 [//]: # (> Werk zelf dit hoofdstuk uit met context diagrammen en een beschrijving van de context van de software.)
-[Context Diagram](context-diagram.puml)
+
+![context-diagram-C4_Context_diagram_voor_TripTop.svg](context-diagram-C4_Context_diagram_voor_TripTop.svg)
 
 Toelichting op de context van de software inclusief System Context Diagram:
 * Functionaliteit
