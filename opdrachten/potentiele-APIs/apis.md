@@ -9,7 +9,18 @@
 - Airbnb
 
 # Roald
-- asdf
+- Booking.com
+- Airbnb
+- NS
+- Deutsche Bahn
+- KLM
+- Sixt
+- Hertz
+- GetYourGuide
+- TripAdvisor
+- Takeaway
+- Eet.nu
+- Google Maps
 
 # Stijn
 - [TravelData](https://rapidapi.com/Idatatravel/api/traveldata/playground/apiendpoint_0c4064d7-5b81-4f2a-9c46-f43ca7e27279)
