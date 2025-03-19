@@ -21,6 +21,10 @@
 - Takeaway
 - Eet.nu
 - Google Maps
+- [expedia](https://rapidapi.com/DataCrawler/api/expedia13/playground/apiendpoint_acfd80aa-aa44-480b-9e8f-db46132272a7)
+  - vluchten
+  - autoverhuur
+- 
 
 # Stijn
 - [TravelData](https://rapidapi.com/Idatatravel/api/traveldata/playground/apiendpoint_0c4064d7-5b81-4f2a-9c46-f43ca7e27279)
