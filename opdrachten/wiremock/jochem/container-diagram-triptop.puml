@@ -1,0 +1,38 @@
+@startuml
+title C4 Container diagram voor TripTop
+!include <C4/C4_Container.puml>
+
+top to bottom direction
+
+LAYOUT_WITH_LEGEND()
+SHOW_PERSON_OUTLINE()
+
+Person(reiziger, "Reiziger", "Primaire gebruiker van het systeem. Kan reizen plannen en afstemmen", $type="Person")
+Person(reisagent, "ReisAgent", "Is te raadplegen voor tweedelijns support", $type="Person")
+
+System_Boundary(system, "TripTop omgeving") {
+    Container(triptop, "Backend", "Container: Java en Spring Boot", "Behandeld de businesslogica van de applicatie")
+    Container(triptopUI, "Triptop Applicatie", "Container: Javascript en React", "Toont the UI aan de gebruikers")
+    Container(db, "Database", "Container: SSMS", "Opslag voor de data van de applicatie")
+}
+
+Rel(reiziger, triptopUI, "Kan reizen samenstellen, boeken, beheren en betalen in")
+Rel(reisagent, triptopUI, "Zet telefoonnummer en handelt tickets af in")
+Rel(triptopUI, triptop, "Maakt API verzoeken", "JSON/HTTPS")
+Rel_R(triptop, db, "Slaat en haalt data op", "SQL/TCP")
+
+System_Ext(overnachting, "Overnachting API", "Biedt overnachtingen aan van bijv. Booking.com, Airbnb, eigen beheer", $type="External System")
+System_Ext(vervoer, "Vervoer tussen overnachtingen API", "Biedt vervoer tussen overnachtingen aan van bijv. treinen via NS of Deutsche Bahn, vliegtuig via KLM", $type="External System")
+System_Ext(reis, "Heen en terugreis API", "Biedt heen en terugreis aan van bijv. eigen vervoer, KLM shuttle, trein", $type="External System")
+System_Ext(autohuur, "Autohuur API", "Biedt autoverhuur aan van bijv. huurauto via Sixt, Hertz", $type="External System")
+System_Ext(activiteiten, "Excursies / activiteiten API", "Biedt excursies en activiteiten aan van bijv. via GetYourGuide, Tripadvisor", $type="External System")
+System_Ext(eten, "Eten en drinken API", "Biedt restaurants en winkels voor eten en drinken aan van bijv. via Takeaway, Eet.nu", $type="External System")
+
+Rel(triptop, overnachting, "Maakt API verzoeken", "?/HTTPS")
+Rel(triptop, vervoer, "Maakt API verzoeken", "?/HTTPS")
+Rel(triptop, reis, "Maakt API verzoeken", "?/HTTPS")
+Rel(triptop, autohuur, "Maakt API verzoeken", "?/HTTPS")
+Rel(triptop, activiteiten, "Maakt API verzoeken", "?/HTTPS")
+Rel(triptop, eten, "Maakt API verzoeken", "?/HTTPS")
+
+@enduml
