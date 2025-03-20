@@ -9,10 +9,15 @@
 - Airbnb
 
 # Roald
-- Booking.com
-- Airbnb
+- [Booking.com](https://rapidapi.com/DataCrawler/api/booking-com15/playground/apiendpoint_6767dbac-969b-4230-8d26-f8b007bb8094)
+  - hotels
+  - vluchten
+  - autoverhuur
+  - taxi
+  - attracties
+- [Airbnb](https://rapidapi.com/DataCrawler/api/airbnb19)
 - NS
-- Deutsche Bahn
+- [Deutsche Bahn](https://rapidapi.com/3b-data-3b-data-default/api/deutsche-bahn1/playground/apiendpoint_ee8cce38-539c-4de6-8ceb-e02ea663ad82)
 - KLM
 - Sixt
 - Hertz
@@ -24,7 +29,6 @@
 - [expedia](https://rapidapi.com/DataCrawler/api/expedia13/playground/apiendpoint_acfd80aa-aa44-480b-9e8f-db46132272a7)
   - vluchten
   - autoverhuur
-- 
 
 # Stijn
 - [TravelData](https://rapidapi.com/Idatatravel/api/traveldata/playground/apiendpoint_0c4064d7-5b81-4f2a-9c46-f43ca7e27279)
