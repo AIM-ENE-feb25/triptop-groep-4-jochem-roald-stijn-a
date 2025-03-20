@@ -1,0 +1,31 @@
+@startuml
+title Context Diagram voor de ANS application
+!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Context.puml
+!include <C4/C4_Container.puml>
+
+top to bottom direction
+
+SHOW_PERSON_OUTLINE()
+Person(student, "Student", "A student who uses the system to make exams")
+Person(teacher, "Teacher", "A teacher who uses the system create and grade exams")
+System_Boundary(c1, "Ans omgeving", $link="https://github.com/plantuml-stdlib/C4-PlantUML") {
+    Container(ans, "Backend", "?", "Handels the logic of the system")
+    Container(ansFrontend, "Ans Applicatie", "?", "Shows the UI for users")
+    Container(db, "Database", "?", "Storage of data for ans")
+}
+System_Ext(osiris, "Osiris", "Contains registered students for exams")
+System_Ext(schoolyear, "SchoolYear", "Secures ANS so it can only be used in a safe browser")
+System_Ext(surfconnect, "SurfConnect", "Authentication for logging in on schoolyear")
+Rel(student, ansFrontend, "Makes exams")
+Rel(teacher, ansFrontend, "Creates and grades exams")
+Rel(ans, osiris, "Checks if student is registered for exams")
+Rel(ans, schoolyear, "Checks if ANS is used in a safe browser")
+Rel(ans, surfconnect, "Authenticates user")
+Rel(teacher, schoolyear, "Checks if ANS is used in a safe browser")
+Rel_R(ans, db, "Saves and fetches data")
+Rel(ansFrontend, ans, "Makes API-requests")
+
+SHOW_FLOATING_LEGEND()
+
+@enduml
+
