@@ -18,6 +18,7 @@ System_Boundary(system, "TripTop omgeving") {
 
 System_Ext(booking, "Booking API", "Biedt hotels, vluchten, autoverhuur, taxi's en attracties", "REST")
 System_Ext(tripadvisor, "TripAdvisor API", "Biedt restaurants, hotels, vluchten, cruises en autoverhuur aan", "REST")
+System_Ext(mollie, "Mollie", "Betalingsysteem voor het betalen bijv. via iDEAL, creditcard, paypal of SEPA", $type="external system")
 
 ' USERS
 Rel(reiziger, frontend, "Plant reizen en stemt af via", "Web Browser")
@@ -33,6 +34,7 @@ Rel_L(backend, cache, "Slaat API responses op in", "Jedis")
 
 Rel(backend, booking, "Maakt API verzoeken naar", "REST")
 Rel(backend, tripadvisor, "Maakt API verzoeken naar", "REST")
+Rel(backend, mollie, "Regelt betalingen via", "?")
 
 SHOW_FLOATING_LEGEND()
 

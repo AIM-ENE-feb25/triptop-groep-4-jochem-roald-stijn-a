@@ -1,7 +1,8 @@
 # Software Guidebook Triptop
 
 ## 1. Introduction
-Dit software guidebook geeft een overzicht van de Triptop-applicatie. Het bevat een samenvatting van het volgende: 
+Dit software guidebook geeft een overzicht van de Triptop-applicatie. Het bevat een samenvatting v
+an het volgende: 
 1. De vereisten, beperkingen en principes. 
 1. De software-architectuur, met inbegrip van de technologiekeuzes op hoog niveau en de structuur van de software. 
 1. De ontwerp- en codebeslissingen die zijn genomen om de software te realiseren.
@@ -14,10 +15,16 @@ Dit software guidebook geeft een overzicht van de Triptop-applicatie. Het bevat 
 
 ![context-diagram-C4_Context_diagram_voor_TripTop.svg](context-diagram-C4_Context_diagram_voor_TripTop.svg)
 
-Toelichting op de context van de software inclusief System Context Diagram:
-* Functionaliteit
-* Gebruikers
-* Externe systemen
+We hebben gekozen voor de Booking en TripAdvisor API's aangezien die alle bouwstenen in één hebben. 
+Ook hebben we gekozen voor Mollie als betalingssysteem, aangezien deze veel betalingsmogelijkheden support en alle opties bevat die een algemene Nederlander gebruikt.
+
+[//]: # (Toelichting op de context van de software inclusief System Context Diagram:)
+
+[//]: # (* Functionaliteit)
+
+[//]: # (* Gebruikers)
+
+[//]: # (* Externe systemen)
 
 ## 3. Functional Overview
 
@@ -81,8 +88,20 @@ Voordat deze casusomschrijving tot stand kwam, heeft de opdrachtgever de volgend
 
 ###     7.1. Containers
 
-> [!IMPORTANT]
-> Voeg toe: Container Diagram plus een Dynamic Diagram van een aantal scenario's inclusief begeleidende tekst.
+[//]: # (> [!IMPORTANT])
+
+[//]: # (> Voeg toe: Container Diagram plus een Dynamic Diagram van een aantal scenario's inclusief begeleidende tekst.)
+#### 7.1.1. Container diagram
+![C4_Container_diagram_voor_TripTop-C4_Container_diagram_voor_TripTop.svg](C4_Container_diagram_voor_TripTop-C4_Container_diagram_voor_TripTop.svg)
+
+#### 7.1.2. Dynamische container diagrammen
+##### 7.1.2.1 Inloggen
+![C4_Container_diagram_voor_inloggen_op_TripTop-C4_Container_diagram_voor_inloggen_op_TripTop.svg](C4_Container_diagram_voor_inloggen_op_TripTop-C4_Container_diagram_voor_inloggen_op_TripTop.svg)
+
+##### 7.1.2.2 Reis boeken
+![C4_Container_diagram_voor_een_reis_boeken_op_TripTop-C4_Container_diagram_een_reis_boeken_op_TripTop.svg](C4_Container_diagram_voor_een_reis_boeken_op_TripTop-C4_Container_diagram_een_reis_boeken_op_TripTop.svg)
+
+Aangezien we nog niet weten hoe Mollie in elkaar zit houdt het diagram hier op.
 
 ###     7.2. Components
 
