@@ -1,0 +1,46 @@
+@startuml C4 Container diagram voor TripTop
+title C4 Container diagram voor TripTop
+!include <C4/C4_Container.puml>
+
+top to bottom direction
+
+SHOW_PERSON_OUTLINE()
+
+Person(reiziger, "Reiziger", "Primaire gebruiker van het systeem. Kan reizen plannen en afstemmen")
+Person(reisagent, "ReisAgent", "Is te raadplegen voor tweedelijns support")
+
+System_Boundary(system, "TripTop omgeving") {
+    Container(frontend, "Frontend", "React", "Toont het planproces van de reiziger")
+    Container(backend, "Backend", "Spring Boot", "Verzorgt de logica van het systeem, en verwerkt alle reisdata")
+    ContainerDb(db, "Database", "PostgreSQL", "Slaat alle informatie over een reis op")
+    Container(cache, "Cache", "Redis", "Slaat API responses op om api calls te verminderen")
+}
+
+System_Ext(overnachting, "Overnachting API", "Biedt overnachtingen aan van bijv. Booking.com, Airbnb, eigen beheer")
+System_Ext(vervoer, "Vervoer tussen overnachtingen API", "Biedt vervoer tussen overnachtingen aan van bijv. treinen via NS of Deutsche Bahn, vliegtuig via KLM")
+System_Ext(reis, "Heen en terugreis API", "Biedt heen en terugreis aan van bijv. eigen vervoer, KLM shuttle, trein")
+System_Ext(autohuur, "Autohuur API", "Biedt autoverhuur aan van bijv. huurauto via Sixt, Hertz")
+System_Ext(activiteiten, "Excursies / activiteiten API", "Biedt excursies en activiteiten aan van bijv. via GetYourGuide, Tripadvisor")
+System_Ext(eten, "Eten en drinken API", "Biedt restaurants en winkels voor eten en drinken aan van bijv. via Takeaway, Eet.nu")
+
+' USERS
+Rel(reiziger, frontend, "Plant reizen en stemt af via", "Web Browser")
+Rel(reisagent, frontend, "Geeft telefoonnummer door en handelt tickets af via", "Web Browser")
+
+' SYSTEM
+Rel(frontend, backend, "Vraagt reisdata op via", "REST")
+Rel_R(backend, db, "Slaat reisdata op in", "JDBC")
+Rel_L(backend, cache, "Slaat API responses op in", "JDBC")
+
+' EXTERNAL SYSTEMS
+' TODO: vind de api's zodat dit kan worden ingevuld met correcte informatie
+Rel(backend, overnachting, "Vraagt overnachtingen op via", "REST")
+Rel(backend, vervoer, "Vraagt vervoer tussen overnachtingen op via", "REST")
+Rel(backend, reis, "Vraagt heen en terugreis op via", "REST")
+Rel(backend, autohuur, "Vraagt autohuur op via", "REST")
+Rel(backend, activiteiten, "Vraagt excursies en activiteiten op via", "REST")
+Rel(backend, eten, "Vraagt restaurants en winkels voor eten en drinken op via", "REST")
+
+SHOW_FLOATING_LEGEND()
+
+@enduml

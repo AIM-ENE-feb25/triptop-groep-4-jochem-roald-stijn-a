@@ -1,0 +1,37 @@
+@startuml C4 Container diagram voor de ANS applicatie
+title C4 Container diagram voor de ANS applicatie
+!include <C4/C4_Container.puml>
+'!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Context.puml
+
+top to bottom direction
+
+'LAYOUT_WITH_LEGEND()
+SHOW_PERSON_OUTLINE()
+
+Person(student, "Student", "A student who uses the system to make exams")
+Person(teacher, "Teacher", "A teacher who uses the system create and grade exams")
+
+System_Boundary(system, "Ans omgeving") {
+    Container(frontend, "Frontend", "?", "Shows exams to students and results to teachers")
+    Container(backend, "Backend", "?", "Handles the logic of the system")
+    ContainerDb(db, "Database", "?", "Stores the exams and results")
+}
+
+System_Ext(osiris, "Osiris", "Contains registered students for exams")
+System_Ext(schoolyear, "SchoolYear", "Secures ANS so it can only be used in a safe browser")
+System_Ext(surfcontext, "SURFcontext", "Contains the user accounts")
+
+Rel(student, frontend, "Views exams and results, and starts exams via", "?")
+Rel(student, schoolyear, "Takes exams in", "?")
+Rel(schoolyear, frontend, "Secures exams from", "?")
+Rel(teacher, frontend, "Creates and grades exams in")
+
+Rel(frontend, backend, "Sends and retrieves exam data to", "?")
+Rel(backend, db, "Stores and retrieves exams and results from", "?")
+
+Rel_R(frontend, surfcontext, "Redirects user to authenticate at", "?")
+Rel_R(backend, osiris, "Checks if student is registered for exams", "?")
+
+SHOW_FLOATING_LEGEND()
+
+@enduml
