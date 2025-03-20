@@ -41,3 +41,6 @@
 - [Booking com](https://rapidapi.com/tipsters/api/booking-com/playground/apiendpoint_1c88f066-34db-4d2c-abaf-178de00c0a08)
   - Hotels
   - Auto verhuur
+- [Tripadvisor Scraper](https://rapidapi.com/Chetan11dev/api/tripadvisor-scraper/playground/apiendpoint_878e2ec5-95e7-4701-93e8-ef765f61afe5)
+  - Hotels
+  - Restaurants
