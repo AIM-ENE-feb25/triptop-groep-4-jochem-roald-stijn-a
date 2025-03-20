@@ -4,7 +4,6 @@ title C4 Container diagram voor TripTop
 
 top to bottom direction
 
-LAYOUT_WITH_LEGEND()
 SHOW_PERSON_OUTLINE()
 
 Person(reiziger, "Reiziger", "Primaire gebruiker van het systeem. Kan reizen plannen en afstemmen", $type="Person")
@@ -34,5 +33,7 @@ Rel(triptop, reis, "Maakt API verzoeken", "?/HTTPS")
 Rel(triptop, autohuur, "Maakt API verzoeken", "?/HTTPS")
 Rel(triptop, activiteiten, "Maakt API verzoeken", "?/HTTPS")
 Rel(triptop, eten, "Maakt API verzoeken", "?/HTTPS")
+
+SHOW_FLOATING_LEGEND()
 
 @enduml
