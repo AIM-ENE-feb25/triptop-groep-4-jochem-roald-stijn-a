@@ -203,8 +203,8 @@ Geaccepteerd
 
 #### Consequenties
 
-We moeten de database in docker draaien.
-
+- We moeten de database in docker draaien.
+- Alle huidige developers kunnen meteen beginnen met implementeren
 ### 8.4. ADR-004 TITLE
 
 > [!TIP]
