@@ -187,11 +187,11 @@ We moeten een keuze maken voor een database voor de applicatie.
 
 #### Alternatieven
 
-| Database      |
-|---------------|
-| MS SQL Server |
-| PostgreSQL    |
-| MySQL         |
+| Database      | Kennis | Open Source |
+|---------------|--------|-------------|
+| MS SQL Server | +      | -           |
+| PostgreSQL    | -      | +           |
+| MySQL         |        | +           |
 
 #### Besluit
 
@@ -205,6 +205,7 @@ Geaccepteerd
 
 - We moeten de database in docker draaien.
 - Alle huidige developers kunnen meteen beginnen met implementeren
+
 ### 8.4. ADR-004 TITLE
 
 > [!TIP]
