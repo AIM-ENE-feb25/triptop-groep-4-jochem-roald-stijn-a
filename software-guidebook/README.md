@@ -118,35 +118,55 @@ Aangezien we nog niet weten hoe Mollie in elkaar zit houdt het diagram hier op.
 > [!IMPORTANT]
 > Voeg toe: 3 tot 5 ADR's die beslissingen beschrijven die zijn genomen tijdens het ontwerpen en bouwen van de software.
 
-### 8.1. ADR-001 TITLE
+### 8.1. ADR-001 Externe systemen
 
-> [!TIP]
-> These documents have names that are short noun phrases. For example, "ADR 1: Deployment on Ruby on Rails 3.0.10" or "ADR 9: LDAP for Multitenant Integration". The whole ADR should be one or two pages long. We will write each ADR as if it is a conversation with a future developer. This requires good writing style, with full sentences organized into paragraphs. Bullets are acceptable only for visual style, not as an excuse for writing sentence fragments. (Bullets kill people, even PowerPoint bullets.)
+#### Context
 
-#### Context 
-
-> [!TIP]
-> This section describes the forces at play, including technological, political, social, and project local. These forces are probably in tension, and should be called out as such. The language in this section is value-neutral. It is simply describing facts about the problem we're facing and points out factors to take into account or to weigh when making the final decision.
+Onze applicatie heeft data van externe systemen nodig zodat gebruikers een trip kunnen boeken. Om het aantal externe systemen kort te houden hebben we een tweetal externe systemen gekozen die zoveel mogelijk bouwstenen bevatten.
 
 #### Considered Options
 
-> [!TIP]
-> This section describes the options that were considered, and gives some indication as to why the chosen option was selected.
+We hadden een aardige lijst van api's gemaakt die we mogelijk konden gebruiken voor onze applicatie.
+Er waren een paar systemen die er boven uit kwamen.
+- [Booking](https://rapidapi.com/DataCrawler/api/booking-com15/playground/apiendpoint_6767dbac-969b-4230-8d26-f8b007bb8094)
+    - hotels
+    - vluchten
+    - autoverhuur
+    - taxi
+    - attracties
+- [TravelData](https://rapidapi.com/Idatatravel/api/traveldata/playground/apiendpoint_0c4064d7-5b81-4f2a-9c46-f43ca7e27279)
+    - Vliegvelden
+    - Vliegtuigmaatschappijen
+- [Flight Scraper](https://rapidapi.com/ntd119/api/sky-scanner3/playground/apiendpoint_2e6853eb-ddcb-4faf-8528-f18168fae61e)
+    - Vluchten
+    - Hotels
+    - Auto verhuur
+- [Tripadvisor](https://rapidapi.com/DataCrawler/api/tripadvisor16/playground/apiendpoint_b0128f2a-67c5-4bbd-9369-721cc7170f9c)
+    - Flights
+    - Hotels
+    - Restaurants
+    - "Vacation Rentals"
+    - Cruises
+    - Auto verhuur
+
+We hebben uiteindelijk de verschillende bouwstenen vergeleken van alle api's en hebben gekozen voor Tripadvisor en Booking.
+Aangezien Tripadvisor en Booking zowel vluchten, hotels en autoverhuur bevatten raken ze alle bouwstenen die TravelData en Flight Scraper hebben.
+Verder hebben de gekozen systemen ook nog meer bouwstenen die noodzakelijk zijn voor de applicatie zoals attracties en restaurants.
 
 #### Decision
 
-> [!TIP]
-> This section describes our response to the forces/problem. It is stated in full sentences, with active voice. "We will …"
+We gaan Booking en Tripadvisor als onze externe systemen gebruiken.
 
-#### Status 
+#### Status
 
-> [!TIP]
-> A decision may be "proposed" if the project stakeholders haven't agreed with it yet, or "accepted" once it is agreed. If a later ADR changes or reverses a decision, it may be marked as "deprecated" or "superseded" with a reference to its replacement.
+Proposed
 
-#### Consequences 
+#### Consequences
 
-> [!TIP]
-> This section describes the resulting context, after applying the decision. All consequences should be listed here, not just the "positive" ones. A particular decision may have positive, negative, and neutral consequences, but all of them affect the team and project in the future.
+- Als een van de externe systemen uit valt zal gelijk een groot deel van de mogelijkheden op onze website niet meer zichtbaar zijn.
+- Doordat we slechts twee externe systemen gebruiken, kunnen we informatie sneller ophalen en efficiënt verwerken. Dit vermindert de complexiteit van onze integratie en verhoogt de stabiliteit.
+- Er zijn minder kosten aan het gebruiken van externe systemen.
+- Minder API's betekend minder onderhoud.
 
 ### 8.2. ADR-002 TITLE
 
