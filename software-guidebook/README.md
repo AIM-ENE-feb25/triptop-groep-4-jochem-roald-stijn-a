@@ -185,13 +185,15 @@ Aangezien we nog niet weten hoe Mollie in elkaar zit houdt het diagram hier op.
 
 We moeten een keuze maken voor een database voor de applicatie.
 
-#### Considered Options
+#### Alternatieven
 
-- MS SQL Server
-- PostgreSQL
-- MySQL
+| Database      |
+|---------------|
+| MS SQL Server |
+| PostgreSQL    |
+| MySQL         |
 
-#### Decision
+#### Besluit
 
 We kiezen voor MS SQL Server als database omdat we al ervaring hebben met deze database.
 
@@ -199,7 +201,7 @@ We kiezen voor MS SQL Server als database omdat we al ervaring hebben met deze d
 
 Geaccepteerd
 
-#### Consequences
+#### Consequenties
 
 We moeten de database in docker draaien.
 
