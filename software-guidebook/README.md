@@ -13,8 +13,11 @@ an het volgende:
 [//]: # (> [!IMPORTANT])
 [//]: # (> Werk zelf dit hoofdstuk uit met context diagrammen en een beschrijving van de context van de software.)
 
+In dit hoofdstuk wordt de context van de software beschreven. Dit omvat de gebruikers, het systeem en de externe systemen die met de software communiceren.
+
 ![context-diagram-C4_Context_diagram_voor_TripTop.svg](sgb-bestanden/context-diagram-C4_Context_diagram_voor_TripTop.svg)
 
+### 2.1. Toelichting
 We hebben gekozen voor de Booking en TripAdvisor API's aangezien die alle bouwstenen in één hebben. 
 Ook hebben we gekozen voor Mollie als betalingssysteem, aangezien deze veel betalingsmogelijkheden support en alle opties bevat die een algemene Nederlander gebruikt.
 
@@ -92,9 +95,15 @@ Voordat deze casusomschrijving tot stand kwam, heeft de opdrachtgever de volgend
 
 [//]: # (> Voeg toe: Container Diagram plus een Dynamic Diagram van een aantal scenario's inclusief begeleidende tekst.)
 #### 7.1.1. Container diagram
+
+In het container diagram is te zien hoe de verschillende containers met elkaar communiceren. De containers zijn de verschillende onderdelen van de applicatie. In dit geval zijn dat de front-end, back-end, database, cache en de externe API's.
+
 ![C4_Container_diagram_voor_TripTop-C4_Container_diagram_voor_TripTop.svg](sgb-bestanden/C4_Container_diagram_voor_TripTop-C4_Container_diagram_voor_TripTop.svg)
 
 #### 7.1.2. Dynamische container diagrammen
+
+In de dynamische container diagrammen is te zien hoe de containers met elkaar communiceren, en in welke volgorde dat gebeurt. Hieronder zijn twee scenario's uitgewerkt: inloggen en een reis boeken.
+
 ##### 7.1.2.1 Inloggen
 ![C4_Container_diagram_voor_inloggen_op_TripTop-C4_Container_diagram_voor_inloggen_op_TripTop.svg](sgb-bestanden/C4_Container_diagram_voor_inloggen_op_TripTop-C4_Container_diagram_voor_inloggen_op_TripTop.svg)
 
@@ -115,8 +124,8 @@ Aangezien we nog niet weten hoe Mollie in elkaar zit houdt het diagram hier op.
 
 ## 8. Architectural Decision Records
 
-> [!IMPORTANT]
-> Voeg toe: 3 tot 5 ADR's die beslissingen beschrijven die zijn genomen tijdens het ontwerpen en bouwen van de software.
+<!-- > [!IMPORTANT]
+> Voeg toe: 3 tot 5 ADR's die beslissingen beschrijven die zijn genomen tijdens het ontwerpen en bouwen van de software. -->
 
 ### 8.1. ADR-001 Externe systemen
 
@@ -242,7 +251,7 @@ Geaccepteerd
 - We moeten de database in docker draaien.
 - Alle huidige developers kunnen meteen beginnen met implementeren
 
-### 8.4. ADR-004 TITLE
+<!-- ### 8.4. ADR-004 TITLE
 
 > [!TIP]
 > These documents have names that are short noun phrases. For example, "ADR 1: Deployment on Ruby on Rails 3.0.10" or "ADR 9: LDAP for Multitenant Integration". The whole ADR should be one or two pages long. We will write each ADR as if it is a conversation with a future developer. This requires good writing style, with full sentences organized into paragraphs. Bullets are acceptable only for visual style, not as an excuse for writing sentence fragments. (Bullets kill people, even PowerPoint bullets.)
@@ -300,7 +309,7 @@ Geaccepteerd
 #### Consequences
 
 > [!TIP]
-> This section describes the resulting context, after applying the decision. All consequences should be listed here, not just the "positive" ones. A particular decision may have positive, negative, and neutral consequences, but all of them affect the team and project in the future.
+> This section describes the resulting context, after applying the decision. All consequences should be listed here, not just the "positive" ones. A particular decision may have positive, negative, and neutral consequences, but all of them affect the team and project in the future. -->
 
 ## 9. Deployment, Operation and Support
 
