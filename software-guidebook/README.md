@@ -159,7 +159,7 @@ We gaan Booking en Tripadvisor als onze externe systemen gebruiken.
 
 #### Status
 
-Proposed
+Geaccepteerd
 
 #### Consequences
 
