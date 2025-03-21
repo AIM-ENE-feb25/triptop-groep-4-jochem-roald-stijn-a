@@ -13,7 +13,7 @@ an het volgende:
 [//]: # (> [!IMPORTANT])
 [//]: # (> Werk zelf dit hoofdstuk uit met context diagrammen en een beschrijving van de context van de software.)
 
-![context-diagram-C4_Context_diagram_voor_TripTop.svg](context-diagram-C4_Context_diagram_voor_TripTop.svg)
+![context-diagram-C4_Context_diagram_voor_TripTop.svg](sgb-bestanden/context-diagram-C4_Context_diagram_voor_TripTop.svg)
 
 We hebben gekozen voor de Booking en TripAdvisor API's aangezien die alle bouwstenen in één hebben. 
 Ook hebben we gekozen voor Mollie als betalingssysteem, aangezien deze veel betalingsmogelijkheden support en alle opties bevat die een algemene Nederlander gebruikt.
@@ -92,14 +92,14 @@ Voordat deze casusomschrijving tot stand kwam, heeft de opdrachtgever de volgend
 
 [//]: # (> Voeg toe: Container Diagram plus een Dynamic Diagram van een aantal scenario's inclusief begeleidende tekst.)
 #### 7.1.1. Container diagram
-![C4_Container_diagram_voor_TripTop-C4_Container_diagram_voor_TripTop.svg](C4_Container_diagram_voor_TripTop-C4_Container_diagram_voor_TripTop.svg)
+![C4_Container_diagram_voor_TripTop-C4_Container_diagram_voor_TripTop.svg](sgb-bestanden/C4_Container_diagram_voor_TripTop-C4_Container_diagram_voor_TripTop.svg)
 
 #### 7.1.2. Dynamische container diagrammen
 ##### 7.1.2.1 Inloggen
-![C4_Container_diagram_voor_inloggen_op_TripTop-C4_Container_diagram_voor_inloggen_op_TripTop.svg](C4_Container_diagram_voor_inloggen_op_TripTop-C4_Container_diagram_voor_inloggen_op_TripTop.svg)
+![C4_Container_diagram_voor_inloggen_op_TripTop-C4_Container_diagram_voor_inloggen_op_TripTop.svg](sgb-bestanden/C4_Container_diagram_voor_inloggen_op_TripTop-C4_Container_diagram_voor_inloggen_op_TripTop.svg)
 
 ##### 7.1.2.2 Reis boeken
-![C4_Container_diagram_voor_een_reis_boeken_op_TripTop-C4_Container_diagram_een_reis_boeken_op_TripTop.svg](C4_Container_diagram_voor_een_reis_boeken_op_TripTop-C4_Container_diagram_een_reis_boeken_op_TripTop.svg)
+![C4_Container_diagram_voor_een_reis_boeken_op_TripTop-C4_Container_diagram_een_reis_boeken_op_TripTop.svg](sgb-bestanden/C4_Container_diagram_voor_een_reis_boeken_op_TripTop-C4_Container_diagram_een_reis_boeken_op_TripTop.svg)
 
 Aangezien we nog niet weten hoe Mollie in elkaar zit houdt het diagram hier op.
 
