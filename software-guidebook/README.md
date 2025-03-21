@@ -170,7 +170,7 @@ Binnen deze applicatie worden er een hoop API requests gedaan. Deze requests kun
 | Synchroon | Requests achter elkaar versturen | ++ | -- | + |
 | CompletableFuture | Snel en flexibel voor meerdere calls | - | ++ | + |
 | ExecutorService | Als je expliciet threadbeheer wilt | -- | ++ | - |
-| Spring @Async | Voor betere Spring-integratie | 
+| Spring @Async | Voor betere Spring-integratie | -- | ++ | - |
 
 #### Besluit
 
@@ -191,8 +191,8 @@ Voorgesteld
 <!-- > [!TIP]
 > This section describes the resulting context, after applying the decision. All consequences should be listed here, not just the "positive" ones. A particular decision may have positive, negative, and neutral consequences, but all of them affect the team and project in the future. -->
 
-- De snelheid van de applicatie kan hierdoor afnemen
 - De applicatie is simpeler te implementeren
+- De snelheid van de applicatie kan hierdoor afnemen
 
 ### 8.3. ADR-003 TITLE
 
