@@ -1,5 +1,5 @@
-@startuml C4 Container diagram voor inloggen op TripTop
-title C4 Container diagram voor inloggen op TripTop
+@startuml
+title C4 Container diagram: inloggen op TripTop
 !include <C4/C4_Container.puml>
 
 top to bottom direction
@@ -8,16 +8,16 @@ SHOW_PERSON_OUTLINE()
 
 Container(frontend, "Frontend", "Javascript en React", "Toont de UI voor het planproces van de reiziger en het ticketsysteem van de reisagent.")
 Container(backend, "Backend", "Java en Spring Boot", "Verzorgt de logica van het systeem, en verwerkt alle reisdata")
-ContainerDb(db, "Database", "Microsoft SSMS", "Slaat alle informatie over een reis op")
+ContainerDb(db, "Database", "Microsoft SQL Server", "Slaat alle informatie over een reis op")
 
-Rel(frontend, backend, "1: Verstuurt inloggegevens naar", "JSON/REST")
+Rel(frontend, backend, "1: verstuurt inloggegevens naar", "JSON/REST")
 
-Rel(backend, backend, "2: Verifieert inloggegevens")
+Rel(backend, backend, "2: verifieert inloggegevens")
 
-Rel(backend, db, "3: Selecteert de gebruiker", "JdbcTemplate")
-Rel(db, backend, "4: Verstuurt de gebruikersdata", "SQL")
-Rel(backend, backend, "5: Controleert of het gehashte wachtwoord overeenkomt")
-Rel(backend, frontend, "6: Verstuurt authenticatie terug", "JSON/HTTP")
+Rel(backend, db, "3: selecteert de gebruiker", "JdbcTemplate")
+Rel(db, backend, "4: verstuurt de gebruikersdata", "SQL")
+Rel(backend, backend, "5: controleert of het gehashte wachtwoord overeenkomt")
+Rel(backend, frontend, "6: verstuurt authenticatie terug", "JSON/REST")
 
 SHOW_FLOATING_LEGEND()
 
