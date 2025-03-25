@@ -1,0 +1,45 @@
+@startuml
+title C4 Component diagram: TravelExpensePro backend
+!include <C4/C4_Component.puml>
+
+top to bottom direction
+
+SHOW_PERSON_OUTLINE()
+
+Container(frontend, "TravelExpensePro frontend", "React", "Frontend voor het invoeren en bekijken van reizen en uitgaven")
+
+Container_Boundary(system, "TravelExpensePro backend") {
+    Component(expenseController, "ExpenseController", "Spring Boot RestController", "Vangt alle requests rondom uitgaven op")
+    Component(expenseService, "ExpenseService", "Spring Boot Service", "Voert alle logica uit rondom uitgaven")
+    Component(expenseRepository, "ExpenseRepository", "Spring Boot Repository", "Haalt en slaat data op rondom uitgaven")
+    Component(authController, "AuthController", "Spring Boot RestController", "Vangt alle requests rondom authenticatie op")
+'    Component(securityConfig, "SecurityConfig", "Spring Boot Configuration", "Vangt alle requests op en controleert de authenticatie en autorisatie")
+    Component(securityConfig, "Security/Authenticatie", "Spring Boot Security/Authenticatie", "Filtert alle requests en controleert de authenticatie en autorisatie")
+    Component(jwtAuthFilter, "JwtAuthFilter", "Spring Boot Filter", "Controleert of de gebruiker geauthenticeerd is")
+    Component(jwtGenerator, "JwtGenerator", "Spring Boot Component", "Genereert en verkrijgt informatie uit JWT tokens")
+    Component(customUserDetailsService, "CustomUserDetailsService", "Spring Boot Service", "Haalt gebruiker op uit database")
+    Component(userRepository, "UserRepository", "Spring Boot Repository", "Haalt en slaat gebruikersdata op")
+}
+ContainerDb(db, "Database", "H2", "Database voor alle gebruikers en uitgaven")
+
+Rel(frontend, securityConfig, "authenticatie, autorisatie en geldzaken worden gestuurd naar")
+Rel(securityConfig, jwtAuthFilter, "geeft token door aan")
+Rel(jwtAuthFilter, jwtGenerator, "verwerkt token met")
+
+Rel(jwtAuthFilter, customUserDetailsService, "haalt gebruiker op met")
+Rel(customUserDetailsService, userRepository, "haalt/slaat gebruikersdata op via")
+
+Rel(securityConfig, expenseController, "stuurt gebruiker door naar")
+Rel(expenseController, expenseService, "geeft data door aan")
+Rel(expenseService, expenseRepository, "haalt/slaat uitgaven op via")
+Rel(expenseController, jwtGenerator, "haalt informatie uit token met")
+
+Rel(securityConfig, authController, "stuurt gebruiker door naar")
+Rel(authController, jwtGenerator, "haalt informatie uit token met")
+
+Rel(expenseRepository, db, "haalt/slaat uitgaven op in")
+Rel(userRepository, db, "haalt/slaat gebruikersdata op in")
+
+SHOW_FLOATING_LEGEND()
+
+@enduml
