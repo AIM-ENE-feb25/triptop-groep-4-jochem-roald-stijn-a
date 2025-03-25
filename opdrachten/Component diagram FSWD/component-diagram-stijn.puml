@@ -6,14 +6,15 @@ top to bottom direction
 
 SHOW_PERSON_OUTLINE()
 
-Person(user, "Reiziger", "Persoon die reizen plant en afstemt")
+Container(frontend, "TravelExpensePro frontend", "React", "Frontend voor het invoeren en bekijken van reizen en uitgaven")
 
-System_Boundary(system, "TravelExpensePro backend") {
+Container_Boundary(system, "TravelExpensePro backend") {
     Component(expenseController, "ExpenseController", "Spring Boot RestController", "Vangt alle requests rondom uitgaven op")
     Component(expenseService, "ExpenseService", "Spring Boot Service", "Voert alle logica uit rondom uitgaven")
     Component(expenseRepository, "ExpenseRepository", "Spring Boot Repository", "Haalt en slaat data op rondom uitgaven")
     Component(authController, "AuthController", "Spring Boot RestController", "Vangt alle requests rondom authenticatie op")
-    Component(securityConfig, "SecurityConfig", "Spring Boot Configuration", "Vangt alle requests op en controleert de authenticatie en autorisatie")
+'    Component(securityConfig, "SecurityConfig", "Spring Boot Configuration", "Vangt alle requests op en controleert de authenticatie en autorisatie")
+    Component(securityConfig, "Security/Authenticatie", "Spring Boot Security/Authenticatie", "Filtert alle requests en controleert de authenticatie en autorisatie")
     Component(jwtAuthFilter, "JwtAuthFilter", "Spring Boot Filter", "Controleert of de gebruiker geauthenticeerd is")
     Component(jwtGenerator, "JwtGenerator", "Spring Boot Component", "Genereert en verkrijgt informatie uit JWT tokens")
     Component(customUserDetailsService, "CustomUserDetailsService", "Spring Boot Service", "Haalt gebruiker op uit database")
@@ -21,7 +22,7 @@ System_Boundary(system, "TravelExpensePro backend") {
 }
 ContainerDb(db, "Database", "H2", "Database voor alle gebruikers en uitgaven")
 
-Rel(user, securityConfig, "authenticatie en autorisatie via")
+Rel(frontend, securityConfig, "authenticatie, autorisatie en geldzaken worden gestuurd naar")
 Rel(securityConfig, jwtAuthFilter, "geeft token door aan")
 Rel(jwtAuthFilter, jwtGenerator, "verwerkt token met")
 
