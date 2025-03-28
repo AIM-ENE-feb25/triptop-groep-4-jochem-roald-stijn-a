@@ -135,6 +135,8 @@ De ontwerpvraag wordt uitgewerkt door middel van het **Strategy Design Pattern**
 
 Hieronder is een dynamisch container diagram uitgewerkt die de volgorde van aanroepen van externe services weergeeft. De relaties naar de Externe API zijn slecht te lezen doordat ze overlappen. Deze connecties zijn beter te lezen in [het bestand zelf](./sgb-bestanden/ontwerpvragen/Fault%20Tolerance%20-%20volgorde%20van%20aanroepen.puml).
 
+Bij dit diagram hoort [ADR-005: Strategy pattern voor alternatieve bouwstenen](#85-adr-005-strategy-pattern-voor-alternatieve-bouwstenen).
+
 ![Modularity - component diagram-Component_diagram.png](sgb-bestanden%2Fontwerpvragen%2FModularity%20-%20component%20diagram-Component_diagram.png)
 
 #### 4.1.4. Klassen en functies
@@ -435,8 +437,6 @@ Geaccepteerd
 
 - Meer API-verzoeken kunnen leiden tot hogere kosten.
 - Mogelijk langere laadtijden voor gebruikers, vooral bij trage API-responses.
-
-<!-- ### 8.5. ADR-005 TITLE
 
 ### 8.5. ADR-005 Strategy Pattern voor Alternatieve Bouwstenen)
 
