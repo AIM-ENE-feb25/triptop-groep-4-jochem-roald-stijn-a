@@ -87,15 +87,9 @@ De volgende ontwerpvraag is uitgewerkt door **Jochem**:
 - evt. link naar ADR's
 - En natuurlijk toelichting
 
-
 ### 4.2. Modifiability - Verschillende boekingsservices integreren
 De volgende ontwerpvraag is uitgewerkt door **Roald**:
 > Hoe kunnen verschillende boekingsservices (zoals Booking.com en eigen beheer in Triptop) worden geïntegreerd?
-
-Bij dit diagram hoort [ADR-005: Strategy pattern voor alternatieve bouwstenen](#85-adr-005-strategy-pattern-voor-alternatieve-bouwstenen).
-
-![Modularity - component diagram-Component_diagram.png](sgb-bestanden%2Fontwerpvragen%2FModularity%20-%20component%20diagram-Component_diagram.png)
-
 
 #### 4.2.1. Componenten en verantwoordelijkheden
 
@@ -188,7 +182,7 @@ Hieronder zijn de interfaces van de componenten die van belang zijn voor de ontw
 #### 4.3.3. Volgorde van aanroepen
 Hieronder is een dynamisch container diagram uitgewerkt die de volgorde van aanroepen van externe services weergeeft. De relaties naar de Externe API zijn slecht te lezen doordat ze overlappen. Deze connecties zijn beter te lezen in [het bestand zelf](./sgb-bestanden/ontwerpvragen/Fault%20Tolerance%20-%20volgorde%20van%20aanroepen.puml).
 
-Bij dit diagram hoort [ADR-004: Nieuwste API data gaat voor cache](#84-adr-004-nieuwste-api-data-gaat-voor-cache).
+Bij dit diagram hoort ADR-004
 
 ![Fault Tolerance - volgorde van aanroepen](sgb-bestanden/ontwerpvragen/Fault%20Tolerance%20-%20volgorde%20van%20aanroepen-Volgorde_van_aanroepen.svg)
 
@@ -197,6 +191,8 @@ Hieronder is een class diagram uitgewerkt die de classes en functies weergeeft d
 
 ![Fault Tolerance - class diagram](sgb-bestanden/ontwerpvragen/Fault%20Tolerance%20-%20class%20diagram-C4_Class_Diagram___Backend.svg)
 
+- evt. link naar ADR's
+
 ## 5. Constraints
 
 > [!IMPORTANT]
@@ -204,22 +200,8 @@ Hieronder is een class diagram uitgewerkt die de classes en functies weergeeft d
 
 ## 6. Principles
 
-Hieronder zijn de belangrijkste design principes die zijn toegepast in de software uitgewerkt.
-
-Strategy Pattern:
-- Encapsulate What Varies
-- Program to an Interface
-- Open/Closed Principle
-
-Adapter Pattern:
-- Program to an Interface
-- Single Responsibility Principle
-- Open/Closed Principle
-
-Facade Pattern:
-- Separation of Concerns
-- Law of Demeter
-- Single Responsibility Principle
+> [!IMPORTANT]
+> Beschrijf zelf de belangrijkste architecturele en design principes die zijn toegepast in de software.
 
 ## 7. Software Architecture
 
@@ -313,8 +295,11 @@ Binnen deze applicatie worden er een hoop API requests gedaan. Deze requests kun
 
 #### Alternatieven
 
-| Methode           | Beschrijving                         | Hoe makkelijk te implementeren | Snelheid van afhandeling | Flexibiliteit |
-| ----------------- | ------------------------------------ | ------------- | -------- | ------------- |
+<!-- > [!TIP]
+> This section describes the options that were considered, and gives some indication as to why the chosen option was selected. -->
+
+| Methode           | Beschrijving                         | Implementatie | Snelheid | Flexibiliteit |
+|-------------------|--------------------------------------|---------------|----------|---------------|
 | Synchroon         | Requests achter elkaar versturen     | ++            | --       | +             |
 | CompletableFuture | Snel en flexibel voor meerdere calls | -             | ++       | +             |
 | ExecutorService   | Als je expliciet threadbeheer wilt   | --            | ++       | -             |
@@ -351,11 +336,11 @@ We moeten een keuze maken voor een database voor de applicatie.
 
 #### Alternatieven
 
-| Database      | Kennis binnen ons team | Open Source |
-| ------------- | ---------------------- | ----------- |
-| MS SQL Server | +                      | -           |
-| PostgreSQL    | -                      | +           |
-| MySQL         | -                      | +           |
+| Database      | Kennis | Open Source |
+|---------------|--------|-------------|
+| MS SQL Server | +      | -           |
+| PostgreSQL    | -      | +           |
+| MySQL         |        | +           |
 
 #### Besluit
 
@@ -382,11 +367,8 @@ Geaccepteerd
 
 #### Considered Options
 
-| Strategie                  | Beschrijving                                                                                          | Actualiteit van gegevens | Prestaties van request | Betrouwbaarheid van data |
-| -------------------------- | ----------------------------------------------------------------------------------------------------- | ------------------------ | ---------- | --------------- |
-| **API-first**              | Altijd eerst de API aanroepen, cache alleen gebruiken als fallback wanneer de API niet beschikbaar is | ++                       | -          | +               |
-| **Stale-while-revalidate** | Eerst cache tonen (indien beschikbaar), dan API op de achtergrond aanroepen om cache te verversen     | -                        | ++         | -               |
-| **Cache-first**            | Altijd cache gebruiken als die beschikbaar is, API alleen aanroepen als cache leeg of verlopen is     | -                        | ++         | --              |
+> [!TIP]
+> This section describes the options that were considered, and gives some indication as to why the chosen option was selected.
 
 #### Decision
 
@@ -403,8 +385,10 @@ Geaccepteerd
 > [!TIP]
 > This section describes the resulting context, after applying the decision. All consequences should be listed here, not just the "positive" ones. A particular decision may have positive, negative, and neutral consequences, but all of them affect the team and project in the future.
 
+### 8.5. ADR-005 TITLE
 
-### 8.5. ADR-005 Strategy Pattern voor Alternatieve Bouwstenen)
+> [!TIP]
+> These documents have names that are short noun phrases. For example, "ADR 1: Deployment on Ruby on Rails 3.0.10" or "ADR 9: LDAP for Multitenant Integration". The whole ADR should be one or two pages long. We will write each ADR as if it is a conversation with a future developer. This requires good writing style, with full sentences organized into paragraphs. Bullets are acceptable only for visual style, not as an excuse for writing sentence fragments. (Bullets kill people, even PowerPoint bullets.)
 
 #### Context
 
