@@ -1,0 +1,83 @@
+@startuml
+title C4 Class Diagram - Backend
+
+'hide circle
+skinparam linetype ortho
+
+top to bottom direction
+
+package "controller" {
+    class JourneyController {
+        +getJourneys(origin: String, destination: String, departureDate: Date, returnDate: Date, price: double, transport: Transport): List<Journey>
+    }
+}
+
+package "service" {
+    interface JourneyService {
+        +getJourneys(origin: String, destination: String, departureDate: Date, returnDate: Date, price: double, transport: Transport): List<Journey>
+    }
+
+    class JourneyServiceImpl {
+        +setJourneyStrategy(tripStrategy: TripStrategy)
+        +getJourneys(origin: String, destination: String, departureDate: Date, returnDate: Date, price: double, transport: Transport): List<Journey>
+    }
+
+    enum Transport {
+        HUURAUTO, VLIEGTUIG, TREIN, BUS
+    }
+}
+
+package "tripStrategy" {
+    interface JourneyStrategy {
+        +getJourneys(origin: String, destination: String, departureDate: Date, returnDate: Date, price: double, transport: Transport): List<Journey>
+    }
+
+    class StandardJourneyStrategy {
+        +getJourneys(origin: String, destination: String, departureDate: Date, returnDate: Date, price: double, transport: Transport): List<Journey>
+    }
+
+    class AlternativeJourneyStrategy {
+        +getJourneys(origin: String, destination: String, departureDate: Date, returnDate: Date, price: double, transport: Transport): List<Journey>
+    }
+}
+
+package "domain" {
+    class Journey {
+        +origin: String
+        +destination: String
+        +departureDate: Date
+        +returnDate: Date
+        +price: double
+        +transport: Transport
+    }
+}
+
+package "api" {
+    interface ExternalAPIHandler {
+        +call(endpoint: Endpoint): String
+    }
+
+    class ExternalAPIHandlerImpl {
+        +call(endpoint: Endpoint): String
+    }
+
+    class Endpoint {
+        +url: String
+        +method: String
+    }
+}
+
+StandardJourneyStrategy .u.|> JourneyStrategy
+AlternativeJourneyStrategy .u.|> JourneyStrategy
+
+JourneyServiceImpl .l.> Transport
+JourneyServiceImpl --> JourneyStrategy
+
+JourneyController --> "journeyService 1" JourneyService
+JourneyServiceImpl .u.|> JourneyService
+ExternalAPIHandlerImpl ..> "endpoint 1" Endpoint
+ExternalAPIHandlerImpl .u.|> ExternalAPIHandler
+
+StandardJourneyStrategy --> "externalAPIHandler 1" ExternalAPIHandler
+AlternativeJourneyStrategy --> "externalAPIHandler 1" ExternalAPIHandler
+@enduml
