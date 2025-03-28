@@ -76,6 +76,35 @@ Voordat deze casusomschrijving tot stand kwam, heeft de opdrachtgever de volgend
 * Security -> Integrity (Degree to which a system, product or component ensures that the state of its system and data are protected from unauthorized modification or deletion either by malicious action or computer error)
 * Security -> Confidentiality (Degree to which a system, product or component ensures that data are accessible only to those authorized to have access)
 
+Naar aanleiding van deze kwaliteitsattributen zijn de volgende ontwerpvragen opgesteld en uitgewerkt:
+
+### 4.1. Modularity - Alternatieve bouwstenen aanbieden
+De volgende ontwerpvraag is uitgewerkt door **Jochem**:
+> Hoe bied je de gebruiker op basis van zelfgekozen bouwstenen alternatieve bouwstenen aan, bijvoorbeeld als een bepaalde overnachting niet beschikbaar is of om een keuze te geven tussen vervoer per auto, trein of bus
+
+- (dynamisch) Component diagram
+- Class diagram
+- evt. link naar ADR's
+- En natuurlijk toelichting
+
+### 4.2. Modifiability - Verschillende boekingsservices integreren
+De volgende ontwerpvraag is uitgewerkt door **Roald**:
+> Hoe kunnen verschillende boekingsservices (zoals Booking.com en eigen beheer in Triptop) worden geïntegreerd?
+
+- (dynamisch) Component diagram
+- Class diagram
+- evt. link naar ADR's
+- En natuurlijk toelichting
+
+### 4.3. Fault Tolerance - Externe services die niet beschikbaar zijn
+De volgende ontwerpvraag is uitgewerkt door **Stijn**:
+> Hoe ga je om met aanroepen van externe services die niet beschikbaar zijn en toch verwacht wordt dat er waardevolle output gegeven wordt?
+
+- (dynamisch) Component diagram
+- Class diagram
+- evt. link naar ADR's
+- En natuurlijk toelichting
+
 ## 5. Constraints
 
 > [!IMPORTANT]
