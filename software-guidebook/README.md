@@ -355,7 +355,7 @@ Binnen deze applicatie worden er een hoop API requests gedaan. Deze requests kun
 
 #### Alternatieven
 
-| Methode           | Beschrijving                         | Implementatie | Snelheid | Flexibiliteit |
+| Methode           | Beschrijving                         | Hoe makkelijk te implementeren | Snelheid van afhandeling | Flexibiliteit |
 | ----------------- | ------------------------------------ | ------------- | -------- | ------------- |
 | Synchroon         | Requests achter elkaar versturen     | ++            | --       | +             |
 | CompletableFuture | Snel en flexibel voor meerdere calls | -             | ++       | +             |
@@ -383,11 +383,11 @@ We moeten een keuze maken voor een database voor de applicatie.
 
 #### Alternatieven
 
-| Database      | Kennis | Open Source |
-| ------------- | ------ | ----------- |
-| MS SQL Server | +      | -           |
-| PostgreSQL    | -      | +           |
-| MySQL         |        | +           |
+| Database      | Kennis binnen ons team | Open Source |
+| ------------- | ---------------------- | ----------- |
+| MS SQL Server | +                      | -           |
+| PostgreSQL    | -                      | +           |
+| MySQL         | -                      | +           |
 
 #### Besluit
 
@@ -410,7 +410,7 @@ Actuele reisgegevens zijn cruciaal vanwege snel veranderende prijzen en beschikb
 
 #### Alternatieven
 
-| Strategie                  | Beschrijving                                                                                          | Actualiteit van gegevens | Prestaties | Betrouwbaarheid |
+| Strategie                  | Beschrijving                                                                                          | Actualiteit van gegevens | Prestaties van request | Betrouwbaarheid van data |
 | -------------------------- | ----------------------------------------------------------------------------------------------------- | ------------------------ | ---------- | --------------- |
 | **API-first**              | Altijd eerst de API aanroepen, cache alleen gebruiken als fallback wanneer de API niet beschikbaar is | ++                       | -          | +               |
 | **Stale-while-revalidate** | Eerst cache tonen (indien beschikbaar), dan API op de achtergrond aanroepen om cache te verversen     | -                        | ++         | -               |
