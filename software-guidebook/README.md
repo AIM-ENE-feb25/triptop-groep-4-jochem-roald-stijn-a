@@ -101,6 +101,8 @@ De volgende ontwerpvraag is uitgewerkt door **Stijn**:
 > Hoe ga je om met aanroepen van externe services die niet beschikbaar zijn en toch verwacht wordt dat er waardevolle output gegeven wordt?
 
 #### 4.3.1. Componenten en verantwoordelijkheden
+Als eerst is er een overzicht gemaakt van de componenten en hun verantwoordelijkheden die van belang zijn voor de ontwerpvraag.
+
 - **Generieke controller**: Verantwoordelijk voor het verwerken van requests van de frontend en het doorgeven aan de juiste service.
 - **Generieke service**: Verantwoordelijk voor het verwerken van de resultaten van externe services en het omzetten naar domeinobjecten.
 - **ExternalAPIHandler**: Verantwoordelijk voor het aanroepen van externe services, het afhandelen van fouten en retries, en het cachen van resultaten om fault tolerance te bieden.
@@ -108,6 +110,8 @@ De volgende ontwerpvraag is uitgewerkt door **Stijn**:
 - Buiten container: **Cache**: Verantwoordelijk voor het cachen van resultaten van externe services.
 
 #### 4.3.2. Interfaces
+Hieronder zijn de interfaces van de componenten die van belang zijn voor de ontwerpvraag uitgewerkt. Deze interfaces geven een overzicht van de methodes die de componenten aanbieden.
+
 - **Generieke controller**:
     ```
     GET /flights
@@ -157,13 +161,18 @@ De volgende ontwerpvraag is uitgewerkt door **Stijn**:
     ```
 
 #### 4.3.3. Volgorde van aanroepen
+Hieronder is een dynamisch container diagram uitgewerkt die de volgorde van aanroepen van externe services weergeeft. De relaties naar de Externe API zijn slecht te lezen doordat ze overlappen. Deze connecties zijn beter te lezen in [het bestand zelf](./sgb-bestanden/ontwerpvragen/Fault%20Tolerance%20-%20volgorde%20van%20aanroepen.puml).
+
+Bij dit diagram hoort ADR-004
+
 ![Fault Tolerance - volgorde van aanroepen](sgb-bestanden/ontwerpvragen/Fault%20Tolerance%20-%20volgorde%20van%20aanroepen-Volgorde_van_aanroepen.svg)
 
 #### 4.3.4. Classes en functies
+Hieronder is een class diagram uitgewerkt die de classes en functies weergeeft die van belang zijn voor de ontwerpvraag.
+
 ![Fault Tolerance - class diagram](sgb-bestanden/ontwerpvragen/Fault%20Tolerance%20-%20class%20diagram-C4_Class_Diagram___Backend.svg)
 
 - evt. link naar ADR's
-- En natuurlijk toelichting
 
 ## 5. Constraints
 
