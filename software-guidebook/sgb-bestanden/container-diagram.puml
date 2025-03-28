@@ -1,5 +1,5 @@
-@startuml C4 Container diagram voor TripTop
-title C4 Container diagram voor TripTop
+@startuml
+title C4 Container diagram: TripTop
 !include <C4/C4_Container.puml>
 
 top to bottom direction
@@ -9,32 +9,32 @@ SHOW_PERSON_OUTLINE()
 Person(reiziger, "Reiziger", "Primaire gebruiker van het systeem. Kan reizen plannen en afstemmen")
 Person(reisagent, "ReisAgent", "Is te raadplegen voor tweedelijns support")
 
-System_Boundary(system, "TripTop omgeving") {
+System_Boundary(system, "TripTop") {
     Container(frontend, "Frontend", "Javascript en React", "Toont de UI voor het planproces van de reiziger en het ticketsysteem van de reisagent.")
     Container(backend, "Backend", "Java en Spring Boot", "Verzorgt de logica van het systeem, en verwerkt alle reisdata")
-    ContainerDb(db, "Database", "Microsoft SSMS", "Slaat alle informatie over een reis op")
+    ContainerDb(db, "Database", "Microsoft SQL Server", "Slaat alle informatie over een reis op")
     Container(cache, "Cache", "Redis", "Slaat API responses op om api calls te verminderen")
 }
 
-System_Ext(booking, "Booking API", "Biedt hotels, vluchten, autoverhuur, taxi's en attracties", "REST")
-System_Ext(tripadvisor, "TripAdvisor API", "Biedt restaurants, hotels, vluchten, cruises en autoverhuur aan", "REST")
-System_Ext(mollie, "Mollie", "Betalingsysteem voor het betalen bijv. via iDEAL, creditcard, paypal of SEPA", $type="external system")
+System_Ext(booking, "Booking API", "Biedt hotels, vluchten, autoverhuur, taxi's en attracties")
+System_Ext(tripadvisor, "TripAdvisor API", "Biedt restaurants, hotels, vluchten, cruises en autoverhuur aan")
+System_Ext(mollie, "Mollie", "Betalingsysteem voor het betalen bijv. via iDEAL, creditcard, paypal of SEPA")
 
 ' USERS
-Rel(reiziger, frontend, "Plant reizen en stemt af via", "Web Browser")
-Rel(reisagent, frontend, "Geeft telefoonnummer door en handelt tickets af via", "Web Browser")
+Rel(reiziger, frontend, "plant reizen en stemt af via", "Web Browser")
+Rel(reisagent, frontend, "geeft telefoonnummer door en handelt tickets af via", "Web Browser")
 
 ' SYSTEM
-Rel(frontend, backend, "Maakt API verzoeken naar", "JSON/REST")
-Rel_R(backend, db, "Slaat en haalt data op in", "JdbcTemplate")
-Rel_L(backend, cache, "Slaat API responses op in", "Jedis")
+Rel(frontend, backend, "vraagt en verstuurd reis- en gebruikersdata van en naar", "JSON/REST")
+Rel_R(backend, db, "slaat en haalt data op in", "SQL/JdbcTemplate")
+Rel_L(backend, cache, "slaat API-responses op in", "Jedis")
 
 ' EXTERNAL SYSTEMS
-' TODO: vind de api's zodat dit kan worden ingevuld met correcte informatie
+' TODO: vind de API's zodat dit kan worden ingevuld met correcte informatie
 
-Rel(backend, booking, "Maakt API verzoeken naar", "REST")
-Rel(backend, tripadvisor, "Maakt API verzoeken naar", "REST")
-Rel(backend, mollie, "Regelt betalingen via", "?")
+Rel(backend, booking, "zoekt (en boekt) hotels, vluchten, autoverhuur, taxi's en attracties", "JSON/REST")
+Rel(backend, tripadvisor, "zoekt (en boekt) restaurants, hotels, vluchten, cruises en autoverhuur", "JSON/REST")
+Rel(backend, mollie, "regelt betalingen via", "?")
 
 SHOW_FLOATING_LEGEND()
 
