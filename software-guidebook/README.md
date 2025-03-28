@@ -18,10 +18,22 @@ In dit hoofdstuk wordt de context van de software beschreven. Dit omvat de gebru
 
 ![context diagram](sgb-bestanden/context-diagram-C4_Context_diagram__TripTop.svg)
 
-### 2.1. Toelichting
+### 2.1. Toelichting API's
+Wij hebben gekozen voor de onderstaande API's, omdat deze de meeste bouwstenen bevatten die wij nodig hebben voor onze applicatie. Deze keuze staat vastgelegd in [ADR-001 Externe systemen](#81-adr-001-externe-systemen).
 
-We hebben gekozen voor de Booking en TripAdvisor API's aangezien die alle bouwstenen in één hebben.
-Ook hebben we gekozen voor Mollie als betalingssysteem, aangezien deze veel betalingsmogelijkheden support en alle opties bevat die een algemene Nederlander gebruikt.
+- [Booking.com](https://rapidapi.com/DataCrawler/api/booking-com15/playground/apiendpoint_6767dbac-969b-4230-8d26-f8b007bb8094)
+  - hotels
+  - vluchten
+  - autoverhuur
+  - taxi
+  - attracties
+- [Tripadvisor](https://rapidapi.com/DataCrawler/api/tripadvisor16/playground/apiendpoint_b0128f2a-67c5-4bbd-9369-721cc7170f9c)
+  - Flights
+  - Hotels
+  - Restaurants
+  - "Vacation Rentals"
+  - Cruises
+  - Auto verhuur
 
 [//]: # "Toelichting op de context van de software inclusief System Context Diagram:"
 [//]: # "* Functionaliteit"
