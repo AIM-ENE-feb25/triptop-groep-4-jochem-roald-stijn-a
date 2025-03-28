@@ -1,30 +1,28 @@
 @startuml
-title C4 Context diagram voor TripTop
-!include <C4/C4_Container.puml>
+title C4 Context diagram: TripTop
+!include <C4/C4_Context.puml>
 
 top to bottom direction
 
 SHOW_PERSON_OUTLINE()
 
-Person(reiziger, "Reiziger", "Primaire gebruiker van het systeem. Kan reizen plannen en afstemmen", $type="person")
-Person(reisagent, "ReisAgent", "Is te raadplegen voor tweedelijns support", $type="person")
+Person(reiziger, "Reiziger", "Primaire gebruiker van het systeem. Kan reizen plannen en afstemmen")
+Person(reisagent, "ReisAgent", "Is te raadplegen voor tweedelijns support")
 
-System_Boundary(system, "TripTop omgeving") {
-    System(triptop, "TripTop", "Applicatie voor het plannen en boeken van vakantie trips, reizen, vervoer, excursies en eten", $type="system")
-}
+System(triptop, "TripTop", "Applicatie voor het plannen en boeken van vakantie trips, reizen, vervoer, excursies en eten")
 
-Rel(reiziger, triptop, "Kan reizen samenstellen, boeken, beheren en betalen in")
-Rel(reisagent, triptop, "Zet telefoonnummer en handelt tickets af in")
-
-'System_Ext(overnachting, "Overnachting API", "Biedt overnachtingen aan van bijv. Booking.com, Airbnb, eigen beheer", $type="external system")
-'System_Ext(vervoer, "Vervoer tussen overnachtingen API", "Biedt vervoer tussen overnachtingen aan van bijv. treinen via NS of Deutsche Bahn, vliegtuig via KLM", $type="external system")
-'System_Ext(reis, "Heen en terugreis API", "Biedt heen en terugreis aan van bijv. eigen vervoer, KLM shuttle, trein", $type="external system")
-'System_Ext(autohuur, "Autohuur API", "Biedt autoverhuur aan van bijv. huurauto via Sixt, Hertz", $type="external system")
-'System_Ext(activiteiten, "Excursies / activiteiten API", "Biedt excursies en activiteiten aan van bijv. via GetYourGuide, Tripadvisor", $type="external system")
-'System_Ext(eten, "Eten en drinken API", "Biedt restaurants en winkels voor eten en drinken aan van bijv. via Takeaway, Eet.nu", $type="external system")
+'System_Ext(overnachting, "Overnachting API", "Biedt overnachtingen aan van bijv. Booking.com, Airbnb, eigen beheer")
+'System_Ext(vervoer, "Vervoer tussen overnachtingen API", "Biedt vervoer tussen overnachtingen aan van bijv. treinen via NS of Deutsche Bahn, vliegtuig via KLM")
+'System_Ext(reis, "Heen en terugreis API", "Biedt heen en terugreis aan van bijv. eigen vervoer, KLM shuttle, trein")
+'System_Ext(autohuur, "Autohuur API", "Biedt autoverhuur aan van bijv. huurauto via Sixt, Hertz")
+'System_Ext(activiteiten, "Excursies / activiteiten API", "Biedt excursies en activiteiten aan van bijv. via GetYourGuide, Tripadvisor")
+'System_Ext(eten, "Eten en drinken API", "Biedt restaurants en winkels voor eten en drinken aan van bijv. via Takeaway, Eet.nu")
 System_Ext(booking, "Booking API", "Biedt hotels, vluchten, autoverhuur, taxi's en attracties", "REST")
 System_Ext(tripadvisor, "TripAdvisor API", "Biedt restaurants, hotels, vluchten, cruises en autoverhuur aan", "REST")
-System_Ext(mollie, "Mollie", "Betalingsysteem voor het betalen via iDEAL, creditcard, paypal of SEPA", $type="external system")
+System_Ext(mollie, "Mollie", "Betalingsysteem voor het betalen via iDEAL, creditcard, paypal of SEPA")
+
+Rel(reiziger, triptop, "kan reizen samenstellen, boeken, beheren en betalen in")
+Rel(reisagent, triptop, "zet telefoonnummer en handelt tickets af in")
 
 'Rel(triptop, overnachting, "Zoekt (en boekt) overnachtingen via")
 'Rel(triptop, vervoer, "Zoekt (en boekt) vervoer tussen overnachtingen via")
@@ -32,9 +30,9 @@ System_Ext(mollie, "Mollie", "Betalingsysteem voor het betalen via iDEAL, credit
 'Rel(triptop, autohuur, "Zoekt (en boekt) autohuur via")
 'Rel(triptop, activiteiten, "Zoekt (en boekt) excursies / activiteiten via")
 'Rel(triptop, eten, "Zoekt (en boekt) beschikbare plekken voor eten en drinken via")
-Rel(triptop, booking, "Zoekt (en boekt) hotels, vluchten, autoverhuur, taxi's en attracties")
-Rel(triptop, tripadvisor, "Zoekt (en boekt) restaurants, hotels, vluchten, cruises en autoverhuur")
-Rel(triptop, mollie, "Regelt betalingen via")
+Rel(triptop, booking, "zoekt (en boekt) hotels, vluchten, autoverhuur, taxi's en attracties")
+Rel(triptop, tripadvisor, "zoekt (en boekt) restaurants, hotels, vluchten, cruises en autoverhuur")
+Rel(triptop, mollie, "regelt betalingen via")
 
 SHOW_FLOATING_LEGEND()
 

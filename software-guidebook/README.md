@@ -1,12 +1,11 @@
 # Software Guidebook Triptop
 
 ## 1. Introduction
-Dit software guidebook geeft een overzicht van de Triptop-applicatie. Het bevat een samenvatting v
-an het volgende: 
+Dit software guidebook geeft een overzicht van de Triptop-applicatie. Het bevat een samenvatting van het volgende: 
 1. De vereisten, beperkingen en principes. 
-1. De software-architectuur, met inbegrip van de technologiekeuzes op hoog niveau en de structuur van de software. 
-1. De ontwerp- en codebeslissingen die zijn genomen om de software te realiseren.
-1. De architectuur van de infrastructuur en hoe de software kan worden geinstalleerd. 
+2. De software-architectuur, met inbegrip van de technologiekeuzes op hoog niveau en de structuur van de software. 
+3. De ontwerp- en codebeslissingen die zijn genomen om de software te realiseren.
+4. De architectuur van de infrastructuur en hoe de software kan worden geïnstalleerd. 
 
 ## 2. Context
 
@@ -15,7 +14,7 @@ an het volgende:
 
 In dit hoofdstuk wordt de context van de software beschreven. Dit omvat de gebruikers, het systeem en de externe systemen die met de software communiceren.
 
-![context-diagram-C4_Context_diagram_voor_TripTop.svg](sgb-bestanden/context-diagram-C4_Context_diagram_voor_TripTop.svg)
+![context diagram](sgb-bestanden/context-diagram-C4_Context_diagram__TripTop.svg)
 
 ### 2.1. Toelichting
 We hebben gekozen voor de Booking en TripAdvisor API's aangezien die alle bouwstenen in één hebben. 
@@ -77,6 +76,35 @@ Voordat deze casusomschrijving tot stand kwam, heeft de opdrachtgever de volgend
 * Security -> Integrity (Degree to which a system, product or component ensures that the state of its system and data are protected from unauthorized modification or deletion either by malicious action or computer error)
 * Security -> Confidentiality (Degree to which a system, product or component ensures that data are accessible only to those authorized to have access)
 
+Naar aanleiding van deze kwaliteitsattributen zijn de volgende ontwerpvragen opgesteld en uitgewerkt:
+
+### 4.1. Modularity - Alternatieve bouwstenen aanbieden
+De volgende ontwerpvraag is uitgewerkt door **Jochem**:
+> Hoe bied je de gebruiker op basis van zelfgekozen bouwstenen alternatieve bouwstenen aan, bijvoorbeeld als een bepaalde overnachting niet beschikbaar is of om een keuze te geven tussen vervoer per auto, trein of bus
+
+- (dynamisch) Component diagram
+- Class diagram
+- evt. link naar ADR's
+- En natuurlijk toelichting
+
+### 4.2. Modifiability - Verschillende boekingsservices integreren
+De volgende ontwerpvraag is uitgewerkt door **Roald**:
+> Hoe kunnen verschillende boekingsservices (zoals Booking.com en eigen beheer in Triptop) worden geïntegreerd?
+
+- (dynamisch) Component diagram
+- Class diagram
+- evt. link naar ADR's
+- En natuurlijk toelichting
+
+### 4.3. Fault Tolerance - Externe services die niet beschikbaar zijn
+De volgende ontwerpvraag is uitgewerkt door **Stijn**:
+> Hoe ga je om met aanroepen van externe services die niet beschikbaar zijn en toch verwacht wordt dat er waardevolle output gegeven wordt?
+
+- (dynamisch) Component diagram
+- Class diagram
+- evt. link naar ADR's
+- En natuurlijk toelichting
+
 ## 5. Constraints
 
 > [!IMPORTANT]
@@ -98,17 +126,17 @@ Voordat deze casusomschrijving tot stand kwam, heeft de opdrachtgever de volgend
 
 In het container diagram is te zien hoe de verschillende containers met elkaar communiceren. De containers zijn de verschillende onderdelen van de applicatie. In dit geval zijn dat de front-end, back-end, database, cache en de externe API's.
 
-![C4_Container_diagram_voor_TripTop-C4_Container_diagram_voor_TripTop.svg](sgb-bestanden/C4_Container_diagram_voor_TripTop-C4_Container_diagram_voor_TripTop.svg)
+![container diagram](sgb-bestanden/container-diagram-C4_Container_diagram__TripTop.svg)
 
 #### 7.1.2. Dynamische container diagrammen
 
 In de dynamische container diagrammen is te zien hoe de containers met elkaar communiceren, en in welke volgorde dat gebeurt. Hieronder zijn twee scenario's uitgewerkt: inloggen en een reis boeken.
 
 ##### 7.1.2.1 Inloggen
-![C4_Container_diagram_voor_inloggen_op_TripTop-C4_Container_diagram_voor_inloggen_op_TripTop.svg](sgb-bestanden/C4_Container_diagram_voor_inloggen_op_TripTop-C4_Container_diagram_voor_inloggen_op_TripTop.svg)
+![dynamisch-container-diagram-inloggen](sgb-bestanden/dynamisch-container-diagram-inloggen-C4_Dynamisch_container_diagram__inloggen_op_TripTop.svg)
 
 ##### 7.1.2.2 Reis boeken
-![C4_Container_diagram_voor_een_reis_boeken_op_TripTop-C4_Container_diagram_een_reis_boeken_op_TripTop.svg](sgb-bestanden/C4_Container_diagram_voor_een_reis_boeken_op_TripTop-C4_Container_diagram_een_reis_boeken_op_TripTop.svg)
+![dynamisch-container-diagram-reis-boeken](sgb-bestanden/dynamisch-container-diagram-reis-boeken-C4_Dynamisch_container_diagram__een_reis_boeken_op_TripTop.svg)
 
 Aangezien we nog niet weten hoe Mollie in elkaar zit houdt het diagram hier op.
 
@@ -136,27 +164,15 @@ Onze applicatie heeft data van externe systemen nodig zodat gebruikers een trip 
 #### Considered Options
 
 We hadden een aardige lijst van api's gemaakt die we mogelijk konden gebruiken voor onze applicatie.
-Er waren een paar systemen die er boven uit kwamen.
-- [Booking](https://rapidapi.com/DataCrawler/api/booking-com15/playground/apiendpoint_6767dbac-969b-4230-8d26-f8b007bb8094)
-    - hotels
-    - vluchten
-    - autoverhuur
-    - taxi
-    - attracties
-- [TravelData](https://rapidapi.com/Idatatravel/api/traveldata/playground/apiendpoint_0c4064d7-5b81-4f2a-9c46-f43ca7e27279)
-    - Vliegvelden
-    - Vliegtuigmaatschappijen
-- [Flight Scraper](https://rapidapi.com/ntd119/api/sky-scanner3/playground/apiendpoint_2e6853eb-ddcb-4faf-8528-f18168fae61e)
-    - Vluchten
-    - Hotels
-    - Auto verhuur
-- [Tripadvisor](https://rapidapi.com/DataCrawler/api/tripadvisor16/playground/apiendpoint_b0128f2a-67c5-4bbd-9369-721cc7170f9c)
-    - Flights
-    - Hotels
-    - Restaurants
-    - "Vacation Rentals"
-    - Cruises
-    - Auto verhuur
+Er waren een paar systemen die er boven uit kwamen. Hieronder is een tabel die aantoont welke bouwstenen de externe systemen bevatten.
+
+| **Extern systeem** | **Hotels** | **Vluchten** | **Attracties** | **Autoverhuur** | **Restaurants** | **Overig vervoer** |
+|--------------------|------------|--------------|----------------|-----------------|-----------------|--------------------|
+| **Booking**        | x          | x            | x              | x               |                 | x                  |
+| **TravelData**     |            | x            |                |                 |                 |                    |
+| **Flight Scraper** | x          | x            |                | x               |                 |                    |
+| **Tripadvisor**    | x          | x            |                | x               | x               | x                  |
+
 
 We hebben uiteindelijk de verschillende bouwstenen vergeleken van alle api's en hebben gekozen voor Tripadvisor en Booking.
 Aangezien Tripadvisor en Booking zowel vluchten, hotels en autoverhuur bevatten raken ze alle bouwstenen die TravelData en Flight Scraper hebben.
@@ -194,12 +210,12 @@ Binnen deze applicatie worden er een hoop API requests gedaan. Deze requests kun
 <!-- > [!TIP]
 > This section describes the options that were considered, and gives some indication as to why the chosen option was selected. -->
 
-| Methode | Beschrijving | Implementatie | Snelheid | Flexibiliteit |
-| ------- | ------------ | ------------ | -------- | ------------- |
-| Synchroon | Requests achter elkaar versturen | ++ | -- | + |
-| CompletableFuture | Snel en flexibel voor meerdere calls | - | ++ | + |
-| ExecutorService | Als je expliciet threadbeheer wilt | -- | ++ | - |
-| Spring @Async | Voor betere Spring-integratie | -- | ++ | - |
+| Methode           | Beschrijving                         | Implementatie | Snelheid | Flexibiliteit |
+|-------------------|--------------------------------------|---------------|----------|---------------|
+| Synchroon         | Requests achter elkaar versturen     | ++            | --       | +             |
+| CompletableFuture | Snel en flexibel voor meerdere calls | -             | ++       | +             |
+| ExecutorService   | Als je expliciet threadbeheer wilt   | --            | ++       | -             |
+| Spring @Async     | Voor betere Spring-integratie        | --            | ++       | -             |
 
 #### Besluit
 

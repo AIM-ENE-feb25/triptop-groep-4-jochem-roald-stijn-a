@@ -1,51 +1,51 @@
-@startuml C4 Container diagram voor een reis boeken op TripTop
-title C4 Container diagram een reis boeken op TripTop
+@startuml
+title C4 Dynamisch container diagram: een reis boeken op TripTop
 !include <C4/C4_Container.puml>
 
 top to bottom direction
 
 SHOW_PERSON_OUTLINE()
 
-System_Boundary(system, "TripTop omgeving") {
+System_Boundary(system, "TripTop") {
     Container(frontend, "Frontend", "Javascript en React", "Toont de UI voor het planproces van de reiziger en het ticketsysteem van de reisagent.")
     Container(backend, "Backend", "Java en Spring Boot", "Verzorgt de logica van het systeem, en verwerkt alle reisdata")
-    ContainerDb(db, "Database", "Microsoft SSMS", "Slaat alle informatie over een reis op")
+    ContainerDb(db, "Database", "Microsoft SQL Server", "Slaat alle informatie over een reis op")
     Container(cache, "Cache", "Redis", "Slaat API responses op om api calls te verminderen")
 }
 
-System_Ext(booking, "Booking API", "Biedt hotels, vluchten, autoverhuur, taxi's en attracties", "REST")
-System_Ext(tripadvisor, "TripAdvisor API", "Biedt restaurants, hotels, vluchten, cruises en autoverhuur aan", "REST")
+System_Ext(booking, "Booking API", "Biedt hotels, vluchten, autoverhuur, taxi's en attracties")
+System_Ext(tripadvisor, "TripAdvisor API", "Biedt restaurants, hotels, vluchten, cruises en autoverhuur aan")
 System_Ext(mollie, "Mollie", "Betalingsysteem voor het betalen bijv. via iDEAL, creditcard, paypal of SEPA")
 
 ' BOOKING A TRIP
-Rel_D(frontend, backend, "1: Verstuurt algemene gegevens (bestemming, vertrekdatum+locatie, einddatum+locatie)", "JSON/REST")
+Rel_D(frontend, backend, "1: verstuurt algemene gegevens (bestemming, vertrekdatum+locatie, einddatum+locatie)", "JSON/REST")
 
-Rel(backend, booking, "2a: Vraagt gegevens op op basis van de algemene gegevens", "REST")
-Rel(backend, tripadvisor, "2b: Vraagt gegevens op op basis van de algemene gegevens", "REST")
+Rel(backend, booking, "2a: vraagt gegevens op op basis van de algemene gegevens", "JSON/REST")
+Rel(backend, tripadvisor, "2b: vraagt gegevens op op basis van de algemene gegevens", "JSON/REST")
 
-Rel(booking, backend, "3a: Verstuurt data terug over hotels, vluchten, autoverhuur, taxi's en attracties", "REST")
-Rel(tripadvisor, backend, "3b: Verstuurt data terug over restaurants, hotels, vluchten, cruises en autoverhuur", "REST")
+Rel(booking, backend, "3a: verstuurt data terug over hotels, vluchten, autoverhuur, taxi's en attracties", "JSON/REST")
+Rel(tripadvisor, backend, "3b: verstuurt data terug over restaurants, hotels, vluchten, cruises en autoverhuur", "JSON/REST")
 
-Rel_L(backend, cache, "4: Slaat API responses op in", "Jedis")
+Rel_L(backend, cache, "4: slaat API responses op in", "Jedis")
 
-Rel_U(backend, frontend, "5: Toont opties van de externe systemen aan gebruiker", "JSON")
+Rel_U(backend, frontend, "5: toont opties van de externe systemen aan gebruiker", "JSON/REST")
 
-Rel_D(frontend, backend, "6: Verstuurt keuze van gebruiker", "JSON/REST")
+Rel_D(frontend, backend, "6: verstuurt keuze van gebruiker", "JSON/REST")
 
-Rel_R(backend, db, "7: Slaat keuze van de gebruiker op", "JdbcTemplate")
+Rel_R(backend, db, "7: slaat keuze van de gebruiker op", "SQL/JdbcTemplate")
 
-Rel(backend, booking, "8a: Boekt de gekozen reisopties van de gebruiker", "REST")
-Rel(backend, tripadvisor, "8b: Boekt de gekozen reisopties van de gebruiker", "REST")
+Rel(backend, booking, "8a: boekt de gekozen reisopties van de gebruiker", "JSON/REST")
+Rel(backend, tripadvisor, "8b: boekt de gekozen reisopties van de gebruiker", "JSON/REST")
 
-Rel(booking, backend, "9a: Verstuurt een confirmatie voor de boeking", "REST")
-Rel(tripadvisor, backend, "9b: Verstuurt een confirmatie voor de boeking", "REST")
+Rel(booking, backend, "9a: verstuurt een confirmatie voor de boeking", "JSON/REST")
+Rel(tripadvisor, backend, "9b: verstuurt een confirmatie voor de boeking", "JSON/REST")
 
-Rel_U(backend, frontend, "10: Verstuurt confirmatie over de boeking en hoeveel het gaat kosten", "REST")
+Rel_U(backend, frontend, "10: verstuurt confirmatie over de boeking en hoeveel het gaat kosten", "JSON/REST")
 
-Rel_D(frontend, backend, "11: Gebruiker geeft aan te willen betalen", "REST")
-Rel(backend, mollie, "12: Verstuurt betaalverzoek door", "?")
+Rel_D(frontend, backend, "11: geeft aan te willen betalen", "JSON/REST")
+Rel(backend, mollie, "12: verstuurt betaalverzoek door", "?")
 
-' We hebben geen idee hoe mollie werkt, dus TO DO
+' TODO: Zoek uit hoe mollie werkt en vul de relatie in
 
 SHOW_FLOATING_LEGEND()
 
