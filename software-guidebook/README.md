@@ -274,6 +274,15 @@ Hieronder is een class diagram uitgewerkt die de klassen en functies weergeeft d
 
 ## 5. Constraints
 
+<!-- TODO; Dit hoofdstuk kort uitwerken. Talen en framework keuzes, rest vind Bart niet interresant -->
+<!-- - JavaScript
+- React
+- Java
+- Spring boot
+- SQL Server
+
+(spring data jdbc?) -->
+
 > [!IMPORTANT]
 > Beschrijf zelf de beperkingen die op voorhand bekend zijn die invloed hebben op keuzes die wel of niet gemaakt kunnen of mogen worden.
 
@@ -455,15 +464,13 @@ Geaccepteerd
 - Meer API-verzoeken kunnen leiden tot hogere kosten.
 - Mogelijk langere laadtijden voor gebruikers, vooral bij trage API-responses.
 
-<!-- ### 8.5. ADR-005 TITLE
-
-### 8.5. ADR-005 Strategy Pattern voor Alternatieve Bouwstenen)
+### 8.5. ADR-005 Strategy Pattern voor Alternatieve Bouwstenen
 
 #### Context
 
 Onze applicatie biedt verschillende alternatieve bouwstenen zoals vluchten, hotels en autoverhuur. We willen deze bouwstenen dynamisch kunnen wisselen zonder de bestaande code te breken.
 
-#### Considered Options
+#### Alternatieven
 
 We hebben de volgende opties overwogen om alternatieve bouwstenen te beheren. Hieronder volgt een vergelijkingstabel op basis van verschillende criteria:
 
@@ -473,7 +480,7 @@ We hebben de volgende opties overwogen om alternatieve bouwstenen te beheren. Hi
 | **Strategy Pattern**    | ++                | ++                    | ++                   | ++               |
 | **Factory Pattern**     | +                 | +                     | ++                   | +                |
 
-#### Decision
+#### Besluit
 
 We kiezen voor het **Strategy Pattern** om alternatieve bouwstenen flexibel te beheren en dynamisch te wisselen.
 
@@ -481,7 +488,7 @@ We kiezen voor het **Strategy Pattern** om alternatieve bouwstenen flexibel te b
 
 Geaccepteerd
 
-#### Consequences
+#### Consequenties
 
 - Nieuwe alternatieven kunnen eenvoudig worden toegevoegd zonder de bestaande code te breken.
 - De logica wordt minder complex, waardoor het onderhoud van de applicatie gemakkelijker wordt.
@@ -504,7 +511,7 @@ Geaccepteerd
 [//]: # (> This section describes the forces at play, including technological, political, social, and project local. These forces are probably in tension, and should be called out as such. The language in this section is value-neutral. It is simply describing facts about the problem we're facing and points out factors to take into account or to weigh when making the final decision.)
 
 [//]: # ()
-[//]: # (#### Considered Options)
+[//]: # (#### Alternatieven)
 
 [//]: # ()
 [//]: # (> [!TIP])
@@ -512,7 +519,7 @@ Geaccepteerd
 [//]: # (> This section describes the options that were considered, and gives some indication as to why the chosen option was selected.)
 
 [//]: # ()
-[//]: # (#### Decision)
+[//]: # (#### Besluit)
 
 [//]: # ()
 [//]: # (> [!TIP])
@@ -528,7 +535,7 @@ Geaccepteerd
 [//]: # (> A decision may be "proposed" if the project stakeholders haven't agreed with it yet, or "accepted" once it is agreed. If a later ADR changes or reverses a decision, it may be marked as "deprecated" or "superseded" with a reference to its replacement.)
 
 [//]: # ()
-[//]: # (#### Consequences)
+[//]: # (#### Consequenties)
 
 [//]: # ()
 [//]: # (> [!TIP])
