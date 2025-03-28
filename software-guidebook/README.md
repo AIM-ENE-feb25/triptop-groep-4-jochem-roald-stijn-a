@@ -214,7 +214,6 @@ Hieronder zijn de interfaces van de componenten die van belang zijn voor de ontw
 #### 4.3.3. Volgorde van aanroepen
 Hieronder is een dynamisch container diagram uitgewerkt die de volgorde van aanroepen van externe services weergeeft. De relaties naar de Externe API zijn slecht te lezen doordat ze overlappen. Deze connecties zijn beter te lezen in [het bestand zelf](./sgb-bestanden/ontwerpvragen/Fault%20Tolerance%20-%20volgorde%20van%20aanroepen.puml).
 
-<!-- link to `8.4. ADR-004 Nieuwste API data gaat voor cache` -->
 Bij dit diagram hoort [ADR-004: Nieuwste API data gaat voor cache](#84-adr-004-nieuwste-api-data-gaat-voor-cache).
 
 ![Fault Tolerance - volgorde van aanroepen](sgb-bestanden/ontwerpvragen/Fault%20Tolerance%20-%20volgorde%20van%20aanroepen-Volgorde_van_aanroepen.svg)
@@ -224,8 +223,6 @@ Hieronder is een class diagram uitgewerkt die de klassen en functies weergeeft d
 
 ![Fault Tolerance - class diagram](sgb-bestanden/ontwerpvragen/Fault%20Tolerance%20-%20class%20diagram-C4_Class_Diagram___Backend.svg)
 
-- evt. link naar ADR's
-
 ## 5. Constraints
 
 > [!IMPORTANT]
@@ -233,13 +230,22 @@ Hieronder is een class diagram uitgewerkt die de klassen en functies weergeeft d
 
 ## 6. Principles
 
-> [!IMPORTANT]
-> Beschrijf zelf de belangrijkste architecturele en design principes die zijn toegepast in de software.
+Hieronder zijn de belangrijkste design principes die zijn toegepast in de software uitgewerkt.
 
+Strategy Pattern:
+- Encapsulate What Varies
+- Program to an Interface
+- Open/Closed Principle
+
+Adapter Pattern:
 - Program to an Interface
 - Single Responsibility Principle
 - Open/Closed Principle
-- Dependency Inversion Principle
+
+Facade Pattern:
+- Separation of Concerns
+- Law of Demeter
+- Single Responsibility Principle
 
 ## 7. Software Architecture
 
