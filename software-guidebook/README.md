@@ -82,6 +82,8 @@ Naar aanleiding van deze kwaliteitsattributen zijn de volgende ontwerpvragen opg
 De volgende ontwerpvraag is uitgewerkt door **Jochem**:
 > Hoe bied je de gebruiker op basis van zelfgekozen bouwstenen alternatieve bouwstenen aan, bijvoorbeeld als een bepaalde overnachting niet beschikbaar is of om een keuze te geven tussen vervoer per auto, trein of bus
 
+De ontwerpvraag wordt uitgewerkt door middel van het **Strategy Design Pattern**.
+
 #### 4.1.1. Componenten en verantwoordelijkheden
 
 - **Generieke controller**: Verantwoordelijk voor het verwerken van requests van de frontend en het doorgeven aan de juiste service.
@@ -136,6 +138,8 @@ Hieronder is een class diagram uitgewerkt die de classes en functies weergeeft d
 De volgende ontwerpvraag is uitgewerkt door **Roald**:
 > Hoe kunnen verschillende boekingsservices (zoals Booking.com en eigen beheer in Triptop) worden geïntegreerd?
 
+De ontwerpvraag wordt uitgewerkt door middel van het **Adapter Design Pattern**.
+
 - (dynamisch) Component diagram
 - Class diagram
 - evt. link naar ADR's
@@ -144,6 +148,8 @@ De volgende ontwerpvraag is uitgewerkt door **Roald**:
 ### 4.3. Fault Tolerance - Externe services die niet beschikbaar zijn
 De volgende ontwerpvraag is uitgewerkt door **Stijn**:
 > Hoe ga je om met aanroepen van externe services die niet beschikbaar zijn en toch verwacht wordt dat er waardevolle output gegeven wordt?
+
+De ontwerpvraag wordt uitgewerkt door middel van het **Facade Design Pattern**.
 
 #### 4.3.1. Componenten en verantwoordelijkheden
 Als eerst is er een overzicht gemaakt van de componenten en hun verantwoordelijkheden die van belang zijn voor de ontwerpvraag.
@@ -229,6 +235,11 @@ Hieronder is een class diagram uitgewerkt die de klassen en functies weergeeft d
 
 > [!IMPORTANT]
 > Beschrijf zelf de belangrijkste architecturele en design principes die zijn toegepast in de software.
+
+- Program to an Interface
+- Single Responsibility Principle
+- Open/Closed Principle
+- Dependency Inversion Principle
 
 ## 7. Software Architecture
 
