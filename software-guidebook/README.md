@@ -92,11 +92,6 @@ De volgende ontwerpvraag is uitgewerkt door **Jochem**:
 De volgende ontwerpvraag is uitgewerkt door **Roald**:
 > Hoe kunnen verschillende boekingsservices (zoals Booking.com en eigen beheer in Triptop) worden geïntegreerd?
 
-Bij dit diagram hoort [ADR-005: Strategy pattern voor alternatieve bouwstenen](#85-adr-005-strategy-pattern-voor-alternatieve-bouwstenen).
-
-![Modularity - component diagram-Component_diagram.png](sgb-bestanden%2Fontwerpvragen%2FModularity%20-%20component%20diagram-Component_diagram.png)
-
-
 #### 4.2.1. Componenten en verantwoordelijkheden
 
  - **BookingController**: Verantwoordelijk voor het verwerken van requests van de frontend en het doorgeven aan de juiste service.
