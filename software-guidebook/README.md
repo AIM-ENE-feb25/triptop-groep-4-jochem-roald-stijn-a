@@ -82,10 +82,55 @@ Naar aanleiding van deze kwaliteitsattributen zijn de volgende ontwerpvragen opg
 De volgende ontwerpvraag is uitgewerkt door **Jochem**:
 > Hoe bied je de gebruiker op basis van zelfgekozen bouwstenen alternatieve bouwstenen aan, bijvoorbeeld als een bepaalde overnachting niet beschikbaar is of om een keuze te geven tussen vervoer per auto, trein of bus
 
-- (dynamisch) Component diagram
-- Class diagram
-- evt. link naar ADR's
-- En natuurlijk toelichting
+#### 4.1.1. Componenten en verantwoordelijkheden
+
+- **Generieke controller**: Verantwoordelijk voor het verwerken van requests van de frontend en het doorgeven aan de juiste service.
+- **Generieke service**: Verantwoordelijk voor het verwerken van de resultaten van externe services en het omzetten naar domeinobjecten.
+- **Generieke strategy**: Verantwoordelijk voor het ophalen van alternatieve bouwstenen uit externe services, het genereren van aanvullende opties op basis van gebruikersvoorkeuren en het omzetten van deze alternatieven naar domeinobjecten.
+- **ExternalAPIHandler**: Verantwoordelijk voor het aanroepen van externe services, het afhandelen van fouten en retries.
+
+#### 4.1.2. Interfaces
+- **Generieke controller**:
+    ```
+    GET /journey
+    Body: {
+        origin: String
+        destination: String
+        departureDate: Date
+        returnDate: Date
+        price: double
+        transport: Transport
+    }
+    ```
+- **Generieke service**:
+    ```java
+    public interface JourneyService {
+        List<Journey> getJourneys(String origin, String destination, Date departureDate, Date returnDate, double price, Transport transport);
+    }
+    ```
+
+- **Generieke strategy**:
+    ```java
+    public interface JourneyStrategy {
+        List<Journey> getJourneys(String origin, String destination, Date departureDate, Date returnDate, double price, Transport transport);
+    }
+    ```
+
+- **ExternalAPIHandler**:
+    ```java
+    public interface ExternalAPIHandler {
+        String call(Endpoint endpoint);
+    }
+    ```
+#### 4.1.3. Component diagram
+Hieronder is een dynamisch container diagram uitgewerkt die de volgorde van aanroepen van externe services weergeeft. De relaties naar de Externe API zijn slecht te lezen doordat ze overlappen. Deze connecties zijn beter te lezen in [het bestand zelf](./sgb-bestanden/ontwerpvragen/Fault%20Tolerance%20-%20volgorde%20van%20aanroepen.puml).
+
+![Modularity - component diagram-Component_diagram.png](sgb-bestanden%2Fontwerpvragen%2FModularity%20-%20component%20diagram-Component_diagram.png)
+
+#### 4.1.4. Klassen en functies
+Hieronder is een class diagram uitgewerkt die de classes en functies weergeeft die van belang zijn voor de ontwerpvraag.
+
+![Modularity - class diagram-C4_Class_Diagram___Backend.png](sgb-bestanden%2Fontwerpvragen%2FModularity%20-%20class%20diagram-C4_Class_Diagram___Backend.png)
 
 ### 4.2. Modifiability - Verschillende boekingsservices integreren
 De volgende ontwerpvraag is uitgewerkt door **Roald**:
