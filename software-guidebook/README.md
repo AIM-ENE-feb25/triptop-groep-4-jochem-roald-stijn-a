@@ -234,8 +234,6 @@ Hieronder zijn de interfaces van de componenten die van belang zijn voor de ontw
 
 Hieronder is een dynamisch container diagram uitgewerkt die de volgorde van aanroepen van externe services weergeeft. De relaties naar de Externe API zijn slecht te lezen doordat ze overlappen. Deze connecties zijn beter te lezen in [het bestand zelf](./sgb-bestanden/ontwerpvragen/Fault%20Tolerance%20-%20volgorde%20van%20aanroepen.puml).
 
-<!-- link to `8.4. ADR-004 Nieuwste API data gaat voor cache` -->
-
 Bij dit diagram hoort [ADR-004: Nieuwste API data gaat voor cache](#84-adr-004-nieuwste-api-data-gaat-voor-cache).
 
 ![Fault Tolerance - volgorde van aanroepen](sgb-bestanden/ontwerpvragen/Fault%20Tolerance%20-%20volgorde%20van%20aanroepen-Volgorde_van_aanroepen.svg)
