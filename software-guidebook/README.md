@@ -381,6 +381,38 @@ Geaccepteerd
 - We moeten de database in docker draaien.
 - Alle huidige developers kunnen meteen beginnen met implementere
 
+### 8.4. ADR-004 Nieuwste API data gaat voor cache
+
+#### Context
+
+Actuele reisgegevens zijn cruciaal vanwege snel veranderende prijzen en beschikbaarheid. Verouderde data kan leiden tot frustratie bij gebruikers. Tegelijkertijd kunnen frequente API-aanroepen de prestaties beïnvloeden en kosten verhogen. Een balans tussen actualiteit, prestaties en betrouwbaarheid is noodzakelijk.
+
+#### Alternatieven
+
+| Strategie | Beschrijving | Actualiteit van gegevens | Prestaties | Betrouwbaarheid |
+|-----------|--------------|-------------|------------|-----------------|
+| **API-first** | Altijd eerst de API aanroepen, cache alleen gebruiken als fallback wanneer de API niet beschikbaar is | ++ | - | + |
+| **Stale-while-revalidate** | Eerst cache tonen (indien beschikbaar), dan API op de achtergrond aanroepen om cache te verversen | - | ++ | - |
+| **Cache-first** | Altijd cache gebruiken als die beschikbaar is, API alleen aanroepen als cache leeg of verlopen is | - | ++ | -- |
+
+#### Besluit
+
+We kiezen voor de API-first strategie: altijd eerst de API aanroepen voor actuele data en alleen terugvallen op cache bij onbeschikbaarheid. Dit garandeert actuele informatie en voorkomt frustratie door verouderde gegevens. Andere strategieën bieden minder betrouwbaarheid of actualiteit.
+
+#### Status
+
+Geaccepteerd
+
+#### Consequenties
+
+**Positieve consequenties:**
+- Gebruikers krijgen altijd de meest actuele informatie over prijzen, beschikbaarheid en andere reisgegevens.
+- Verhoogde betrouwbaarheid van de getoonde informatie.
+
+**Negatieve consequenties:**
+- Meer API-verzoeken kunnen leiden tot hogere kosten.
+- Mogelijk langere laadtijden voor gebruikers, vooral bij trage API-responses.
+
 ### 8.5. ADR-005 Strategy Pattern voor Alternatieve Bouwstenen)
 
 #### Context
