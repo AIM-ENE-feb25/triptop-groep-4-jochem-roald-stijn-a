@@ -7,40 +7,48 @@ skinparam linetype ortho
 top to bottom direction
 
 package "controller" {
-    class TripController {
-        +getTrips(origin: String, destination: String, departureDate: Date, returnDate: Date, price: double, transport: Transport): List<Trip>
+    class JourneyController {
+        +getJourneys(origin: String, destination: String, departureDate: Date, returnDate: Date, price: double, transport: Transport): List<Journey>
     }
 }
 
 package "service" {
-    interface TripService {
-        +getTrips(origin: String, destination: String, departureDate: Date, returnDate: Date, price: double, transport: Transport): List<Trip>
+    interface JourneyService {
+        +getJourneys(origin: String, destination: String, departureDate: Date, returnDate: Date, price: double, transport: Transport): List<Journey>
     }
 
-    class TripServiceImpl {
-        +getTrips(origin: String, destination: String, departureDate: Date, returnDate: Date, price: double, transport: Transport): List<Trip>
+    class JourneyServiceImpl {
+        +setJourneyStrategy(tripStrategy: TripStrategy)
+        +getJourneys(origin: String, destination: String, departureDate: Date, returnDate: Date, price: double, transport: Transport): List<Journey>
     }
 
-    interface AlternativeService {
-        +getAlternativeTrips(origin: String, destination: String, departureDate: Date, returnDate: Date, price: double, transport: Transport): List<Trip>
+    enum Transport {
+        HUURAUTO, VLIEGTUIG, TREIN, BUS
+    }
+}
+
+package "tripStrategy" {
+    interface JourneyStrategy {
+        +getJourneys(origin: String, destination: String, departureDate: Date, returnDate: Date, price: double, transport: Transport): List<Journey>
     }
 
-    class AlternativeServiceImpl {
-        +getAlternativeTrips(origin: String, destination: String, departureDate: Date, returnDate: Date, price: double, transport: Transport): List<Trip>
+    class StandardJourneyStrategy {
+        +getJourneys(origin: String, destination: String, departureDate: Date, returnDate: Date, price: double, transport: Transport): List<Journey>
     }
 
-    class Trip {
+    class AlternativeJourneyStrategy {
+        +getJourneys(origin: String, destination: String, departureDate: Date, returnDate: Date, price: double, transport: Transport): List<Journey>
+    }
+}
+
+package "domain" {
+    class Journey {
         +origin: String
         +destination: String
         +departureDate: Date
         +returnDate: Date
         +price: double
         +transport: Transport
-    }
-
-    class Transport {
-        +type: String
-        +details: String
     }
 }
 
@@ -59,14 +67,17 @@ package "api" {
     }
 }
 
-TripController --> "tripService 1" TripService
-TripService --> "alternativeService 1" AlternativeService
-TripServiceImpl .u.|> TripService
-AlternativeServiceImpl .u.|> AlternativeService
-TripServiceImpl --> "externalAPIHandler 1" ExternalAPIHandler
-AlternativeServiceImpl --> "externalAPIHandler 1" ExternalAPIHandler
-ExternalAPIHandlerImpl ..> "endpoint 1" Endpoint
-TripServiceImpl --> Transport
-AlternativeServiceImpl --> Transport
+StandardJourneyStrategy .u.|> JourneyStrategy
+AlternativeJourneyStrategy .u.|> JourneyStrategy
 
+JourneyServiceImpl .l.> Transport
+JourneyServiceImpl --> JourneyStrategy
+
+JourneyController --> "journeyService 1" JourneyService
+JourneyServiceImpl .u.|> JourneyService
+ExternalAPIHandlerImpl ..> "endpoint 1" Endpoint
+ExternalAPIHandlerImpl .u.|> ExternalAPIHandler
+
+StandardJourneyStrategy --> "externalAPIHandler 1" ExternalAPIHandler
+AlternativeJourneyStrategy --> "externalAPIHandler 1" ExternalAPIHandler
 @enduml
