@@ -147,8 +147,6 @@ De ontwerpvraag wordt uitgewerkt door middel van het **Strategy Design Pattern**
 
 Hieronder is een dynamisch container diagram uitgewerkt die de volgorde van aanroepen van externe services weergeeft. De relaties naar de Externe API zijn slecht te lezen doordat ze overlappen. Deze connecties zijn beter te lezen in [het bestand zelf](./sgb-bestanden/ontwerpvragen/Fault%20Tolerance%20-%20volgorde%20van%20aanroepen.puml).
 
-Bij dit diagram hoort [ADR-005: Strategy pattern voor alternatieve bouwstenen](#85-adr-005-strategy-pattern-voor-alternatieve-bouwstenen).
-
 ![Modularity - component diagram-Component_diagram.png](sgb-bestanden%2Fontwerpvragen%2FModularity%20-%20component%20diagram-Component_diagram.png)
 
 #### 4.1.4. Klassen en functies
@@ -158,17 +156,31 @@ Hieronder is een class diagram uitgewerkt die de classes en functies weergeeft d
 ![Modularity - class diagram-C4_Class_Diagram___Backend.png](sgb-bestanden%2Fontwerpvragen%2FModularity%20-%20class%20diagram-C4_Class_Diagram___Backend.png)
 
 ### 4.2. Modifiability - Verschillende boekingsservices integreren
-
 De volgende ontwerpvraag is uitgewerkt door **Roald**:
-
 > Hoe kunnen verschillende boekingsservices (zoals Booking.com en eigen beheer in Triptop) worden geïntegreerd?
 
-De ontwerpvraag wordt uitgewerkt door middel van het **Adapter Design Pattern**.
+#### 4.2.1. Componenten en verantwoordelijkheden
 
-- (dynamisch) Component diagram
-- Class diagram
-- evt. link naar ADR's
-- En natuurlijk toelichting
+- **BookingController**: Verantwoordelijk voor het verwerken van requests van de frontend en het doorgeven aan de juiste service.
+- **BookingService**: Verantwoordelijk voor het verwerken van de resultaten van boeking services en het omzetten naar domeinobjecten.
+- **BookingAdapter**: Verantwoordelijk voor het aanroepen van boeking services, het afhandelen van fouten en retries, en het cachen van resultaten om fault tolerance te bieden.
+- **EigenBeheerService**: Verantwoordelijk voor het aanroepen van de interne API's van Triptop en het omzetten naar domeinobjecten.
+- **BookingComAdapter**: Verantwoordelijk voor het aanroepen van de externe API's van Booking.com en het omzetten naar domeinobjecten.
+- **BookingComApi**: Verantwoordelijk voor het aanroepen van de externe API's van Booking.com en het omzetten naar domeinobjecten.
+
+
+#### 4.2.2. Interfaces
+Hieronder zijn de interfaces van de componenten die van belang zijn voor de ontwerpvraag uitgewerkt. Deze interfaces geven een overzicht van de methodes die de componenten aanbieden.
+
+
+#### 4.2.3. Component diagram
+Hieronder is een component diagram uitgewerkt die de componenten en hun verantwoordelijkheden weergeeft. Dit diagram geeft een overzicht van de componenten en hun verantwoordelijkheden.
+![Modifiability - Component diagram.svg](sgb-bestanden/ontwerpvragen/Modifiability%20-%20Component%20diagram.svg)
+
+#### 4.2.4. Classes en functies
+Hieronder is een class diagram uitgewerkt die de classes en functies weergeeft die van belang zijn voor de ontwerpvraag. Dit diagram geeft een overzicht van de classes en hun verantwoordelijkheden.
+![Modifiability - class diagram.svg](sgb-bestanden/ontwerpvragen/Modifiability%20-%20class%20diagram.svg)
+
 
 ### 4.3. Fault Tolerance - Externe services die niet beschikbaar zijn
 
@@ -246,6 +258,8 @@ Hieronder zijn de interfaces van de componenten die van belang zijn voor de ontw
 
 Hieronder is een dynamisch container diagram uitgewerkt die de volgorde van aanroepen van externe services weergeeft. De relaties naar de Externe API zijn slecht te lezen doordat ze overlappen. Deze connecties zijn beter te lezen in [het bestand zelf](./sgb-bestanden/ontwerpvragen/Fault%20Tolerance%20-%20volgorde%20van%20aanroepen.puml).
 
+<!-- link to `8.4. ADR-004 Nieuwste API data gaat voor cache` -->
+
 Bij dit diagram hoort [ADR-004: Nieuwste API data gaat voor cache](#84-adr-004-nieuwste-api-data-gaat-voor-cache).
 
 ![Fault Tolerance - volgorde van aanroepen](sgb-bestanden/ontwerpvragen/Fault%20Tolerance%20-%20volgorde%20van%20aanroepen-Volgorde_van_aanroepen.svg)
@@ -256,6 +270,8 @@ Hieronder is een class diagram uitgewerkt die de klassen en functies weergeeft d
 
 ![Fault Tolerance - class diagram](sgb-bestanden/ontwerpvragen/Fault%20Tolerance%20-%20class%20diagram-C4_Class_Diagram___Backend.svg)
 
+- evt. link naar ADR's
+
 ## 5. Constraints
 
 > [!IMPORTANT]
@@ -263,22 +279,13 @@ Hieronder is een class diagram uitgewerkt die de klassen en functies weergeeft d
 
 ## 6. Principles
 
-Hieronder zijn de belangrijkste design principes die zijn toegepast in de software uitgewerkt.
+> [!IMPORTANT]
+> Beschrijf zelf de belangrijkste architecturele en design principes die zijn toegepast in de software.
 
-Strategy Pattern:
-- Encapsulate What Varies
-- Program to an Interface
-- Open/Closed Principle
-
-Adapter Pattern:
 - Program to an Interface
 - Single Responsibility Principle
 - Open/Closed Principle
-
-Facade Pattern:
-- Separation of Concerns
-- Law of Demeter
-- Single Responsibility Principle
+- Dependency Inversion Principle
 
 ## 7. Software Architecture
 
@@ -367,7 +374,7 @@ Binnen deze applicatie worden er een hoop API requests gedaan. Deze requests kun
 
 #### Alternatieven
 
-| Methode           | Beschrijving                         | Hoe makkelijk te implementeren | Snelheid van afhandeling | Flexibiliteit |
+| Methode           | Beschrijving                         | Implementatie | Snelheid | Flexibiliteit |
 | ----------------- | ------------------------------------ | ------------- | -------- | ------------- |
 | Synchroon         | Requests achter elkaar versturen     | ++            | --       | +             |
 | CompletableFuture | Snel en flexibel voor meerdere calls | -             | ++       | +             |
@@ -395,11 +402,11 @@ We moeten een keuze maken voor een database voor de applicatie.
 
 #### Alternatieven
 
-| Database      | Kennis binnen ons team | Open Source |
-| ------------- | ---------------------- | ----------- |
-| MS SQL Server | +                      | -           |
-| PostgreSQL    | -                      | +           |
-| MySQL         | -                      | +           |
+| Database      | Kennis | Open Source |
+| ------------- | ------ | ----------- |
+| MS SQL Server | +      | -           |
+| PostgreSQL    | -      | +           |
+| MySQL         |        | +           |
 
 #### Besluit
 
@@ -422,7 +429,7 @@ Actuele reisgegevens zijn cruciaal vanwege snel veranderende prijzen en beschikb
 
 #### Alternatieven
 
-| Strategie                  | Beschrijving                                                                                          | Actualiteit van gegevens | Prestaties van request | Betrouwbaarheid van data |
+| Strategie                  | Beschrijving                                                                                          | Actualiteit van gegevens | Prestaties | Betrouwbaarheid |
 | -------------------------- | ----------------------------------------------------------------------------------------------------- | ------------------------ | ---------- | --------------- |
 | **API-first**              | Altijd eerst de API aanroepen, cache alleen gebruiken als fallback wanneer de API niet beschikbaar is | ++                       | -          | +               |
 | **Stale-while-revalidate** | Eerst cache tonen (indien beschikbaar), dan API op de achtergrond aanroepen om cache te verversen     | -                        | ++         | -               |
@@ -447,6 +454,8 @@ Geaccepteerd
 
 - Meer API-verzoeken kunnen leiden tot hogere kosten.
 - Mogelijk langere laadtijden voor gebruikers, vooral bij trage API-responses.
+
+<!-- ### 8.5. ADR-005 TITLE
 
 ### 8.5. ADR-005 Strategy Pattern voor Alternatieve Bouwstenen)
 

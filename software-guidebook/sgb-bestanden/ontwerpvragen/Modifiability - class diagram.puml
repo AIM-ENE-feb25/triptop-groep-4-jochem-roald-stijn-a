@@ -1,0 +1,47 @@
+@startuml
+title C4 Class Diagram - Booking
+
+
+package "backend" {
+
+interface IBookingAdapter {
+    + getBookings(): List<Booking>
+    + makeBooking(booking: Booking)
+}
+
+class BookingComAdapter {
+    + getBookings(): List<Booking>
+    + makeBooking(booking: Booking)
+}
+
+class TripAdvisorAdapter {
+    + getBookings(): List<Booking>
+    + makeBooking(booking: Booking)
+}
+
+class EigenBeheerHandler {
+    + getBookings(): List<Booking>
+    + makeBooking(booking: Booking)
+}
+
+class BookingController {
+    + getBookings(): List<Booking>
+    + makeBooking(booking: Booking)
+}
+
+class BookingService {
+    + getBookings(): List<Booking>
+    + makeBooking(booking: Booking)
+}
+
+}
+
+IBookingAdapter <|.. BookingComAdapter
+IBookingAdapter <|.. TripAdvisorAdapter
+IBookingAdapter <|.. EigenBeheerHandler
+BookingComAdapter --> "BookingCom API"
+TripAdvisorAdapter --> "TripAdvisor API"
+
+BookingController --> BookingService
+BookingService --> IBookingAdapter
+@enduml
