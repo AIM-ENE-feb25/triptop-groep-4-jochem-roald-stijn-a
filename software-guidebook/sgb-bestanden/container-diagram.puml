@@ -9,7 +9,7 @@ SHOW_PERSON_OUTLINE()
 Person(reiziger, "Reiziger", "Primaire gebruiker van het systeem. Kan reizen plannen en afstemmen")
 Person(reisagent, "ReisAgent", "Is te raadplegen voor tweedelijns support")
 
-System_Boundary(system, "TripTop omgeving") {
+System_Boundary(system, "TripTop") {
     Container(frontend, "Frontend", "Javascript en React", "Toont de UI voor het planproces van de reiziger en het ticketsysteem van de reisagent.")
     Container(backend, "Backend", "Java en Spring Boot", "Verzorgt de logica van het systeem, en verwerkt alle reisdata")
     ContainerDb(db, "Database", "Microsoft SQL Server", "Slaat alle informatie over een reis op")
@@ -25,8 +25,8 @@ Rel(reiziger, frontend, "plant reizen en stemt af via", "Web Browser")
 Rel(reisagent, frontend, "geeft telefoonnummer door en handelt tickets af via", "Web Browser")
 
 ' SYSTEM
-Rel(frontend, backend, "maakt API verzoeken naar", "JSON/REST")
-Rel_R(backend, db, "slaat en haalt data op in", "JdbcTemplate")
+Rel(frontend, backend, "vraagt en verstuurd reis- en gebruikersdata van en naar", "JSON/REST")
+Rel_R(backend, db, "slaat en haalt data op in", "SQL/JdbcTemplate")
 Rel_L(backend, cache, "slaat API-responses op in", "Jedis")
 
 ' EXTERNAL SYSTEMS

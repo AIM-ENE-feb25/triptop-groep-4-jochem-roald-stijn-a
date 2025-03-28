@@ -14,7 +14,7 @@ Dit software guidebook geeft een overzicht van de Triptop-applicatie. Het bevat 
 
 In dit hoofdstuk wordt de context van de software beschreven. Dit omvat de gebruikers, het systeem en de externe systemen die met de software communiceren.
 
-![context diagram](sgb-bestanden/container-diagram-C4_Container_diagram__TripTop.svg)
+![context diagram](sgb-bestanden/context-diagram-C4_Context_diagram__TripTop.svg)
 
 ### 2.1. Toelichting
 We hebben gekozen voor de Booking en TripAdvisor API's aangezien die alle bouwstenen in één hebben. 
@@ -104,10 +104,10 @@ In het container diagram is te zien hoe de verschillende containers met elkaar c
 In de dynamische container diagrammen is te zien hoe de containers met elkaar communiceren, en in welke volgorde dat gebeurt. Hieronder zijn twee scenario's uitgewerkt: inloggen en een reis boeken.
 
 ##### 7.1.2.1 Inloggen
-![Dynamisch container diagram inloggen](sgb-bestanden/dynamisch-container-diagram-inloggen-C4_Container_diagram__inloggen_op_TripTop.svg)
+![dynamisch-container-diagram-inloggen](sgb-bestanden/dynamisch-container-diagram-inloggen-C4_Dynamisch_container_diagram__inloggen_op_TripTop.svg)
 
 ##### 7.1.2.2 Reis boeken
-![Dynamisch container diagram reis boeken](sgb-bestanden/dynamisch-container-diagram-reis-boeken-C4_Container_diagram__een_reis_boeken_op_TripTop.svg)
+![dynamisch-container-diagram-reis-boeken](sgb-bestanden/dynamisch-container-diagram-reis-boeken-C4_Dynamisch_container_diagram__een_reis_boeken_op_TripTop.svg)
 
 Aangezien we nog niet weten hoe Mollie in elkaar zit houdt het diagram hier op.
 

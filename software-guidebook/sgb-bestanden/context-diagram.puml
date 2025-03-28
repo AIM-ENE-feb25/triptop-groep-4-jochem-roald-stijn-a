@@ -1,6 +1,6 @@
 @startuml
 title C4 Context diagram: TripTop
-!include <C4/C4_Container.puml>
+!include <C4/C4_Context.puml>
 
 top to bottom direction
 
@@ -9,9 +9,7 @@ SHOW_PERSON_OUTLINE()
 Person(reiziger, "Reiziger", "Primaire gebruiker van het systeem. Kan reizen plannen en afstemmen")
 Person(reisagent, "ReisAgent", "Is te raadplegen voor tweedelijns support")
 
-System_Boundary(system, "TripTop omgeving") {
-    System(triptop, "TripTop", "Applicatie voor het plannen en boeken van vakantie trips, reizen, vervoer, excursies en eten")
-}
+System(triptop, "TripTop", "Applicatie voor het plannen en boeken van vakantie trips, reizen, vervoer, excursies en eten")
 
 'System_Ext(overnachting, "Overnachting API", "Biedt overnachtingen aan van bijv. Booking.com, Airbnb, eigen beheer")
 'System_Ext(vervoer, "Vervoer tussen overnachtingen API", "Biedt vervoer tussen overnachtingen aan van bijv. treinen via NS of Deutsche Bahn, vliegtuig via KLM")
