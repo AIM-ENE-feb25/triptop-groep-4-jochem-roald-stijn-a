@@ -136,27 +136,15 @@ Onze applicatie heeft data van externe systemen nodig zodat gebruikers een trip 
 #### Considered Options
 
 We hadden een aardige lijst van api's gemaakt die we mogelijk konden gebruiken voor onze applicatie.
-Er waren een paar systemen die er boven uit kwamen.
-- [Booking](https://rapidapi.com/DataCrawler/api/booking-com15/playground/apiendpoint_6767dbac-969b-4230-8d26-f8b007bb8094)
-    - hotels
-    - vluchten
-    - autoverhuur
-    - taxi
-    - attracties
-- [TravelData](https://rapidapi.com/Idatatravel/api/traveldata/playground/apiendpoint_0c4064d7-5b81-4f2a-9c46-f43ca7e27279)
-    - Vliegvelden
-    - Vliegtuigmaatschappijen
-- [Flight Scraper](https://rapidapi.com/ntd119/api/sky-scanner3/playground/apiendpoint_2e6853eb-ddcb-4faf-8528-f18168fae61e)
-    - Vluchten
-    - Hotels
-    - Auto verhuur
-- [Tripadvisor](https://rapidapi.com/DataCrawler/api/tripadvisor16/playground/apiendpoint_b0128f2a-67c5-4bbd-9369-721cc7170f9c)
-    - Flights
-    - Hotels
-    - Restaurants
-    - "Vacation Rentals"
-    - Cruises
-    - Auto verhuur
+Er waren een paar systemen die er boven uit kwamen. Hieronder is een tabel die aantoont welke bouwstenen de externe systemen bevatten.
+
+| **Extern systeem** | **Hotels** | **Vluchten** | **Attracties** | **Autoverhuur** | **Restaurants** | **Overig vervoer** |
+|--------------------|------------|--------------|----------------|-----------------|-----------------|--------------------|
+| **Booking**        | x          | x            | x              | x               |                 | x                  |
+| **TravelData**     |            | x            |                |                 |                 |                    |
+| **Flight Scraper** | x          | x            |                | x               |                 |                    |
+| **Tripadvisor**    | x          | x            |                | x               | x               | x                  |
+
 
 We hebben uiteindelijk de verschillende bouwstenen vergeleken van alle api's en hebben gekozen voor Tripadvisor en Booking.
 Aangezien Tripadvisor en Booking zowel vluchten, hotels en autoverhuur bevatten raken ze alle bouwstenen die TravelData en Flight Scraper hebben.
