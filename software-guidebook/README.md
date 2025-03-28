@@ -156,17 +156,31 @@ Hieronder is een class diagram uitgewerkt die de classes en functies weergeeft d
 ![Modularity - class diagram-C4_Class_Diagram___Backend.png](sgb-bestanden%2Fontwerpvragen%2FModularity%20-%20class%20diagram-C4_Class_Diagram___Backend.png)
 
 ### 4.2. Modifiability - Verschillende boekingsservices integreren
-
 De volgende ontwerpvraag is uitgewerkt door **Roald**:
-
 > Hoe kunnen verschillende boekingsservices (zoals Booking.com en eigen beheer in Triptop) worden geïntegreerd?
 
-De ontwerpvraag wordt uitgewerkt door middel van het **Adapter Design Pattern**.
+#### 4.2.1. Componenten en verantwoordelijkheden
 
-- (dynamisch) Component diagram
-- Class diagram
-- evt. link naar ADR's
-- En natuurlijk toelichting
+- **BookingController**: Verantwoordelijk voor het verwerken van requests van de frontend en het doorgeven aan de juiste service.
+- **BookingService**: Verantwoordelijk voor het verwerken van de resultaten van boeking services en het omzetten naar domeinobjecten.
+- **BookingAdapter**: Verantwoordelijk voor het aanroepen van boeking services, het afhandelen van fouten en retries, en het cachen van resultaten om fault tolerance te bieden.
+- **EigenBeheerService**: Verantwoordelijk voor het aanroepen van de interne API's van Triptop en het omzetten naar domeinobjecten.
+- **BookingComAdapter**: Verantwoordelijk voor het aanroepen van de externe API's van Booking.com en het omzetten naar domeinobjecten.
+- **BookingComApi**: Verantwoordelijk voor het aanroepen van de externe API's van Booking.com en het omzetten naar domeinobjecten.
+
+
+#### 4.2.2. Interfaces
+Hieronder zijn de interfaces van de componenten die van belang zijn voor de ontwerpvraag uitgewerkt. Deze interfaces geven een overzicht van de methodes die de componenten aanbieden.
+
+
+#### 4.2.3. Component diagram
+Hieronder is een component diagram uitgewerkt die de componenten en hun verantwoordelijkheden weergeeft. Dit diagram geeft een overzicht van de componenten en hun verantwoordelijkheden.
+![Modifiability - Component diagram.svg](sgb-bestanden/ontwerpvragen/Modifiability%20-%20Component%20diagram.svg)
+
+#### 4.2.4. Classes en functies
+Hieronder is een class diagram uitgewerkt die de classes en functies weergeeft die van belang zijn voor de ontwerpvraag. Dit diagram geeft een overzicht van de classes en hun verantwoordelijkheden.
+![Modifiability - class diagram.svg](sgb-bestanden/ontwerpvragen/Modifiability%20-%20class%20diagram.svg)
+
 
 ### 4.3. Fault Tolerance - Externe services die niet beschikbaar zijn
 
