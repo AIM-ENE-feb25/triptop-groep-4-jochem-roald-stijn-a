@@ -163,12 +163,13 @@ Hieronder zijn de interfaces van de componenten die van belang zijn voor de ontw
 #### 4.3.3. Volgorde van aanroepen
 Hieronder is een dynamisch container diagram uitgewerkt die de volgorde van aanroepen van externe services weergeeft. De relaties naar de Externe API zijn slecht te lezen doordat ze overlappen. Deze connecties zijn beter te lezen in [het bestand zelf](./sgb-bestanden/ontwerpvragen/Fault%20Tolerance%20-%20volgorde%20van%20aanroepen.puml).
 
-Bij dit diagram hoort ADR-004
+<!-- link to `8.4. ADR-004 Nieuwste API data gaat voor cache` -->
+Bij dit diagram hoort [ADR-004: Nieuwste API data gaat voor cache](#84-adr-004-nieuwste-api-data-gaat-voor-cache).
 
 ![Fault Tolerance - volgorde van aanroepen](sgb-bestanden/ontwerpvragen/Fault%20Tolerance%20-%20volgorde%20van%20aanroepen-Volgorde_van_aanroepen.svg)
 
-#### 4.3.4. Classes en functies
-Hieronder is een class diagram uitgewerkt die de classes en functies weergeeft die van belang zijn voor de ontwerpvraag.
+#### 4.3.4. Klassen en functies
+Hieronder is een class diagram uitgewerkt die de klassen en functies weergeeft die van belang zijn voor de ontwerpvraag.
 
 ![Fault Tolerance - class diagram](sgb-bestanden/ontwerpvragen/Fault%20Tolerance%20-%20class%20diagram-C4_Class_Diagram___Backend.svg)
 
@@ -264,20 +265,11 @@ Geaccepteerd
 
 ### 8.2. ADR-002 Hoe we omgaan met het "tegelijk" versturen van meerdere API requests
 
-<!-- > [!TIP]
-> These documents have names that are short noun phrases. For example, "ADR 1: Deployment on Ruby on Rails 3.0.10" or "ADR 9: LDAP for Multitenant Integration". The whole ADR should be one or two pages long. We will write each ADR as if it is a conversation with a future developer. This requires good writing style, with full sentences organized into paragraphs. Bullets are acceptable only for visual style, not as an excuse for writing sentence fragments. (Bullets kill people, even PowerPoint bullets.) -->
-
 #### Context
-
-<!-- > [!TIP]
-> This section describes the forces at play, including technological, political, social, and project local. These forces are probably in tension, and should be called out as such. The language in this section is value-neutral. It is simply describing facts about the problem we're facing and points out factors to take into account or to weigh when making the final decision. -->
 
 Binnen deze applicatie worden er een hoop API requests gedaan. Deze requests kunnen erg lang duren, afhankelijk van de API die wordt aangesproken. Het is daarom belangrijk om te bepalen hoe we omgaan met het moeten versturen van meerdere requests om data uit verschillende API's te halen.
 
 #### Alternatieven
-
-<!-- > [!TIP]
-> This section describes the options that were considered, and gives some indication as to why the chosen option was selected. -->
 
 | Methode           | Beschrijving                         | Implementatie | Snelheid | Flexibiliteit |
 |-------------------|--------------------------------------|---------------|----------|---------------|
@@ -288,28 +280,18 @@ Binnen deze applicatie worden er een hoop API requests gedaan. Deze requests kun
 
 #### Besluit
 
-<!-- > [!TIP]
-> This section describes our response to the forces/problem. It is stated in full sentences, with active voice. "We will …" -->
-
 Met oog op simpliciteit hebben wij er voor gekozen om voorlopig de requests achter elkaar te versturen. Dit betekent dat we eerst de ene request versturen en wachten op een response voordat we de volgende request versturen.
 
 #### Status
-
-<!-- > [!TIP]
-> A decision may be "proposed" if the project stakeholders haven't agreed with it yet, or "accepted" once it is agreed. If a later ADR changes or reverses a decision, it may be marked as "deprecated" or "superseded" with a reference to its replacement. -->
 
 Voorgesteld
 
 #### Consequenties
 
-<!-- > [!TIP]
-> This section describes the resulting context, after applying the decision. All consequences should be listed here, not just the "positive" ones. A particular decision may have positive, negative, and neutral consequences, but all of them affect the team and project in the future. -->
-
 - De applicatie is simpeler te implementeren
 - De snelheid van de applicatie kan hierdoor afnemen
 
 ### 8.3. ADR-003 Keuze Database
-
 
 #### Context
 
@@ -336,37 +318,39 @@ Geaccepteerd
 - We moeten de database in docker draaien.
 - Alle huidige developers kunnen meteen beginnen met implementeren
 
-<!-- ### 8.4. ADR-004 TITLE
-
-> [!TIP]
-> These documents have names that are short noun phrases. For example, "ADR 1: Deployment on Ruby on Rails 3.0.10" or "ADR 9: LDAP for Multitenant Integration". The whole ADR should be one or two pages long. We will write each ADR as if it is a conversation with a future developer. This requires good writing style, with full sentences organized into paragraphs. Bullets are acceptable only for visual style, not as an excuse for writing sentence fragments. (Bullets kill people, even PowerPoint bullets.)
+### 8.4. ADR-004 Nieuwste API data gaat voor cache
 
 #### Context
 
-> [!TIP]
-> This section describes the forces at play, including technological, political, social, and project local. These forces are probably in tension, and should be called out as such. The language in this section is value-neutral. It is simply describing facts about the problem we're facing and points out factors to take into account or to weigh when making the final decision.
+Actuele reisgegevens zijn cruciaal vanwege snel veranderende prijzen en beschikbaarheid. Verouderde data kan leiden tot frustratie bij gebruikers. Tegelijkertijd kunnen frequente API-aanroepen de prestaties beïnvloeden en kosten verhogen. Een balans tussen actualiteit, prestaties en betrouwbaarheid is noodzakelijk.
 
-#### Considered Options
+#### Alternatieven
 
-> [!TIP]
-> This section describes the options that were considered, and gives some indication as to why the chosen option was selected.
+| Strategie | Beschrijving | Actualiteit van gegevens | Prestaties | Betrouwbaarheid |
+|-----------|--------------|-------------|------------|-----------------|
+| **API-first** | Altijd eerst de API aanroepen, cache alleen gebruiken als fallback wanneer de API niet beschikbaar is | ++ | - | + |
+| **Stale-while-revalidate** | Eerst cache tonen (indien beschikbaar), dan API op de achtergrond aanroepen om cache te verversen | - | ++ | - |
+| **Cache-first** | Altijd cache gebruiken als die beschikbaar is, API alleen aanroepen als cache leeg of verlopen is | - | ++ | -- |
 
-#### Decision
+#### Besluit
 
-> [!TIP]
-> This section describes our response to the forces/problem. It is stated in full sentences, with active voice. "We will …"
+We kiezen voor de API-first strategie: altijd eerst de API aanroepen voor actuele data en alleen terugvallen op cache bij onbeschikbaarheid. Dit garandeert actuele informatie en voorkomt frustratie door verouderde gegevens. Andere strategieën bieden minder betrouwbaarheid of actualiteit.
 
 #### Status
 
-> [!TIP]
-> A decision may be "proposed" if the project stakeholders haven't agreed with it yet, or "accepted" once it is agreed. If a later ADR changes or reverses a decision, it may be marked as "deprecated" or "superseded" with a reference to its replacement.
+Geaccepteerd
 
-#### Consequences
+#### Consequenties
 
-> [!TIP]
-> This section describes the resulting context, after applying the decision. All consequences should be listed here, not just the "positive" ones. A particular decision may have positive, negative, and neutral consequences, but all of them affect the team and project in the future.
+**Positieve consequenties:**
+- Gebruikers krijgen altijd de meest actuele informatie over prijzen, beschikbaarheid en andere reisgegevens.
+- Verhoogde betrouwbaarheid van de getoonde informatie.
 
-### 8.5. ADR-005 TITLE
+**Negatieve consequenties:**
+- Meer API-verzoeken kunnen leiden tot hogere kosten.
+- Mogelijk langere laadtijden voor gebruikers, vooral bij trage API-responses.
+
+<!-- ### 8.5. ADR-005 TITLE
 
 > [!TIP]
 > These documents have names that are short noun phrases. For example, "ADR 1: Deployment on Ruby on Rails 3.0.10" or "ADR 9: LDAP for Multitenant Integration". The whole ADR should be one or two pages long. We will write each ADR as if it is a conversation with a future developer. This requires good writing style, with full sentences organized into paragraphs. Bullets are acceptable only for visual style, not as an excuse for writing sentence fragments. (Bullets kill people, even PowerPoint bullets.)
