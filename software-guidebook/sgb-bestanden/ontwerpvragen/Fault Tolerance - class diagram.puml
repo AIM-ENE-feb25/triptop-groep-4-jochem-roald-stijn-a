@@ -1,0 +1,73 @@
+@startuml
+title C4 Class Diagram - Backend
+
+'hide circle
+'skinparam linetype ortho
+
+top to bottom direction
+
+package "controller" {
+    class FlightsController {
+        getFlightPrice(origin: String, destination: String, departureDate: Date, returnDate: Date)
+    }
+}
+
+package "service" {
+    interface FlightsService {
+        getFlightPrice(origin: String, destination: String, departureDate: Date, returnDate: Date): double
+    }
+
+    class FlightsServiceImpl {
+        getFlightPrice(origin: String, destination: String, departureDate: Date, returnDate: Date): double
+    }
+}
+
+package "api" {
+    interface ExternalAPIHandler {
+        call(endpoint: Endpoint): String
+    }
+
+    class ExternalAPIHandlerImpl {
+        MAX_RETRIES: int
+        RETRY_DELAY: Duration
+        call(endpoint: Endpoint): String
+        getCachedResponse(endpoint: Endpoint): Optional<String>
+        cacheResponse(endpoint: Endpoint, response: String): void
+    }
+
+    class Endpoint {
+        url: String
+        queryParams: HashMap<String, String>
+        bodyHash: String
+    }
+}
+
+package "repository" {
+    interface CacheRepository {
+        save(key: Endpoint, response: String, duration: Duration): void
+        get(key: Endpoint): Optional<String>
+    }
+
+    class RedisCacheRepository {
+        save(key: Endpoint, response: String, duration: Duration): void
+        get(key: Endpoint): Optional<String>
+        generateKey(endpoint: Endpoint): String
+    }
+}
+
+package "shared" {
+    enum Method {
+        GET, POST, PUT, DELETE
+    }
+}
+
+FlightsController --> "flightService 1" FlightsService
+FlightsServiceImpl .u.|> FlightsService
+FlightsServiceImpl --> "externalAPIHandler 1" ExternalAPIHandler
+ExternalAPIHandlerImpl .u.|> ExternalAPIHandler
+ExternalAPIHandlerImpl --> "cacheRepository 1" CacheRepository
+RedisCacheRepository .u.|> CacheRepository
+ExternalAPIHandlerImpl ..> "endpoint 1" Endpoint
+Endpoint ..> "method 1" Method
+
+@enduml
