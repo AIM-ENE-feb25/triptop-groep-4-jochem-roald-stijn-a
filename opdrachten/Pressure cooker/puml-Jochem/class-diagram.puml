@@ -1,0 +1,72 @@
+@startuml
+title C4 Class Diagram - Backend
+
+'hide circle
+skinparam linetype ortho
+
+top to bottom direction
+
+package "controller" {
+    class TripController {
+        +getTrips(origin: String, destination: String, departureDate: Date, returnDate: Date, price: double, transport: Transport): List<Trip>
+    }
+}
+
+package "service" {
+    interface TripService {
+        +getTrips(origin: String, destination: String, departureDate: Date, returnDate: Date, price: double, transport: Transport): List<Trip>
+    }
+
+    class TripServiceImpl {
+        +getTrips(origin: String, destination: String, departureDate: Date, returnDate: Date, price: double, transport: Transport): List<Trip>
+    }
+
+    interface AlternativeService {
+        +getAlternativeTrips(origin: String, destination: String, departureDate: Date, returnDate: Date, price: double, transport: Transport): List<Trip>
+    }
+
+    class AlternativeServiceImpl {
+        +getAlternativeTrips(origin: String, destination: String, departureDate: Date, returnDate: Date, price: double, transport: Transport): List<Trip>
+    }
+
+    class Trip {
+        +origin: String
+        +destination: String
+        +departureDate: Date
+        +returnDate: Date
+        +price: double
+        +transport: Transport
+    }
+
+    class Transport {
+        +type: String
+        +details: String
+    }
+}
+
+package "api" {
+    interface ExternalAPIHandler {
+        +call(endpoint: Endpoint): String
+    }
+
+    class ExternalAPIHandlerImpl {
+        +call(endpoint: Endpoint): String
+    }
+
+    class Endpoint {
+        +url: String
+        +method: String
+    }
+}
+
+TripController --> "tripService 1" TripService
+TripService --> "alternativeService 1" AlternativeService
+TripServiceImpl .u.|> TripService
+AlternativeServiceImpl .u.|> AlternativeService
+TripServiceImpl --> "externalAPIHandler 1" ExternalAPIHandler
+AlternativeServiceImpl --> "externalAPIHandler 1" ExternalAPIHandler
+ExternalAPIHandlerImpl ..> "endpoint 1" Endpoint
+TripServiceImpl --> Transport
+AlternativeServiceImpl --> Transport
+
+@enduml
