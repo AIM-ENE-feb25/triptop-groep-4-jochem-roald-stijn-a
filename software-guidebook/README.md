@@ -1,32 +1,32 @@
 # Software Guidebook Triptop
 
 ## 1. Introduction
-Dit software guidebook geeft een overzicht van de Triptop-applicatie. Het bevat een samenvatting van het volgende: 
-1. De vereisten, beperkingen en principes. 
-2. De software-architectuur, met inbegrip van de technologiekeuzes op hoog niveau en de structuur van de software. 
+
+Dit software guidebook geeft een overzicht van de Triptop-applicatie. Het bevat een samenvatting van het volgende:
+
+1. De vereisten, beperkingen en principes.
+2. De software-architectuur, met inbegrip van de technologiekeuzes op hoog niveau en de structuur van de software.
 3. De ontwerp- en codebeslissingen die zijn genomen om de software te realiseren.
-4. De architectuur van de infrastructuur en hoe de software kan worden geïnstalleerd. 
+4. De architectuur van de infrastructuur en hoe de software kan worden geïnstalleerd.
 
 ## 2. Context
 
-[//]: # (> [!IMPORTANT])
-[//]: # (> Werk zelf dit hoofdstuk uit met context diagrammen en een beschrijving van de context van de software.)
+[//]: # "> [!IMPORTANT]"
+[//]: # "> Werk zelf dit hoofdstuk uit met context diagrammen en een beschrijving van de context van de software."
 
 In dit hoofdstuk wordt de context van de software beschreven. Dit omvat de gebruikers, het systeem en de externe systemen die met de software communiceren.
 
 ![context diagram](sgb-bestanden/context-diagram-C4_Context_diagram__TripTop.svg)
 
 ### 2.1. Toelichting
-We hebben gekozen voor de Booking en TripAdvisor API's aangezien die alle bouwstenen in één hebben. 
+
+We hebben gekozen voor de Booking en TripAdvisor API's aangezien die alle bouwstenen in één hebben.
 Ook hebben we gekozen voor Mollie als betalingssysteem, aangezien deze veel betalingsmogelijkheden support en alle opties bevat die een algemene Nederlander gebruikt.
 
-[//]: # (Toelichting op de context van de software inclusief System Context Diagram:)
-
-[//]: # (* Functionaliteit)
-
-[//]: # (* Gebruikers)
-
-[//]: # (* Externe systemen)
+[//]: # "Toelichting op de context van de software inclusief System Context Diagram:"
+[//]: # "* Functionaliteit"
+[//]: # "* Gebruikers"
+[//]: # "* Externe systemen"
 
 ## 3. Functional Overview
 
@@ -46,7 +46,7 @@ Als gebruiker wil ik een geplande reis als geheel of per variabele (bouwsteen) b
 
 Als gebruiker wil ik een geboekte reis, of delen daarvan, kunnen annuleren zodat ik mijn geld terug kan krijgen zonder inmenging van een intermediair zoals een reisbureau.
 
-#### 3.1.4 User Story 4: Reisstatus bewaren 
+#### 3.1.4 User Story 4: Reisstatus bewaren
 
 Als gebruiker wil ik mijn reisstatus kunnen bewaren zonder dat ik een extra account hoef aan te maken zodat ik mijn reis kan volgen zonder dat ik daarvoor extra handelingen moet verrichten.
 
@@ -69,57 +69,103 @@ Als gebruiker wil ik de bouwstenen van mijn reis flexibel kunnen uitbreiden met 
 ## 4. Quality Attributes
 
 Voordat deze casusomschrijving tot stand kwam, heeft de opdrachtgever de volgende ISO 25010 kwaliteitsattributen benoemd als belangrijk:
-* Compatibility -> Interoperability (Degree to which a system, product or component can exchange information with other products and mutually use the information that has been exchanged)
-* Reliability -> Fault Tolerance (Degree to which a system or component operates as intended despite the presence of hardware or software faults)
-* Maintainability -> Modularity (Degree to which a system or computer program is composed of discrete components such that a change to one component has minimal impact on other components)
-* Maintainability -> Modifiability (Degree to which a product or system can be effectively and efficiently modified without introducing defects or degrading existing product quality)
-* Security -> Integrity (Degree to which a system, product or component ensures that the state of its system and data are protected from unauthorized modification or deletion either by malicious action or computer error)
-* Security -> Confidentiality (Degree to which a system, product or component ensures that data are accessible only to those authorized to have access)
+
+- Compatibility -> Interoperability (Degree to which a system, product or component can exchange information with other products and mutually use the information that has been exchanged)
+- Reliability -> Fault Tolerance (Degree to which a system or component operates as intended despite the presence of hardware or software faults)
+- Maintainability -> Modularity (Degree to which a system or computer program is composed of discrete components such that a change to one component has minimal impact on other components)
+- Maintainability -> Modifiability (Degree to which a product or system can be effectively and efficiently modified without introducing defects or degrading existing product quality)
+- Security -> Integrity (Degree to which a system, product or component ensures that the state of its system and data are protected from unauthorized modification or deletion either by malicious action or computer error)
+- Security -> Confidentiality (Degree to which a system, product or component ensures that data are accessible only to those authorized to have access)
 
 Naar aanleiding van deze kwaliteitsattributen zijn de volgende ontwerpvragen opgesteld en uitgewerkt:
 
 ### 4.1. Modularity - Alternatieve bouwstenen aanbieden
+
 De volgende ontwerpvraag is uitgewerkt door **Jochem**:
+
 > Hoe bied je de gebruiker op basis van zelfgekozen bouwstenen alternatieve bouwstenen aan, bijvoorbeeld als een bepaalde overnachting niet beschikbaar is of om een keuze te geven tussen vervoer per auto, trein of bus
+
+De ontwerpvraag wordt uitgewerkt door middel van het **Strategy Design Pattern**.
+
+#### 4.1.1. Componenten en verantwoordelijkheden
+
+- **Generieke controller**: Verantwoordelijk voor het verwerken van requests van de frontend en het doorgeven aan de juiste service.
+- **Generieke service**: Verantwoordelijk voor het verwerken van de resultaten van externe services en het omzetten naar domeinobjecten.
+- **Generieke strategy**: Verantwoordelijk voor het ophalen van alternatieve bouwstenen uit externe services, het genereren van aanvullende opties op basis van gebruikersvoorkeuren en het omzetten van deze alternatieven naar domeinobjecten.
+- **ExternalAPIHandler**: Verantwoordelijk voor het aanroepen van externe services, het afhandelen van fouten en retries.
+
+#### 4.1.2. Interfaces
+
+- **Generieke controller**:
+  ```
+  GET /journey
+  Body: {
+      origin: String
+      destination: String
+      departureDate: Date
+      returnDate: Date
+      price: double
+      transport: Transport
+  }
+  ```
+- **Generieke service**:
+
+  ```java
+  public interface JourneyService {
+      List<Journey> getJourneys(String origin, String destination, Date departureDate, Date returnDate, double price, Transport transport);
+  }
+  ```
+
+- **Generieke strategy**:
+
+  ```java
+  public interface JourneyStrategy {
+      List<Journey> getJourneys(String origin, String destination, Date departureDate, Date returnDate, double price, Transport transport);
+  }
+  ```
+
+- **ExternalAPIHandler**:
+  ```java
+  public interface ExternalAPIHandler {
+      String call(Endpoint endpoint);
+  }
+  ```
+
+#### 4.1.3. Component diagram
+
+Hieronder is een dynamisch container diagram uitgewerkt die de volgorde van aanroepen van externe services weergeeft. De relaties naar de Externe API zijn slecht te lezen doordat ze overlappen. Deze connecties zijn beter te lezen in [het bestand zelf](./sgb-bestanden/ontwerpvragen/Fault%20Tolerance%20-%20volgorde%20van%20aanroepen.puml).
+
+![Modularity - component diagram-Component_diagram.png](sgb-bestanden%2Fontwerpvragen%2FModularity%20-%20component%20diagram-Component_diagram.png)
+
+#### 4.1.4. Klassen en functies
+
+Hieronder is een class diagram uitgewerkt die de classes en functies weergeeft die van belang zijn voor de ontwerpvraag.
+
+![Modularity - class diagram-C4_Class_Diagram___Backend.png](sgb-bestanden%2Fontwerpvragen%2FModularity%20-%20class%20diagram-C4_Class_Diagram___Backend.png)
+
+### 4.2. Modifiability - Verschillende boekingsservices integreren
+
+De volgende ontwerpvraag is uitgewerkt door **Roald**:
+
+> Hoe kunnen verschillende boekingsservices (zoals Booking.com en eigen beheer in Triptop) worden geïntegreerd?
+
+De ontwerpvraag wordt uitgewerkt door middel van het **Adapter Design Pattern**.
 
 - (dynamisch) Component diagram
 - Class diagram
 - evt. link naar ADR's
 - En natuurlijk toelichting
 
-### 4.2. Modifiability - Verschillende boekingsservices integreren
-De volgende ontwerpvraag is uitgewerkt door **Roald**:
-> Hoe kunnen verschillende boekingsservices (zoals Booking.com en eigen beheer in Triptop) worden geïntegreerd?
-
-#### 4.2.1. Componenten en verantwoordelijkheden
-
- - **BookingController**: Verantwoordelijk voor het verwerken van requests van de frontend en het doorgeven aan de juiste service.
- - **BookingService**: Verantwoordelijk voor het verwerken van de resultaten van boeking services en het omzetten naar domeinobjecten.
- - **BookingAdapter**: Verantwoordelijk voor het aanroepen van boeking services, het afhandelen van fouten en retries, en het cachen van resultaten om fault tolerance te bieden.
- - **EigenBeheerService**: Verantwoordelijk voor het aanroepen van de interne API's van Triptop en het omzetten naar domeinobjecten.
- - **BookingComAdapter**: Verantwoordelijk voor het aanroepen van de externe API's van Booking.com en het omzetten naar domeinobjecten.
- - **BookingComApi**: Verantwoordelijk voor het aanroepen van de externe API's van Booking.com en het omzetten naar domeinobjecten.
-
-
-#### 4.2.2. Interfaces
-Hieronder zijn de interfaces van de componenten die van belang zijn voor de ontwerpvraag uitgewerkt. Deze interfaces geven een overzicht van de methodes die de componenten aanbieden.
-
-  
-#### 4.2.3. Component diagram
-Hieronder is een component diagram uitgewerkt die de componenten en hun verantwoordelijkheden weergeeft. Dit diagram geeft een overzicht van de componenten en hun verantwoordelijkheden.
-
-![Modifiability - component diagram](sgb-bestanden/ontwerpvragen/Modifiability%20-%20component%20diagram.svg)
-
-#### 4.2.4. Classes en functies
-Hieronder is een class diagram uitgewerkt die de classes en functies weergeeft die van belang zijn voor de ontwerpvraag. Dit diagram geeft een overzicht van de classes en hun verantwoordelijkheden.
-
-![Modifiability - class diagram](sgb-bestanden/ontwerpvragen/Modifiability%20-%20class%20diagram.svg)
-
 ### 4.3. Fault Tolerance - Externe services die niet beschikbaar zijn
+
 De volgende ontwerpvraag is uitgewerkt door **Stijn**:
+
 > Hoe ga je om met aanroepen van externe services die niet beschikbaar zijn en toch verwacht wordt dat er waardevolle output gegeven wordt?
 
+De ontwerpvraag wordt uitgewerkt door middel van het **Facade Design Pattern**.
+
 #### 4.3.1. Componenten en verantwoordelijkheden
+
 Als eerst is er een overzicht gemaakt van de componenten en hun verantwoordelijkheden die van belang zijn voor de ontwerpvraag.
 
 - **Generieke controller**: Verantwoordelijk voor het verwerken van requests van de frontend en het doorgeven aan de juiste service.
@@ -129,65 +175,72 @@ Als eerst is er een overzicht gemaakt van de componenten en hun verantwoordelijk
 - Buiten container: **Cache**: Verantwoordelijk voor het cachen van resultaten van externe services.
 
 #### 4.3.2. Interfaces
+
 Hieronder zijn de interfaces van de componenten die van belang zijn voor de ontwerpvraag uitgewerkt. Deze interfaces geven een overzicht van de methodes die de componenten aanbieden.
 
 - **Generieke controller**:
-    ```
-    GET /flights
-    Body: {
-        origin: string,
-        destination: string,
-        departureDate: Date,
-        returnDate: Date
-    }
-    ```
+  ```
+  GET /flights
+  Body: {
+      origin: string,
+      destination: string,
+      departureDate: Date,
+      returnDate: Date
+  }
+  ```
 - **Generieke service**:
-    ```java
-    public interface FlightsService {
-        public List<Flight> getFlights(String origin, String destination, Date departureDate, Date returnDate);
-    }
-    ```
+  ```java
+  public interface FlightsService {
+      public List<Flight> getFlights(String origin, String destination, Date departureDate, Date returnDate);
+  }
+  ```
 - **CacheRepository**:
-    ```java
-    public interface CacheRepository {
-        public void save(Endpoint key, String response, Duration duration);
-        public String get(Endpoint key);
-    }
 
-    public record Endpoint(Method method, String url, HashMap<String, String> queryParams, String bodyHash) {
-        public Endpoint(Method method, String url, HashMap<String, String> queryParams) {
-            this(method, url, queryParams, "");
-        }
+  ```java
+  public interface CacheRepository {
+      public void save(Endpoint key, String response, Duration duration);
+      public String get(Endpoint key);
+  }
 
-        public Endpoint(Method method, String url, String body) {
-            this(method, url, new HashMap<>(), body);
-        }
+  public record Endpoint(Method method, String url, HashMap<String, String> queryParams, String bodyHash) {
+      public Endpoint(Method method, String url, HashMap<String, String> queryParams) {
+          this(method, url, queryParams, "");
+      }
 
-        public Endpoint(Method method, String url) {
-            this(method, url, new HashMap<>(), "");
-        }
-    }
+      public Endpoint(Method method, String url, String body) {
+          this(method, url, new HashMap<>(), body);
+      }
 
-    public enum Method {
-        GET, POST, PUT, DELETE
-    }
-    ```
+      public Endpoint(Method method, String url) {
+          this(method, url, new HashMap<>(), "");
+      }
+  }
+
+  public enum Method {
+      GET, POST, PUT, DELETE
+  }
+  ```
+
 - **ExternalAPIHandler**:
-    ```java
-    public interface ExternalAPIHandler {
-        public String call(Endpoint endpoint);
-    }
-    ```
+  ```java
+  public interface ExternalAPIHandler {
+      public String call(Endpoint endpoint);
+  }
+  ```
 
 #### 4.3.3. Volgorde van aanroepen
+
 Hieronder is een dynamisch container diagram uitgewerkt die de volgorde van aanroepen van externe services weergeeft. De relaties naar de Externe API zijn slecht te lezen doordat ze overlappen. Deze connecties zijn beter te lezen in [het bestand zelf](./sgb-bestanden/ontwerpvragen/Fault%20Tolerance%20-%20volgorde%20van%20aanroepen.puml).
 
-Bij dit diagram hoort ADR-004
+<!-- link to `8.4. ADR-004 Nieuwste API data gaat voor cache` -->
+
+Bij dit diagram hoort [ADR-004: Nieuwste API data gaat voor cache](#84-adr-004-nieuwste-api-data-gaat-voor-cache).
 
 ![Fault Tolerance - volgorde van aanroepen](sgb-bestanden/ontwerpvragen/Fault%20Tolerance%20-%20volgorde%20van%20aanroepen-Volgorde_van_aanroepen.svg)
 
-#### 4.3.4. Classes en functies
-Hieronder is een class diagram uitgewerkt die de classes en functies weergeeft die van belang zijn voor de ontwerpvraag.
+#### 4.3.4. Klassen en functies
+
+Hieronder is een class diagram uitgewerkt die de klassen en functies weergeeft die van belang zijn voor de ontwerpvraag.
 
 ![Fault Tolerance - class diagram](sgb-bestanden/ontwerpvragen/Fault%20Tolerance%20-%20class%20diagram-C4_Class_Diagram___Backend.svg)
 
@@ -203,13 +256,18 @@ Hieronder is een class diagram uitgewerkt die de classes en functies weergeeft d
 > [!IMPORTANT]
 > Beschrijf zelf de belangrijkste architecturele en design principes die zijn toegepast in de software.
 
+- Program to an Interface
+- Single Responsibility Principle
+- Open/Closed Principle
+- Dependency Inversion Principle
+
 ## 7. Software Architecture
 
-###     7.1. Containers
+### 7.1. Containers
 
-[//]: # (> [!IMPORTANT])
+[//]: # "> [!IMPORTANT]"
+[//]: # "> Voeg toe: Container Diagram plus een Dynamic Diagram van een aantal scenario's inclusief begeleidende tekst."
 
-[//]: # (> Voeg toe: Container Diagram plus een Dynamic Diagram van een aantal scenario's inclusief begeleidende tekst.)
 #### 7.1.1. Container diagram
 
 In het container diagram is te zien hoe de verschillende containers met elkaar communiceren. De containers zijn de verschillende onderdelen van de applicatie. In dit geval zijn dat de front-end, back-end, database, cache en de externe API's.
@@ -221,19 +279,21 @@ In het container diagram is te zien hoe de verschillende containers met elkaar c
 In de dynamische container diagrammen is te zien hoe de containers met elkaar communiceren, en in welke volgorde dat gebeurt. Hieronder zijn twee scenario's uitgewerkt: inloggen en een reis boeken.
 
 ##### 7.1.2.1 Inloggen
+
 ![dynamisch-container-diagram-inloggen](sgb-bestanden/dynamisch-container-diagram-inloggen-C4_Dynamisch_container_diagram__inloggen_op_TripTop.svg)
 
 ##### 7.1.2.2 Reis boeken
+
 ![dynamisch-container-diagram-reis-boeken](sgb-bestanden/dynamisch-container-diagram-reis-boeken-C4_Dynamisch_container_diagram__een_reis_boeken_op_TripTop.svg)
 
 Aangezien we nog niet weten hoe Mollie in elkaar zit houdt het diagram hier op.
 
-###     7.2. Components
+### 7.2. Components
 
 > [!IMPORTANT]
 > Voeg toe: Component Diagram plus een Dynamic Diagram van een aantal scenario's inclusief begeleidende tekst.
 
-###     7.3. Design & Code
+### 7.3. Design & Code
 
 > [!IMPORTANT]
 > Voeg toe: Per ontwerpvraag een Class Diagram plus een Sequence Diagram van een aantal scenario's inclusief begeleidende tekst.
@@ -255,12 +315,11 @@ We hadden een aardige lijst van api's gemaakt die we mogelijk konden gebruiken v
 Er waren een paar systemen die er boven uit kwamen. Hieronder is een tabel die aantoont welke bouwstenen de externe systemen bevatten.
 
 | **Extern systeem** | **Hotels** | **Vluchten** | **Attracties** | **Autoverhuur** | **Restaurants** | **Overig vervoer** |
-|--------------------|------------|--------------|----------------|-----------------|-----------------|--------------------|
+| ------------------ | ---------- | ------------ | -------------- | --------------- | --------------- | ------------------ |
 | **Booking**        | x          | x            | x              | x               |                 | x                  |
 | **TravelData**     |            | x            |                |                 |                 |                    |
 | **Flight Scraper** | x          | x            |                | x               |                 |                    |
 | **Tripadvisor**    | x          | x            |                | x               | x               | x                  |
-
 
 We hebben uiteindelijk de verschillende bouwstenen vergeleken van alle api's en hebben gekozen voor Tripadvisor en Booking.
 Aangezien Tripadvisor en Booking zowel vluchten, hotels en autoverhuur bevatten raken ze alle bouwstenen die TravelData en Flight Scraper hebben.
@@ -283,23 +342,14 @@ Geaccepteerd
 
 ### 8.2. ADR-002 Hoe we omgaan met het "tegelijk" versturen van meerdere API requests
 
-<!-- > [!TIP]
-> These documents have names that are short noun phrases. For example, "ADR 1: Deployment on Ruby on Rails 3.0.10" or "ADR 9: LDAP for Multitenant Integration". The whole ADR should be one or two pages long. We will write each ADR as if it is a conversation with a future developer. This requires good writing style, with full sentences organized into paragraphs. Bullets are acceptable only for visual style, not as an excuse for writing sentence fragments. (Bullets kill people, even PowerPoint bullets.) -->
-
 #### Context
-
-<!-- > [!TIP]
-> This section describes the forces at play, including technological, political, social, and project local. These forces are probably in tension, and should be called out as such. The language in this section is value-neutral. It is simply describing facts about the problem we're facing and points out factors to take into account or to weigh when making the final decision. -->
 
 Binnen deze applicatie worden er een hoop API requests gedaan. Deze requests kunnen erg lang duren, afhankelijk van de API die wordt aangesproken. Het is daarom belangrijk om te bepalen hoe we omgaan met het moeten versturen van meerdere requests om data uit verschillende API's te halen.
 
 #### Alternatieven
 
-<!-- > [!TIP]
-> This section describes the options that were considered, and gives some indication as to why the chosen option was selected. -->
-
 | Methode           | Beschrijving                         | Implementatie | Snelheid | Flexibiliteit |
-|-------------------|--------------------------------------|---------------|----------|---------------|
+| ----------------- | ------------------------------------ | ------------- | -------- | ------------- |
 | Synchroon         | Requests achter elkaar versturen     | ++            | --       | +             |
 | CompletableFuture | Snel en flexibel voor meerdere calls | -             | ++       | +             |
 | ExecutorService   | Als je expliciet threadbeheer wilt   | --            | ++       | -             |
@@ -307,28 +357,18 @@ Binnen deze applicatie worden er een hoop API requests gedaan. Deze requests kun
 
 #### Besluit
 
-<!-- > [!TIP]
-> This section describes our response to the forces/problem. It is stated in full sentences, with active voice. "We will …" -->
-
 Met oog op simpliciteit hebben wij er voor gekozen om voorlopig de requests achter elkaar te versturen. Dit betekent dat we eerst de ene request versturen en wachten op een response voordat we de volgende request versturen.
 
 #### Status
-
-<!-- > [!TIP]
-> A decision may be "proposed" if the project stakeholders haven't agreed with it yet, or "accepted" once it is agreed. If a later ADR changes or reverses a decision, it may be marked as "deprecated" or "superseded" with a reference to its replacement. -->
 
 Voorgesteld
 
 #### Consequenties
 
-<!-- > [!TIP]
-> This section describes the resulting context, after applying the decision. All consequences should be listed here, not just the "positive" ones. A particular decision may have positive, negative, and neutral consequences, but all of them affect the team and project in the future. -->
-
 - De applicatie is simpeler te implementeren
 - De snelheid van de applicatie kan hierdoor afnemen
 
 ### 8.3. ADR-003 Keuze Database
-
 
 #### Context
 
@@ -337,7 +377,7 @@ We moeten een keuze maken voor een database voor de applicatie.
 #### Alternatieven
 
 | Database      | Kennis | Open Source |
-|---------------|--------|-------------|
+| ------------- | ------ | ----------- |
 | MS SQL Server | +      | -           |
 | PostgreSQL    | -      | +           |
 | MySQL         |        | +           |
@@ -353,67 +393,121 @@ Geaccepteerd
 #### Consequenties
 
 - We moeten de database in docker draaien.
-- Alle huidige developers kunnen meteen beginnen met implementeren
+- Alle huidige developers kunnen meteen beginnen met implementere
 
-<!-- ### 8.4. ADR-004 TITLE
-
-> [!TIP]
-> These documents have names that are short noun phrases. For example, "ADR 1: Deployment on Ruby on Rails 3.0.10" or "ADR 9: LDAP for Multitenant Integration". The whole ADR should be one or two pages long. We will write each ADR as if it is a conversation with a future developer. This requires good writing style, with full sentences organized into paragraphs. Bullets are acceptable only for visual style, not as an excuse for writing sentence fragments. (Bullets kill people, even PowerPoint bullets.)
+### 8.4. ADR-004 Nieuwste API data gaat voor cache
 
 #### Context
 
-> [!TIP]
-> This section describes the forces at play, including technological, political, social, and project local. These forces are probably in tension, and should be called out as such. The language in this section is value-neutral. It is simply describing facts about the problem we're facing and points out factors to take into account or to weigh when making the final decision.
+Actuele reisgegevens zijn cruciaal vanwege snel veranderende prijzen en beschikbaarheid. Verouderde data kan leiden tot frustratie bij gebruikers. Tegelijkertijd kunnen frequente API-aanroepen de prestaties beïnvloeden en kosten verhogen. Een balans tussen actualiteit, prestaties en betrouwbaarheid is noodzakelijk.
 
-#### Considered Options
+#### Alternatieven
 
-> [!TIP]
-> This section describes the options that were considered, and gives some indication as to why the chosen option was selected.
+| Strategie                  | Beschrijving                                                                                          | Actualiteit van gegevens | Prestaties | Betrouwbaarheid |
+| -------------------------- | ----------------------------------------------------------------------------------------------------- | ------------------------ | ---------- | --------------- |
+| **API-first**              | Altijd eerst de API aanroepen, cache alleen gebruiken als fallback wanneer de API niet beschikbaar is | ++                       | -          | +               |
+| **Stale-while-revalidate** | Eerst cache tonen (indien beschikbaar), dan API op de achtergrond aanroepen om cache te verversen     | -                        | ++         | -               |
+| **Cache-first**            | Altijd cache gebruiken als die beschikbaar is, API alleen aanroepen als cache leeg of verlopen is     | -                        | ++         | --              |
 
-#### Decision
+#### Besluit
 
-> [!TIP]
-> This section describes our response to the forces/problem. It is stated in full sentences, with active voice. "We will …"
+We kiezen voor de API-first strategie: altijd eerst de API aanroepen voor actuele data en alleen terugvallen op cache bij onbeschikbaarheid. Dit garandeert actuele informatie en voorkomt frustratie door verouderde gegevens. Andere strategieën bieden minder betrouwbaarheid of actualiteit.
 
 #### Status
 
-> [!TIP]
-> A decision may be "proposed" if the project stakeholders haven't agreed with it yet, or "accepted" once it is agreed. If a later ADR changes or reverses a decision, it may be marked as "deprecated" or "superseded" with a reference to its replacement.
+Geaccepteerd
 
-#### Consequences
+#### Consequenties
 
-> [!TIP]
-> This section describes the resulting context, after applying the decision. All consequences should be listed here, not just the "positive" ones. A particular decision may have positive, negative, and neutral consequences, but all of them affect the team and project in the future.
+**Positieve consequenties:**
 
-### 8.5. ADR-005 TITLE
+- Gebruikers krijgen altijd de meest actuele informatie over prijzen, beschikbaarheid en andere reisgegevens.
+- Verhoogde betrouwbaarheid van de getoonde informatie.
 
-> [!TIP]
-> These documents have names that are short noun phrases. For example, "ADR 1: Deployment on Ruby on Rails 3.0.10" or "ADR 9: LDAP for Multitenant Integration". The whole ADR should be one or two pages long. We will write each ADR as if it is a conversation with a future developer. This requires good writing style, with full sentences organized into paragraphs. Bullets are acceptable only for visual style, not as an excuse for writing sentence fragments. (Bullets kill people, even PowerPoint bullets.)
+**Negatieve consequenties:**
+
+- Meer API-verzoeken kunnen leiden tot hogere kosten.
+- Mogelijk langere laadtijden voor gebruikers, vooral bij trage API-responses.
+
+<!-- ### 8.5. ADR-005 TITLE
+
+### 8.5. ADR-005 Strategy Pattern voor Alternatieve Bouwstenen)
 
 #### Context
 
-> [!TIP]
-> This section describes the forces at play, including technological, political, social, and project local. These forces are probably in tension, and should be called out as such. The language in this section is value-neutral. It is simply describing facts about the problem we're facing and points out factors to take into account or to weigh when making the final decision.
+Onze applicatie biedt verschillende alternatieve bouwstenen zoals vluchten, hotels en autoverhuur. We willen deze bouwstenen dynamisch kunnen wisselen zonder de bestaande code te breken.
 
 #### Considered Options
 
-> [!TIP]
-> This section describes the options that were considered, and gives some indication as to why the chosen option was selected.
+We hebben de volgende opties overwogen om alternatieve bouwstenen te beheren. Hieronder volgt een vergelijkingstabel op basis van verschillende criteria:
+
+| **Optie**               | **Flexibiliteit** | **Onderhoudbaarheid** | **Uitbreidbaarheid** | **Testbaarheid** |
+|-------------------------|-------------------|-----------------------|----------------------|------------------|
+| **Conditionele Logica** | -                 | --                    | --                   | --               |
+| **Strategy Pattern**    | ++                | ++                    | ++                   | ++               |
+| **Factory Pattern**     | +                 | +                     | ++                   | +                |
 
 #### Decision
 
-> [!TIP]
-> This section describes our response to the forces/problem. It is stated in full sentences, with active voice. "We will …"
+We kiezen voor het **Strategy Pattern** om alternatieve bouwstenen flexibel te beheren en dynamisch te wisselen.
 
 #### Status
 
-> [!TIP]
-> A decision may be "proposed" if the project stakeholders haven't agreed with it yet, or "accepted" once it is agreed. If a later ADR changes or reverses a decision, it may be marked as "deprecated" or "superseded" with a reference to its replacement.
+Geaccepteerd
 
 #### Consequences
 
-> [!TIP]
-> This section describes the resulting context, after applying the decision. All consequences should be listed here, not just the "positive" ones. A particular decision may have positive, negative, and neutral consequences, but all of them affect the team and project in the future. -->
+- Nieuwe alternatieven kunnen eenvoudig worden toegevoegd zonder de bestaande code te breken.
+- De logica wordt minder complex, waardoor het onderhoud van de applicatie gemakkelijker wordt.
+- Het is mogelijk om snel nieuwe strategieën te implementeren zonder dat dit invloed heeft op andere onderdelen van de applicatie.
+- Elke bouwsteen kan afzonderlijk worden getest.
+
+[//]: # (### 8.5. ADR-005 TITLE)
+
+[//]: # ()
+[//]: # (> [!TIP])
+
+[//]: # (> These documents have names that are short noun phrases. For example, "ADR 1: Deployment on Ruby on Rails 3.0.10" or "ADR 9: LDAP for Multitenant Integration". The whole ADR should be one or two pages long. We will write each ADR as if it is a conversation with a future developer. This requires good writing style, with full sentences organized into paragraphs. Bullets are acceptable only for visual style, not as an excuse for writing sentence fragments. &#40;Bullets kill people, even PowerPoint bullets.&#41;)
+
+[//]: # ()
+[//]: # (#### Context)
+
+[//]: # ()
+[//]: # (> [!TIP])
+
+[//]: # (> This section describes the forces at play, including technological, political, social, and project local. These forces are probably in tension, and should be called out as such. The language in this section is value-neutral. It is simply describing facts about the problem we're facing and points out factors to take into account or to weigh when making the final decision.)
+
+[//]: # ()
+[//]: # (#### Considered Options)
+
+[//]: # ()
+[//]: # (> [!TIP])
+
+[//]: # (> This section describes the options that were considered, and gives some indication as to why the chosen option was selected.)
+
+[//]: # ()
+[//]: # (#### Decision)
+
+[//]: # ()
+[//]: # (> [!TIP])
+
+[//]: # (> This section describes our response to the forces/problem. It is stated in full sentences, with active voice. "We will …")
+
+[//]: # ()
+[//]: # (#### Status)
+
+[//]: # ()
+[//]: # (> [!TIP])
+
+[//]: # (> A decision may be "proposed" if the project stakeholders haven't agreed with it yet, or "accepted" once it is agreed. If a later ADR changes or reverses a decision, it may be marked as "deprecated" or "superseded" with a reference to its replacement.)
+
+[//]: # ()
+[//]: # (#### Consequences)
+
+[//]: # ()
+[//]: # (> [!TIP])
+
+[//]: # (> This section describes the resulting context, after applying the decision. All consequences should be listed here, not just the "positive" ones. A particular decision may have positive, negative, and neutral consequences, but all of them affect the team and project in the future. -->)
 
 ## 9. Deployment, Operation and Support
 
