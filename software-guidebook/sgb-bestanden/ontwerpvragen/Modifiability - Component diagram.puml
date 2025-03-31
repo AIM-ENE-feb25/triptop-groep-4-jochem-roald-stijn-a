@@ -9,16 +9,16 @@ Container(Frontend, "Frontend", "Javascript en React", "Toont de UI voor het pla
 
 Container_Boundary(backend, "Backend") {
 Component(bookingController, "BookingController", "Spring Boot RestController", "Verwerkt requests van de frontend en geeft door aan de juiste service")
-Component(bookingService, "bookingService", "Spring Boot Service", "Verwerkt resultaten van booking services en zet om naar domeinobjecten")
-Component(bookingAdapter, "bookingAdapter", "Spring Boot Component", "Aanroepen van booking services")
+Component(bookingService, "BookingService", "Spring Boot Service", "Verwerkt resultaten van booking services en zet om naar domeinobjecten")
+Component(bookingAdapter, "BookingAdapter", "Spring Boot Component", "Aanroepen van booking services")
 Component(BookingComAdapter, "BookingComAdapter", "Spring Boot Component", "Adapter voor Booking.com API")
 Component(tripAdvisorAdapter, "TripAdvisorAdapter", "Spring Boot Component", "Adapter voor TripAdvisor API")
 Component(eigenBeheerHandler, "EigenBeheerHandler", "Spring Boot Component", "Eigen beheer van boekingen")
 }
-System_Ext(bookingComApi, "BookingCom API")
-System_Ext(tripAdvisorApi, "TripAdvisor API")
+System_Ext(bookingComApi, "BookingCom API", "API van Booking.com")
+System_Ext(tripAdvisorApi, "TripAdvisor API", "API van TripAdvisor")
 
-Rel(Frontend, bookingController, "Plant reizen en stemt af via", "JSON/REST")
+Rel(Frontend, bookingController, "plant reizen en stemt af via", "JSON/REST")
 Rel(bookingController, bookingService, "verwerkt boekingen via", "Method call")
 Rel(bookingService, bookingAdapter, "roept booking service aan via", "Method call")
 Rel_U(BookingComAdapter, bookingAdapter, "extends")
