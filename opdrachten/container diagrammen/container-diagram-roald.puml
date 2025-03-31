@@ -6,7 +6,7 @@ SHOW_PERSON_OUTLINE()
 Person(reiziger, "Reiziger", "Primaire gebruiker van het systeem. Kan reizen plannen en afstemmen", $type="person")
 Person(reisagent, "ReisAgent", "Tweedelijns support om te kunnen raadplegen", $type="person")
 
-System_Boundary(system, "TripTop omgeving") {
+System_Boundary(system, "Triptop omgeving") {
     Container(fe, "Frontend", "?", "Toont reisopties en samenstellen van reizen")
     Container(be, "Backend", "?", "Verzorgt de logica van het systeem, en verwerkt alle reisdata")
     ContainerDb(db, "Database", "?", "Slaat alle informatie over een reis op")
