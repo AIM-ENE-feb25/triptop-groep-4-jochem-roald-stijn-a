@@ -468,17 +468,28 @@ Geaccepteerd
 
 #### Context
 
-Onze applicatie biedt verschillende alternatieve bouwstenen zoals vluchten, hotels en autoverhuur. We willen deze bouwstenen dynamisch kunnen wisselen zonder de bestaande code te breken.
+Voor onze applicatie willen we de mogelijkheid hebben om alternatieve bouwstenen aan te tonen buiten de gekozen bouwsteen.
+Denk bijvoorbeeld aan het zoeken voor een toepasselijke reis. Stel je probeert een treinrit te zoeken voor een bepaalde datum, maar er zijn geen treinritten meer beschikbaar, dan zal de app als alternatieve reisopties wat busritten of taxiritten aantonen.
 
 #### Alternatieven
 
-We hebben de volgende opties overwogen om alternatieve bouwstenen te beheren. Hieronder volgt een vergelijkingstabel op basis van verschillende criteria:
+We hebben de volgende opties overwogen om alternatieve bouwstenen te beheren. Hieronder volgt een vergelijkingstabel op basis van verschillende criteria.
+We zoeken een beter oplossing dan if-else statements voor het geven van alternatieven. Hiervoor kijken we vooral naar extensibility, coupling, en cohesion.
+Om gebruikers de optie te geven om uit meerdere alternatieven te kiezen geven we is het handiger als 
 
 | **Optie**               | **Flexibiliteit** | **Onderhoudbaarheid** | **Uitbreidbaarheid** | **Testbaarheid** |
 |-------------------------|-------------------|-----------------------|----------------------|------------------|
 | **Conditionele Logica** | -                 | --                    | --                   | --               |
 | **Strategy Pattern**    | ++                | ++                    | ++                   | ++               |
 | **Factory Pattern**     | +                 | +                     | ++                   | +                |
+
+| **Optie**               | **Extensibility** | **Coupling** | **Cohesion** |
+|-------------------------|-------------------|--------------|--------------|
+| **Strategy Pattern**    | ++                | ++           | ++           |
+| **State Pattern**       |                   |              |              |
+
+Aangezien het de bedoeling is om alternatieve bouwstenen aan te geven in een bepaalde situatie vallen de gekozen patterns binnen behavioral design patterns.
+
 
 #### Besluit
 
