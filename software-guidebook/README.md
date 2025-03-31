@@ -1,6 +1,6 @@
 # Software Guidebook Triptop
 
-## 1. Introduction
+## 1. Introductie
 
 Dit software guidebook geeft een overzicht van de Triptop-applicatie. Het bevat een samenvatting van het volgende:
 
@@ -35,12 +35,19 @@ Wij hebben gekozen voor de onderstaande API's, omdat deze de meeste bouwstenen b
   - Cruises
   - Auto verhuur
 
+De volgende API gaat niet zo zeer over de bouwstenen, maar over de betaalopties die wij willen integreren.
+
+- [Mollie](https://docs.mollie.com/reference/payments-api)
+  - Paypal
+  - iDEAL
+  - creditcard
+
 [//]: # "Toelichting op de context van de software inclusief System Context Diagram:"
 [//]: # "* Functionaliteit"
 [//]: # "* Gebruikers"
 [//]: # "* Externe systemen"
 
-## 3. Functional Overview
+## 3. Functioneel Overzicht
 
 Om de belangrijkste features toe te lichten zijn er user stories en twee domain stories gemaakt en een overzicht van het domein in de vorm van een domeinmodel. Op deze plek staat typisch een user story map maar die ontbreekt in dit voorbeeld.
 
@@ -143,7 +150,7 @@ De ontwerpvraag wordt uitgewerkt door middel van het **Strategy Design Pattern**
   }
   ```
 
-#### 4.1.3. Component diagram
+#### 4.1.3. Component diagrammen
 
 Hieronder is een dynamisch container diagram uitgewerkt die de volgorde van aanroepen van externe services weergeeft. De relaties naar de Externe API zijn slecht te lezen doordat ze overlappen. Deze connecties zijn beter te lezen in [het bestand zelf](./sgb-bestanden/ontwerpvragen/Fault%20Tolerance%20-%20volgorde%20van%20aanroepen.puml).
 
@@ -153,7 +160,7 @@ Hieronder is een dynamisch container diagram uitgewerkt die de volgorde van aanr
 
 Hieronder is een class diagram uitgewerkt die de classes en functies weergeeft die van belang zijn voor de ontwerpvraag.
 
-![Modularity - class diagram-C4_Class_Diagram___Backend.png](sgb-bestanden%2Fontwerpvragen%2FModularity%20-%20class%20diagram-C4_Class_Diagram___Backend.png)
+![Modularity - class diagram-C4_Class_Diagram___Backend.svg](sgb-bestanden%2Fontwerpvragen%2FModularity%20-%20class%20diagram-C4_Class_Diagram___Backend.svg)
 
 ### 4.2. Modifiability - Verschillende boekingsservices integreren
 De volgende ontwerpvraag is uitgewerkt door **Roald**:
@@ -173,14 +180,13 @@ De volgende ontwerpvraag is uitgewerkt door **Roald**:
 Hieronder zijn de interfaces van de componenten die van belang zijn voor de ontwerpvraag uitgewerkt. Deze interfaces geven een overzicht van de methodes die de componenten aanbieden.
 
 
-#### 4.2.3. Component diagram
+#### 4.2.3. Component diagrammen
 Hieronder is een component diagram uitgewerkt die de componenten en hun verantwoordelijkheden weergeeft. Dit diagram geeft een overzicht van de componenten en hun verantwoordelijkheden.
 ![Modifiability - Component diagram.svg](sgb-bestanden/ontwerpvragen/Modifiability%20-%20Component%20diagram.svg)
 
-#### 4.2.4. Classes en functies
+#### 4.2.4. Klassen en functies
 Hieronder is een class diagram uitgewerkt die de classes en functies weergeeft die van belang zijn voor de ontwerpvraag. Dit diagram geeft een overzicht van de classes en hun verantwoordelijkheden.
-![Modifiability - class diagram.svg](sgb-bestanden/ontwerpvragen/Modifiability%20-%20class%20diagram.svg)
-
+![Modifiability - class diagram.svg](sgb-bestanden%2Fontwerpvragen%2FModifiability%20-%20class%20diagram.svg)
 
 ### 4.3. Fault Tolerance - Externe services die niet beschikbaar zijn
 
@@ -254,9 +260,9 @@ Hieronder zijn de interfaces van de componenten die van belang zijn voor de ontw
   }
   ```
 
-#### 4.3.3. Volgorde van aanroepen
+#### 4.3.3. Component diagrammen
 
-Hieronder is een dynamisch container diagram uitgewerkt die de volgorde van aanroepen van externe services weergeeft. De relaties naar de Externe API zijn slecht te lezen doordat ze overlappen. Deze connecties zijn beter te lezen in [het bestand zelf](./sgb-bestanden/ontwerpvragen/Fault%20Tolerance%20-%20volgorde%20van%20aanroepen.puml).
+Hieronder is een dynamisch component diagram uitgewerkt die de volgorde van aanroepen van externe services weergeeft. De relaties naar de Externe API zijn slecht te lezen doordat ze overlappen. Deze connecties zijn beter te lezen in [het bestand zelf](./sgb-bestanden/ontwerpvragen/Fault%20Tolerance%20-%20volgorde%20van%20aanroepen.puml).
 
 <!-- link to `8.4. ADR-004 Nieuwste API data gaat voor cache` -->
 
@@ -324,7 +330,7 @@ In de dynamische container diagrammen is te zien hoe de containers met elkaar co
 
 Aangezien we nog niet weten hoe Mollie in elkaar zit houdt het diagram hier op.
 
-### 7.2. Components
+### 7.2. Componenten
 
 > [!IMPORTANT]
 > Voeg toe: Component Diagram plus een Dynamic Diagram van een aantal scenario's inclusief begeleidende tekst.
@@ -345,7 +351,7 @@ Aangezien we nog niet weten hoe Mollie in elkaar zit houdt het diagram hier op.
 
 Onze applicatie heeft data van externe systemen nodig zodat gebruikers een trip kunnen boeken. Om het aantal externe systemen kort te houden hebben we een tweetal externe systemen gekozen die zoveel mogelijk bouwstenen bevatten.
 
-#### Considered Options
+#### Alternatieven
 
 We hadden een aardige lijst van api's gemaakt die we mogelijk konden gebruiken voor onze applicatie.
 Er waren een paar systemen die er boven uit kwamen. Hieronder is een tabel die aantoont welke bouwstenen de externe systemen bevatten.
@@ -361,7 +367,7 @@ We hebben uiteindelijk de verschillende bouwstenen vergeleken van alle api's en 
 Aangezien Tripadvisor en Booking zowel vluchten, hotels en autoverhuur bevatten raken ze alle bouwstenen die TravelData en Flight Scraper hebben.
 Verder hebben de gekozen systemen ook nog meer bouwstenen die noodzakelijk zijn voor de applicatie zoals attracties en restaurants.
 
-#### Decision
+#### Besluit
 
 We gaan Booking en Tripadvisor als onze externe systemen gebruiken.
 
@@ -369,7 +375,7 @@ We gaan Booking en Tripadvisor als onze externe systemen gebruiken.
 
 Geaccepteerd
 
-#### Consequences
+#### Consequenties
 
 - Als een van de externe systemen uit valt zal gelijk een groot deel van de mogelijkheden op onze website niet meer zichtbaar zijn.
 - Doordat we slechts twee externe systemen gebruiken, kunnen we informatie sneller ophalen en efficiënt verwerken. Dit vermindert de complexiteit van onze integratie en verhoogt de stabiliteit.
