@@ -1,6 +1,6 @@
 # Software Guidebook Triptop
 
-## 1. Introduction
+## 1. Introductie
 
 Dit software guidebook geeft een overzicht van de Triptop-applicatie. Het bevat een samenvatting van het volgende:
 
@@ -47,7 +47,14 @@ Wij hebben gekozen voor de onderstaande API's, omdat deze de meeste bouwstenen b
   - Cruises
   - Auto verhuur
 
-## 3. Functional Overview
+De volgende API gaat niet zo zeer over de bouwstenen, maar over de betaalopties die wij willen integreren.
+
+- [Mollie](https://docs.mollie.com/reference/payments-api)
+  - Paypal
+  - iDEAL
+  - creditcard
+
+## 3. Functioneel Overzicht
 
 Om de belangrijkste features toe te lichten zijn er user stories en twee domain stories gemaakt en een overzicht van het domein in de vorm van een domeinmodel. Op deze plek staat typisch een user story map maar die ontbreekt in dit voorbeeld.
 
@@ -153,7 +160,7 @@ De ontwerpvraag wordt uitgewerkt door middel van het **Strategy Design Pattern**
   }
   ```
 
-#### 4.1.3. Component diagram
+#### 4.1.3. Component diagrammen
 
 Hieronder is een component diagram uitgewerkt.
 
@@ -166,7 +173,7 @@ Hieronder is een component diagram uitgewerkt.
 
 Hieronder is een class diagram uitgewerkt die de classes en functies weergeeft die van belang zijn voor de ontwerpvraag.
 
-![Modularity - class diagram-C4_Class_Diagram___Backend.png](sgb-bestanden%2Fontwerpvragen%2FModularity%20-%20class%20diagram-C4_Class_Diagram___Backend.png)
+![Modularity - class diagram-C4_Class_Diagram___Backend.svg](sgb-bestanden%2Fontwerpvragen%2FModularity%20-%20class%20diagram-C4_Class_Diagram___Backend.svg)
 > **Figuur 6:** Class diagram van alternatieve bouwstenen aanbieden
 > 
 > TODO Jochem: uitleg
@@ -189,16 +196,16 @@ De volgende ontwerpvraag is uitgewerkt door **Roald**:
 Hieronder zijn de interfaces van de componenten die van belang zijn voor de ontwerpvraag uitgewerkt. Deze interfaces geven een overzicht van de methodes die de componenten aanbieden.
 
 
-#### 4.2.3. Component diagram
+#### 4.2.3. Component diagrammen
 Hieronder is een component diagram uitgewerkt die de componenten en hun verantwoordelijkheden weergeeft. Dit diagram geeft een overzicht van de componenten en hun verantwoordelijkheden.
 ![Modifiability - Component diagram.svg](sgb-bestanden/ontwerpvragen/Modifiability%20-%20Component%20diagram.svg)
 > **Figuur 7:** Component diagram van verschillende boekingsservices integreren
 > 
 > TODO Roald: uitleg
 
-#### 4.2.4. Classes en functies
+#### 4.2.4. Klassen en functies
 Hieronder is een class diagram uitgewerkt die de classes en functies weergeeft die van belang zijn voor de ontwerpvraag. Dit diagram geeft een overzicht van de classes en hun verantwoordelijkheden.
-![Modifiability - class diagram.svg](sgb-bestanden/ontwerpvragen/Modifiability%20-%20class%20diagram.svg)
+![Modifiability - class diagram.svg](sgb-bestanden%2Fontwerpvragen%2FModifiability%20-%20class%20diagram.svg)
 > **Figuur 8:** Class diagram van verschillende boekingsservices integreren
 > 
 > TODO Roald: uitleg
@@ -275,7 +282,7 @@ Hieronder zijn de interfaces van de componenten die van belang zijn voor de ontw
   }
   ```
 
-#### 4.3.3. Volgorde van aanroepen
+#### 4.3.3. Component diagrammen
 
 Hieronder is een dynamisch container diagram uitgewerkt die de volgorde van aanroepen van externe services weergeeft.
 
@@ -298,21 +305,22 @@ Hieronder is een class diagram uitgewerkt die de klassen en functies weergeeft d
 > - Law of Demeter
 > - Dependency Inversion Principle
 
-- evt. link naar ADR's
-
 ## 5. Constraints
 
-<!-- TODO; Dit hoofdstuk kort uitwerken. Talen en framework keuzes, rest vind Bart niet interresant -->
-<!-- - JavaScript
-- React
-- Java
-- Spring boot
-- SQL Server
+Bij het ontwikkelen van de applicatie zijn de volgende beperkingen vastgesteld:
 
-(spring data jdbc?) -->
+### Programmeertalen en frameworks:
+- Frontend wordt ontwikkeld in **JavaScript** met **React**.
+- Backend wordt ontwikkeld in **Java** met **Spring Boot**.
 
-> [!IMPORTANT]
-> Beschrijf zelf de beperkingen die op voorhand bekend zijn die invloed hebben op keuzes die wel of niet gemaakt kunnen of mogen worden.
+### Database:
+- Main database ontwikkeld met **SQL Server**
+  - Zie [ADR-003: keuze database](#83-adr-003-keuze-database) voor uitleg van deze keuze.
+- Cache wordt ontwikkeld met **Redis**.
+
+### Externe API's:
+- Alleen **Booking.com** en **Tripadvisor** worden gebruikt als externe systemen voor het ophalen van data.
+  - Zie [ADR-001: Externe systemen](#81-adr-001-externe-systemen) voor uitleg van deze keuze.
 
 ## 6. Principles
 
@@ -360,7 +368,7 @@ In de dynamische container diagrammen is te zien hoe de containers met elkaar co
 
 Aangezien we nog niet weten hoe Mollie in elkaar zit houdt het diagram hier op.
 
-### 7.2. Components
+### 7.2. Componenten
 
 > [!IMPORTANT]
 > Voeg toe: Component Diagram plus een Dynamic Diagram van een aantal scenario's inclusief begeleidende tekst.
@@ -381,7 +389,7 @@ Aangezien we nog niet weten hoe Mollie in elkaar zit houdt het diagram hier op.
 
 Onze applicatie heeft data van externe systemen nodig zodat gebruikers een trip kunnen boeken. Om het aantal externe systemen kort te houden hebben we een tweetal externe systemen gekozen die zoveel mogelijk bouwstenen bevatten.
 
-#### Considered Options
+#### Alternatieven
 
 We hadden een aardige lijst van api's gemaakt die we mogelijk konden gebruiken voor onze applicatie.
 Er waren een paar systemen die er boven uit kwamen. Hieronder is een tabel die aantoont welke bouwstenen de externe systemen bevatten.
@@ -397,7 +405,7 @@ We hebben uiteindelijk de verschillende bouwstenen vergeleken van alle api's en 
 Aangezien Tripadvisor en Booking zowel vluchten, hotels en autoverhuur bevatten raken ze alle bouwstenen die TravelData en Flight Scraper hebben.
 Verder hebben de gekozen systemen ook nog meer bouwstenen die noodzakelijk zijn voor de applicatie zoals attracties en restaurants.
 
-#### Decision
+#### Besluit
 
 We gaan Booking en Tripadvisor als onze externe systemen gebruiken.
 
@@ -405,7 +413,7 @@ We gaan Booking en Tripadvisor als onze externe systemen gebruiken.
 
 Geaccepteerd
 
-#### Consequences
+#### Consequenties
 
 - Als een van de externe systemen uit valt zal gelijk een groot deel van de mogelijkheden op onze website niet meer zichtbaar zijn.
 - Doordat we slechts twee externe systemen gebruiken, kunnen we informatie sneller ophalen en efficiënt verwerken. Dit vermindert de complexiteit van onze integratie en verhoogt de stabiliteit.
