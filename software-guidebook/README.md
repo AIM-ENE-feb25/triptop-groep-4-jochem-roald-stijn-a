@@ -360,13 +360,17 @@ In de dynamische container diagrammen is te zien hoe de containers met elkaar co
 
 ![dynamisch-container-diagram-inloggen](sgb-bestanden/dynamisch-container-diagram-inloggen-C4_Dynamisch_container_diagram__inloggen_op_TripTop.svg)
 > **Figuur 12:** Dynamisch container diagram van inloggen op TripTop
+> 
+> Hier wordt in stappen uitgelegd hoe een gebruiker inlogt op de website. De containers zijn gebaseerd op [het container diagram in figuur 11](#711-container-diagram). 
 
 ##### 7.1.2.2 Reis boeken
 
 ![dynamisch-container-diagram-reis-boeken](sgb-bestanden/dynamisch-container-diagram-reis-boeken-C4_Dynamisch_container_diagram__een_reis_boeken_op_TripTop.svg)
 > **Figuur 13:** Dynamisch container diagram van een reis boeken op TripTop
-
-Aangezien we nog niet weten hoe Mollie in elkaar zit houdt het diagram hier op.
+>
+> Hier wordt in stappen uitgelegd hoe een gebruiker een reis boekt op de website. De containers zijn gebaseerd op [het container diagram in figuur 11](#711-container-diagram).
+> 
+> Aangezien we nog niet weten hoe Mollie geïmplementeerd wordt, houdt dit diagram op bij de betaling.
 
 ### 7.2. Componenten
 
