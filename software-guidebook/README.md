@@ -74,14 +74,17 @@ Als gebruiker wil ik de bouwstenen van mijn reis flexibel kunnen uitbreiden met 
 ### 3.2 Domain Story Reis Boeken (AS IS)
 
 ![Domain Story Reis Boeken AS IS](../opdracht-diagrammen/reis-boeken-asis-coursegrained_2024-06-11.egn.svg)
+> **Figuur 2:** Domain Story Reis Boeken AS IS
 
 ### 3.3 Domain Story Reis Boeken (TO BE)
 
 ![Domain Story Reis Boeken TO BE](../opdracht-diagrammen/reis-boeken-tobe-coursegrained_2024-06-11.egn.svg)
+> **Figuur 3:** Domain Story Reis Boeken TO BE
 
 ### 3.4 Domain Model
 
 ![Domain Model](../opdracht-diagrammen/Domain%20Model.png)
+> **Figuur 4:** Domain Model
 
 ## 4. Quality Attributes
 
@@ -153,12 +156,14 @@ De ontwerpvraag wordt uitgewerkt door middel van het **Strategy Design Pattern**
 Hieronder is een dynamisch container diagram uitgewerkt die de volgorde van aanroepen van externe services weergeeft. De relaties naar de Externe API zijn slecht te lezen doordat ze overlappen. Deze connecties zijn beter te lezen in [het bestand zelf](./sgb-bestanden/ontwerpvragen/Fault%20Tolerance%20-%20volgorde%20van%20aanroepen.puml).
 
 ![Modularity - component diagram-Component_diagram.png](sgb-bestanden%2Fontwerpvragen%2FModularity%20-%20component%20diagram-Component_diagram.png)
+> **Figuur 5:** Component diagram van alternatieve bouwstenen aanbieden
 
 #### 4.1.4. Klassen en functies
 
 Hieronder is een class diagram uitgewerkt die de classes en functies weergeeft die van belang zijn voor de ontwerpvraag.
 
 ![Modularity - class diagram-C4_Class_Diagram___Backend.png](sgb-bestanden%2Fontwerpvragen%2FModularity%20-%20class%20diagram-C4_Class_Diagram___Backend.png)
+> **Figuur 6:** Class diagram van alternatieve bouwstenen aanbieden
 
 ### 4.2. Modifiability - Verschillende boekingsservices integreren
 De volgende ontwerpvraag is uitgewerkt door **Roald**:
@@ -181,11 +186,12 @@ Hieronder zijn de interfaces van de componenten die van belang zijn voor de ontw
 #### 4.2.3. Component diagram
 Hieronder is een component diagram uitgewerkt die de componenten en hun verantwoordelijkheden weergeeft. Dit diagram geeft een overzicht van de componenten en hun verantwoordelijkheden.
 ![Modifiability - Component diagram.svg](sgb-bestanden/ontwerpvragen/Modifiability%20-%20Component%20diagram.svg)
+> **Figuur 7:** Component diagram van verschillende boekingsservices integreren
 
 #### 4.2.4. Classes en functies
 Hieronder is een class diagram uitgewerkt die de classes en functies weergeeft die van belang zijn voor de ontwerpvraag. Dit diagram geeft een overzicht van de classes en hun verantwoordelijkheden.
 ![Modifiability - class diagram.svg](sgb-bestanden/ontwerpvragen/Modifiability%20-%20class%20diagram.svg)
-
+> **Figuur 8:** Class diagram van verschillende boekingsservices integreren
 
 ### 4.3. Fault Tolerance - Externe services die niet beschikbaar zijn
 
@@ -263,17 +269,17 @@ Hieronder zijn de interfaces van de componenten die van belang zijn voor de ontw
 
 Hieronder is een dynamisch container diagram uitgewerkt die de volgorde van aanroepen van externe services weergeeft. De relaties naar de Externe API zijn slecht te lezen doordat ze overlappen. Deze connecties zijn beter te lezen in [het bestand zelf](./sgb-bestanden/ontwerpvragen/Fault%20Tolerance%20-%20volgorde%20van%20aanroepen.puml).
 
-<!-- link to `8.4. ADR-004 Nieuwste API data gaat voor cache` -->
-
 Bij dit diagram hoort [ADR-004: Nieuwste API data gaat voor cache](#84-adr-004-nieuwste-api-data-gaat-voor-cache).
 
 ![Fault Tolerance - volgorde van aanroepen](sgb-bestanden/ontwerpvragen/Fault%20Tolerance%20-%20volgorde%20van%20aanroepen-Volgorde_van_aanroepen.svg)
+> **Figuur 9:** Dynamisch component diagram van externe services
 
 #### 4.3.4. Klassen en functies
 
 Hieronder is een class diagram uitgewerkt die de klassen en functies weergeeft die van belang zijn voor de ontwerpvraag.
 
 ![Fault Tolerance - class diagram](sgb-bestanden/ontwerpvragen/Fault%20Tolerance%20-%20class%20diagram-C4_Class_Diagram___Backend.svg)
+> **Figuur 10:** Class diagram van externe services
 
 - evt. link naar ADR's
 
@@ -313,6 +319,7 @@ Hieronder is een class diagram uitgewerkt die de klassen en functies weergeeft d
 In het container diagram is te zien hoe de verschillende containers met elkaar communiceren. De containers zijn de verschillende onderdelen van de applicatie. In dit geval zijn dat de front-end, back-end, database, cache en de externe API's.
 
 ![container diagram](sgb-bestanden/container-diagram-C4_Container_diagram__TripTop.svg)
+> **Figuur 11:** Container diagram van de Triptop-applicatie
 
 #### 7.1.2. Dynamische container diagrammen
 
@@ -321,10 +328,12 @@ In de dynamische container diagrammen is te zien hoe de containers met elkaar co
 ##### 7.1.2.1 Inloggen
 
 ![dynamisch-container-diagram-inloggen](sgb-bestanden/dynamisch-container-diagram-inloggen-C4_Dynamisch_container_diagram__inloggen_op_TripTop.svg)
+> **Figuur 12:** Dynamisch container diagram van inloggen op TripTop
 
 ##### 7.1.2.2 Reis boeken
 
 ![dynamisch-container-diagram-reis-boeken](sgb-bestanden/dynamisch-container-diagram-reis-boeken-C4_Dynamisch_container_diagram__een_reis_boeken_op_TripTop.svg)
+> **Figuur 13:** Dynamisch container diagram van een reis boeken op TripTop
 
 Aangezien we nog niet weten hoe Mollie in elkaar zit houdt het diagram hier op.
 
