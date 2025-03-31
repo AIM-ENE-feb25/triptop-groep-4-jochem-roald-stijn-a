@@ -270,21 +270,22 @@ Hieronder is een class diagram uitgewerkt die de klassen en functies weergeeft d
 
 ![Fault Tolerance - class diagram](sgb-bestanden/ontwerpvragen/Fault%20Tolerance%20-%20class%20diagram-C4_Class_Diagram___Backend.svg)
 
-- evt. link naar ADR's
-
 ## 5. Constraints
 
-<!-- TODO; Dit hoofdstuk kort uitwerken. Talen en framework keuzes, rest vind Bart niet interresant -->
-<!-- - JavaScript
-- React
-- Java
-- Spring boot
-- SQL Server
+Bij het ontwikkelen van de applicatie zijn de volgende beperkingen vastgesteld:
 
-(spring data jdbc?) -->
+### Programmeertalen en frameworks:
+- Frontend wordt ontwikkeld in **JavaScript** met **React**.
+- Backend wordt ontwikkeld in **Java** met **Spring Boot**.
 
-> [!IMPORTANT]
-> Beschrijf zelf de beperkingen die op voorhand bekend zijn die invloed hebben op keuzes die wel of niet gemaakt kunnen of mogen worden.
+### Database:
+- Main database ontwikkeld met **SQL Server**
+  - Zie [ADR-003: keuze database](#83-adr-003-keuze-database) voor uitleg van deze keuze.
+- Cache wordt ontwikkeld met **Redis**.
+
+### Externe API's:
+- Alleen **Booking.com** en **Tripadvisor** worden gebruikt als externe systemen voor het ophalen van data.
+  - Zie [ADR-001: Externe systemen](#81-adr-001-externe-systemen) voor uitleg van deze keuze.
 
 ## 6. Principles
 
