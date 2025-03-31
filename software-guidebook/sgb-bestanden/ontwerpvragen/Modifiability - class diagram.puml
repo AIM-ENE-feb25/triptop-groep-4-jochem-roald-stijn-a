@@ -39,9 +39,9 @@ class BookingService {
 IBookingAdapter <|.. BookingComAdapter
 IBookingAdapter <|.. TripAdvisorAdapter
 IBookingAdapter <|.. EigenBeheerHandler
-BookingComAdapter --> "BookingCom API"
-TripAdvisorAdapter --> "TripAdvisor API"
+BookingComAdapter --> "bookingComAPI 1" "BookingCom API"
+TripAdvisorAdapter --> "tripAdvisorAPI 1" "TripAdvisor API"
 
-BookingController --> BookingService
-BookingService --> IBookingAdapter
+BookingController --> "bookingService 1" BookingService
+BookingService --> "iBookingAdapter 1" IBookingAdapter
 @enduml
