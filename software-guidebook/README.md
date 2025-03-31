@@ -153,10 +153,12 @@ De ontwerpvraag wordt uitgewerkt door middel van het **Strategy Design Pattern**
 
 #### 4.1.3. Component diagram
 
-Hieronder is een dynamisch container diagram uitgewerkt die de volgorde van aanroepen van externe services weergeeft. De relaties naar de Externe API zijn slecht te lezen doordat ze overlappen. Deze connecties zijn beter te lezen in [het bestand zelf](./sgb-bestanden/ontwerpvragen/Fault%20Tolerance%20-%20volgorde%20van%20aanroepen.puml).
+Hieronder is een component diagram uitgewerkt.
 
 ![Modularity - component diagram-Component_diagram.png](sgb-bestanden%2Fontwerpvragen%2FModularity%20-%20component%20diagram-Component_diagram.png)
 > **Figuur 5:** Component diagram van alternatieve bouwstenen aanbieden
+>
+> TODO Jochem: uitleg
 
 #### 4.1.4. Klassen en functies
 
@@ -164,6 +166,8 @@ Hieronder is een class diagram uitgewerkt die de classes en functies weergeeft d
 
 ![Modularity - class diagram-C4_Class_Diagram___Backend.png](sgb-bestanden%2Fontwerpvragen%2FModularity%20-%20class%20diagram-C4_Class_Diagram___Backend.png)
 > **Figuur 6:** Class diagram van alternatieve bouwstenen aanbieden
+> 
+> TODO Jochem: uitleg
 
 ### 4.2. Modifiability - Verschillende boekingsservices integreren
 De volgende ontwerpvraag is uitgewerkt door **Roald**:
@@ -187,11 +191,15 @@ Hieronder zijn de interfaces van de componenten die van belang zijn voor de ontw
 Hieronder is een component diagram uitgewerkt die de componenten en hun verantwoordelijkheden weergeeft. Dit diagram geeft een overzicht van de componenten en hun verantwoordelijkheden.
 ![Modifiability - Component diagram.svg](sgb-bestanden/ontwerpvragen/Modifiability%20-%20Component%20diagram.svg)
 > **Figuur 7:** Component diagram van verschillende boekingsservices integreren
+> 
+> TODO Roald: uitleg
 
 #### 4.2.4. Classes en functies
 Hieronder is een class diagram uitgewerkt die de classes en functies weergeeft die van belang zijn voor de ontwerpvraag. Dit diagram geeft een overzicht van de classes en hun verantwoordelijkheden.
 ![Modifiability - class diagram.svg](sgb-bestanden/ontwerpvragen/Modifiability%20-%20class%20diagram.svg)
 > **Figuur 8:** Class diagram van verschillende boekingsservices integreren
+> 
+> TODO Roald: uitleg
 
 ### 4.3. Fault Tolerance - Externe services die niet beschikbaar zijn
 
@@ -228,15 +236,15 @@ Hieronder zijn de interfaces van de componenten die van belang zijn voor de ontw
 - **Generieke service**:
   ```java
   public interface FlightsService {
-      public List<Flight> getFlights(String origin, String destination, Date departureDate, Date returnDate);
+      List<Flight> getFlights(String origin, String destination, Date departureDate, Date returnDate);
   }
   ```
 - **CacheRepository**:
 
   ```java
   public interface CacheRepository {
-      public void save(Endpoint key, String response, Duration duration);
-      public String get(Endpoint key);
+      void save(Endpoint key, String response, Duration duration);
+      String get(Endpoint key);
   }
 
   public record Endpoint(Method method, String url, HashMap<String, String> queryParams, String bodyHash) {
@@ -261,18 +269,20 @@ Hieronder zijn de interfaces van de componenten die van belang zijn voor de ontw
 - **ExternalAPIHandler**:
   ```java
   public interface ExternalAPIHandler {
-      public String call(Endpoint endpoint);
+      String call(Endpoint endpoint);
   }
   ```
 
 #### 4.3.3. Volgorde van aanroepen
 
-Hieronder is een dynamisch container diagram uitgewerkt die de volgorde van aanroepen van externe services weergeeft. De relaties naar de Externe API zijn slecht te lezen doordat ze overlappen. Deze connecties zijn beter te lezen in [het bestand zelf](./sgb-bestanden/ontwerpvragen/Fault%20Tolerance%20-%20volgorde%20van%20aanroepen.puml).
-
-Bij dit diagram hoort [ADR-004: Nieuwste API data gaat voor cache](#84-adr-004-nieuwste-api-data-gaat-voor-cache).
+Hieronder is een dynamisch container diagram uitgewerkt die de volgorde van aanroepen van externe services weergeeft.
 
 ![Fault Tolerance - volgorde van aanroepen](sgb-bestanden/ontwerpvragen/Fault%20Tolerance%20-%20volgorde%20van%20aanroepen-Volgorde_van_aanroepen.svg)
 > **Figuur 9:** Dynamisch component diagram van externe services
+> 
+> De relaties naar de Externe API zijn slecht te lezen doordat ze overlappen. Deze connecties zijn beter te lezen in [het bestand zelf](./sgb-bestanden/ontwerpvragen/Fault%20Tolerance%20-%20volgorde%20van%20aanroepen.puml).
+> 
+> De beslissing om de nieuwste API-data voor de cache te laten gaan is vastgelegd in [ADR-004: Nieuwste API data gaat voor cache](#84-adr-004-nieuwste-api-data-gaat-voor-cache).
 
 #### 4.3.4. Klassen en functies
 
@@ -280,6 +290,11 @@ Hieronder is een class diagram uitgewerkt die de klassen en functies weergeeft d
 
 ![Fault Tolerance - class diagram](sgb-bestanden/ontwerpvragen/Fault%20Tolerance%20-%20class%20diagram-C4_Class_Diagram___Backend.svg)
 > **Figuur 10:** Class diagram van externe services
+> 
+> Dit klassendiagram maakt gebruik van de volgende design principles:
+> - Program to an Interface
+> - Law of Demeter
+> - Dependency Inversion Principle
 
 - evt. link naar ADR's
 
