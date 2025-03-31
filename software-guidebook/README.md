@@ -11,14 +11,24 @@ Dit software guidebook geeft een overzicht van de Triptop-applicatie. Het bevat 
 
 ## 2. Context
 
-[//]: # "> [!IMPORTANT]"
-[//]: # "> Werk zelf dit hoofdstuk uit met context diagrammen en een beschrijving van de context van de software."
-
 In dit hoofdstuk wordt de context van de software beschreven. Dit omvat de gebruikers, het systeem en de externe systemen die met de software communiceren.
 
 ![context diagram](sgb-bestanden/context-diagram-C4_Context_diagram__TripTop.svg)
 
-### 2.1. Toelichting API's
+> **Figuur 1:** Context diagram van de Triptop-applicatie.
+> 
+> - Rechtsboven in het diagram staat de legenda met de betekenis van de kleuren in het diagram.
+> - Het externe systeem **Mollie** is toegevoegd voor betalingen, maar de implementatie hiervan is nog onduidelijk. Dit wordt in de prototypes niet meegenomen, omdat dit geen hoofdzaak is en geen prioriteit heeft.
+
+### 2.1. Toelichting Functionaliteit
+In het systeem kunnen reizigers reizen plannen en boeken, en wordt alle informatie opgehaald aan de hand van API's.
+
+### 2.2. Toelichting Gebruikers
+Het systeem heeft twee typen gebruikers: de **reiziger** en de **beheerder**.
+- De reiziger is de primaire gebruiker van de applicatie. De reiziger kan met zijn account reizen plannen en boeken.
+- De reis agent heeft sinds de implementatie van deze applicatie een minder belangrijke rol. Hij kan gebeld worden door de reiziger om te helpen met het boeken van een reis, en kan tickets afhandelen van reizigers die problemen hebben met hun reis.
+
+### 2.3. Toelichting Externe Systemen
 Wij hebben gekozen voor de onderstaande API's, omdat deze de meeste bouwstenen bevatten die wij nodig hebben voor onze applicatie. Deze keuze staat vastgelegd in [ADR-001 Externe systemen](#81-adr-001-externe-systemen).
 
 - [Booking.com](https://rapidapi.com/DataCrawler/api/booking-com15/playground/apiendpoint_6767dbac-969b-4230-8d26-f8b007bb8094)
@@ -34,11 +44,6 @@ Wij hebben gekozen voor de onderstaande API's, omdat deze de meeste bouwstenen b
   - "Vacation Rentals"
   - Cruises
   - Auto verhuur
-
-[//]: # "Toelichting op de context van de software inclusief System Context Diagram:"
-[//]: # "* Functionaliteit"
-[//]: # "* Gebruikers"
-[//]: # "* Externe systemen"
 
 ## 3. Functional Overview
 
