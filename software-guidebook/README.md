@@ -19,6 +19,8 @@ In dit hoofdstuk wordt de context van de software beschreven. Dit omvat de gebru
 > 
 > - Rechtsboven in het diagram staat de legenda met de betekenis van de kleuren in het diagram.
 > - Het externe systeem **Mollie** is toegevoegd voor betalingen, maar de implementatie hiervan is nog onduidelijk. Dit wordt in de prototypes niet meegenomen, omdat dit geen hoofdzaak is en geen prioriteit heeft.
+> 
+> In [figuur 11](#711-container-diagram) is een container diagram te zien dat ingezoomd is op het systeem uit dit context diagram.
 
 ### 2.1. Toelichting Functionaliteit
 In het systeem kunnen reizigers reizen plannen en boeken, en wordt alle informatie opgehaald aan de hand van API's.
@@ -335,6 +337,12 @@ In het container diagram is te zien hoe de verschillende containers met elkaar c
 
 ![container diagram](sgb-bestanden/container-diagram-C4_Container_diagram__TripTop.svg)
 > **Figuur 11:** Container diagram van de Triptop-applicatie
+> 
+> Dit diagram geeft een overzicht van de verschillende containers binnen het systeem dat in [figuur 1](#2-context) is beschreven.
+> 
+> - De backend en database communiceren via Spring JDBC. Hierbij wordt gebruik gemaakt van Spring JDBC Template.
+> - De backend en Redis cache communiceren via Jedis. Dit is een dependency in de pom.xml.
+> - Mollie wordt aangeroepen via een REST API, maar het is nog onduidelijk wat voor response we krijgen (bijvoorbeeld JSON).
 
 #### 7.1.2. Dynamische container diagrammen
 
