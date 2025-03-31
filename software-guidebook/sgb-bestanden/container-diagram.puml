@@ -7,7 +7,7 @@ top to bottom direction
 SHOW_PERSON_OUTLINE()
 
 Person(reiziger, "Reiziger", "Primaire gebruiker van het systeem. Kan reizen plannen en afstemmen")
-Person(reisagent, "ReisAgent", "Is te raadplegen voor tweedelijns support")
+Person(reisagent, "Reisagent", "Is te raadplegen voor tweedelijns support")
 
 System_Boundary(system, "Triptop") {
     Container(frontend, "Frontend", "Javascript en React", "Toont de UI voor het planproces van de reiziger en het ticketsysteem van de reisagent.")
@@ -16,8 +16,8 @@ System_Boundary(system, "Triptop") {
     Container(cache, "Cache", "Redis", "Slaat API-responses op om API calls te verminderen")
 }
 
-System_Ext(booking, "Booking API", "Biedt hotels, vluchten, autoverhuur, taxi's en attracties")
-System_Ext(tripadvisor, "TripAdvisor API", "Biedt restaurants, hotels, vluchten, cruises en autoverhuur aan")
+System_Ext(booking, "Booking.com API", "Biedt hotels, vluchten, autoverhuur, taxi's en attracties")
+System_Ext(tripadvisor, "Tripadvisor API", "Biedt restaurants, hotels, vluchten, cruises en autoverhuur aan")
 System_Ext(mollie, "Mollie", "Betalingsysteem voor het betalen via iDEAL, creditcard en paypal")
 
 ' USERS

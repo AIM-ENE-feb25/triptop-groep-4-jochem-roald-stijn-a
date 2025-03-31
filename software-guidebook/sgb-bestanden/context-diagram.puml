@@ -7,7 +7,7 @@ top to bottom direction
 SHOW_PERSON_OUTLINE()
 
 Person(reiziger, "Reiziger", "Primaire gebruiker van het systeem. Kan reizen plannen en afstemmen")
-Person(reisagent, "ReisAgent", "Is te raadplegen voor tweedelijns support")
+Person(reisagent, "Reisagent", "Is te raadplegen voor tweedelijns support")
 
 System(triptop, "Triptop", "Applicatie voor het plannen en boeken van vakantie trips, reizen, vervoer, excursies en eten")
 
@@ -17,8 +17,8 @@ System(triptop, "Triptop", "Applicatie voor het plannen en boeken van vakantie t
 'System_Ext(autohuur, "Autohuur API", "Biedt autoverhuur aan van bijv. huurauto via Sixt, Hertz")
 'System_Ext(activiteiten, "Excursies / activiteiten API", "Biedt excursies en activiteiten aan van bijv. via GetYourGuide, Tripadvisor")
 'System_Ext(eten, "Eten en drinken API", "Biedt restaurants en winkels voor eten en drinken aan van bijv. via Takeaway, Eet.nu")
-System_Ext(booking, "Booking API", "Biedt hotels, vluchten, autoverhuur, taxi's en attracties", "REST")
-System_Ext(tripadvisor, "TripAdvisor API", "Biedt restaurants, hotels, vluchten, cruises en autoverhuur aan", "REST")
+System_Ext(booking, "Booking.com API", "Biedt hotels, vluchten, autoverhuur, taxi's en attracties", "REST")
+System_Ext(tripadvisor, "Tripadvisor API", "Biedt restaurants, hotels, vluchten, cruises en autoverhuur aan", "REST")
 System_Ext(mollie, "Mollie", "Betalingsysteem voor het betalen via iDEAL, creditcard en paypal")
 
 Rel(reiziger, triptop, "kan reizen samenstellen, boeken, beheren en betalen in")

@@ -164,9 +164,11 @@ De ontwerpvraag wordt uitgewerkt door middel van het **Strategy Design Pattern**
 
 Hieronder is een component diagram uitgewerkt.
 
-![Modularity - component diagram-Component_diagram.png](sgb-bestanden%2Fontwerpvragen%2FModularity%20-%20component%20diagram-Component_diagram.png)
+![Modularity - component diagram-C4_Component_diagram__Alternatieve_bouwstenen_aanbieden.svg](sgb-bestanden/ontwerpvragen/Modularity%20-%20component%20diagram-C4_Component_diagram__Alternatieve_bouwstenen_aanbieden.svg)
 > **Figuur 5:** Component diagram van alternatieve bouwstenen aanbieden
 >
+> In dit diagram geldt: als er op een pijl binnen de container boundary geen technologie staat, betekent dit dat het een method call is.
+> 
 > TODO Jochem: uitleg
 
 #### 4.1.4. Klassen en functies
@@ -200,6 +202,8 @@ Hieronder zijn de interfaces van de componenten die van belang zijn voor de ontw
 Hieronder is een component diagram uitgewerkt die de componenten en hun verantwoordelijkheden weergeeft. Dit diagram geeft een overzicht van de componenten en hun verantwoordelijkheden.
 ![Modifiability - Component diagram.svg](sgb-bestanden/ontwerpvragen/Modifiability%20-%20Component%20diagram.svg)
 > **Figuur 7:** Component diagram van verschillende boekingsservices integreren
+> 
+> In dit diagram geldt: als er op een pijl binnen de container boundary geen technologie staat, betekent dit dat het een method call is.
 > 
 > TODO Roald: uitleg
 
@@ -289,6 +293,8 @@ Hieronder is een dynamisch container diagram uitgewerkt die de volgorde van aanr
 ![Fault Tolerance - volgorde van aanroepen](sgb-bestanden/ontwerpvragen/Fault%20Tolerance%20-%20volgorde%20van%20aanroepen-Volgorde_van_aanroepen.svg)
 > **Figuur 9:** Dynamisch component diagram van externe services
 > 
+> In dit diagram geldt: als er op een pijl binnen de container boundary geen technologie staat, betekent dit dat het een method call is.
+> 
 > De relaties naar de Externe API zijn slecht te lezen doordat ze overlappen. Deze connecties zijn beter te lezen in [het bestand zelf](./sgb-bestanden/ontwerpvragen/Fault%20Tolerance%20-%20volgorde%20van%20aanroepen.puml).
 > 
 > De beslissing om de nieuwste API-data voor de cache te laten gaan is vastgelegd in [ADR-004: Nieuwste API data gaat voor cache](#84-adr-004-nieuwste-api-data-gaat-voor-cache).
@@ -360,6 +366,8 @@ In de dynamische container diagrammen is te zien hoe de containers met elkaar co
 
 ![dynamisch-container-diagram-inloggen](sgb-bestanden/dynamisch-container-diagram-inloggen-C4_Dynamisch_container_diagram__inloggen_op_TripTop.svg)
 > **Figuur 12:** Dynamisch container diagram van inloggen op TripTop
+> 
+> In dit diagram geldt: als er op een pijl binnen de systeemgrens geen technologie staat, betekent dit dat het een method call is.
 > 
 > Hier wordt in stappen uitgelegd hoe een gebruiker inlogt op de website. De containers zijn gebaseerd op [het container diagram in figuur 11](#711-container-diagram). 
 

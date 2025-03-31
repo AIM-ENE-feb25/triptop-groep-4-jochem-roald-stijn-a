@@ -1,5 +1,5 @@
 @startuml
-title C4 Class Diagram - Backend
+title C4 Class Diagram: Externe services die niet beschikbaar zijn
 
 'hide circle
 'skinparam linetype ortho

@@ -1,6 +1,6 @@
 @startuml
 !include <C4/C4_Component.puml>
-title Volgorde van aanroepen
+title C4 Dynamisch component diagram: Externe services die niet beschikbaar zijn
 
 LAYOUT_TOP_DOWN()
 SHOW_PERSON_OUTLINE()
@@ -14,24 +14,24 @@ Container_Boundary(backend, "Backend") {
     Component(cacheRepo, "CacheRepository", "Spring Data Redis", "Opslaan en ophalen van resultaten in de cache")
 }
 
-System_Ext(api, "Externe API", "API van externe service")
+System_Ext(api, "Externe API", "API van externe service zoals Booking.com of Tripadvisor")
 
 ContainerDb(cache, "Cache", "Redis", "Cachen van resultaten van externe services")
 
 Rel(frontend, controller, "1: verstuurt naar", "JSON/REST")
-Rel(controller, service, "2: stuurt request door om af te handelen naar", "Method call")
-Rel(service, apiHandler, "3: roept externe service aan via", "Method call")
+Rel(controller, service, "2: stuurt request door om af te handelen naar")
+Rel(service, apiHandler, "3: roept externe service aan via")
 
 ' Eerste poging - externe API aanroepen
 Rel(apiHandler, api, "4: roept externe service aan", "JSON/REST")
 
 ' Succespad - externe API werkt
 Rel(api, apiHandler, "5a: retourneert resultaat aan", "JSON/REST")
-Rel(apiHandler, cacheRepo, "6a: slaat resultaat op in cache", "Method call")
+Rel(apiHandler, cacheRepo, "6a: slaat resultaat op in cache")
 Rel(cacheRepo, cache, "7a: slaat resultaat op in", "Jedis")
 Rel(cache, cacheRepo, "8a: bevestigt opslag", "Jedis")
-Rel(apiHandler, service, "9a: retourneert resultaat aan", "Method call")
-Rel(service, controller, "10a: retourneert verwerkt resultaat aan", "Method call")
+Rel(apiHandler, service, "9a: retourneert resultaat aan")
+Rel(service, controller, "10a: retourneert verwerkt resultaat aan")
 Rel_U(controller, frontend, "11a: retourneert resultaat aan", "JSON/REST")
 
 ' Foutpad - externe API faalt bij eerste poging
@@ -44,12 +44,12 @@ Rel_L(apiHandler, api, "8b: probeert opnieuw na langere wachttijd (retry 2)", "J
 Rel_L(api, apiHandler, "9b: fout of timeout", "JSON/REST")
 
 ' Fallback naar cache
-Rel_L(apiHandler, cacheRepo, "10b: vraagt eerder resultaat op uit cache", "Method call")
+Rel_L(apiHandler, cacheRepo, "10b: vraagt eerder resultaat op uit cache")
 Rel_L(cacheRepo, cache, "11b: vraagt resultaat op uit", "Jedis")
 Rel_L(cache, cacheRepo, "12b: retourneert eerder resultaat aan", "Jedis")
-Rel_L(cacheRepo, apiHandler, "13b: retourneert eerder resultaat aan", "Method call")
-Rel_L(apiHandler, service, "14b: retourneert gecached resultaat aan", "Method call")
-Rel_L(service, controller, "15b: retourneert verwerkt resultaat aan", "Method call")
+Rel_L(cacheRepo, apiHandler, "13b: retourneert eerder resultaat aan")
+Rel_L(apiHandler, service, "14b: retourneert gecached resultaat aan")
+Rel_L(service, controller, "15b: retourneert verwerkt resultaat aan")
 Rel_L(controller, frontend, "16b: retourneert resultaat aan", "JSON/REST")
 
 SHOW_FLOATING_LEGEND()
