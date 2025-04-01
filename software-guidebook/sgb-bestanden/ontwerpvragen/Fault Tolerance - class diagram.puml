@@ -24,15 +24,15 @@ package "service" {
 
 package "api" {
     interface ExternalAPIHandler {
-        call(endpoint: Endpoint): String
+        call(endpoint: Endpoint): Optional<JSONObject>
     }
 
     class ExternalAPIHandlerImpl {
         MAX_RETRIES: int
         RETRY_DELAY: Duration
-        call(endpoint: Endpoint): String
-        getCachedResponse(endpoint: Endpoint): Optional<String>
-        cacheResponse(endpoint: Endpoint, response: String): void
+        call(endpoint: Endpoint): Optional<JSONObject>
+        getCachedResponse(endpoint: Endpoint): Optional<JSONObject>
+        cacheResponse(endpoint: Endpoint, response: JSONObject): void
     }
 
     class Endpoint {
@@ -48,13 +48,13 @@ package "api" {
 
 package "repository" {
     interface CacheRepository {
-        save(key: Endpoint, response: String, duration: Duration): void
-        get(key: Endpoint): Optional<String>
+        save(key: Endpoint, response: JSONObject, duration: Duration): void
+        get(key: Endpoint): Optional<JSONObject>
     }
 
     class RedisCacheRepository {
-        save(key: Endpoint, response: String, duration: Duration): void
-        get(key: Endpoint): Optional<String>
+        save(key: Endpoint, response: JSONObject, duration: Duration): void
+        get(key: Endpoint): Optional<JSONObject>
         generateKey(endpoint: Endpoint): String
     }
 }

@@ -256,8 +256,8 @@ Hieronder zijn de interfaces van de componenten die van belang zijn voor de ontw
 
   ```java
   public interface CacheRepository {
-      void save(Endpoint key, String response, Duration duration);
-      String get(Endpoint key);
+      void save(Endpoint key, JSONObject response, Duration duration);
+      Optional<JSONObject> get(Endpoint key);
   }
 
   public record Endpoint(Method method, String url, HashMap<String, String> queryParams, String bodyHash) {
@@ -282,7 +282,7 @@ Hieronder zijn de interfaces van de componenten die van belang zijn voor de ontw
 - **ExternalAPIHandler**:
   ```java
   public interface ExternalAPIHandler {
-      String call(Endpoint endpoint);
+      Optional<JSONObject> call(Endpoint endpoint);
   }
   ```
 
