@@ -1,5 +1,5 @@
-@startuml C4 Container diagram voor TripTop
-title C4 Container diagram voor TripTop
+@startuml C4 Container diagram voor Triptop
+title C4 Container diagram voor Triptop
 !include <C4/C4_Container.puml>
 
 top to bottom direction
@@ -9,7 +9,7 @@ SHOW_PERSON_OUTLINE()
 Person(reiziger, "Reiziger", "Primaire gebruiker van het systeem. Kan reizen plannen en afstemmen")
 Person(reisagent, "ReisAgent", "Is te raadplegen voor tweedelijns support")
 
-System_Boundary(system, "TripTop omgeving") {
+System_Boundary(system, "Triptop omgeving") {
     Container(frontend, "Frontend", "React", "Toont het planproces van de reiziger")
     Container(backend, "Backend", "Spring Boot", "Verzorgt de logica van het systeem, en verwerkt alle reisdata")
     ContainerDb(db, "Database", "PostgreSQL", "Slaat alle informatie over een reis op")

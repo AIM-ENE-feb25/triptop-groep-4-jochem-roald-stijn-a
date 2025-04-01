@@ -1,12 +1,12 @@
 @startuml
-title C4 Dynamisch container diagram: inloggen op TripTop
+title C4 Dynamisch container diagram: inloggen op Triptop
 !include <C4/C4_Container.puml>
 
 top to bottom direction
 
 SHOW_PERSON_OUTLINE()
 
-System_Boundary(system, "TripTop") {
+System_Boundary(system, "Triptop") {
     Container(frontend, "Frontend", "Javascript en React", "Toont de UI voor het planproces van de reiziger en het ticketsysteem van de reisagent.")
     Container(backend, "Backend", "Java en Spring Boot", "Verzorgt de logica van het systeem, en verwerkt alle reisdata")
     ContainerDb(db, "Database", "Microsoft SQL Server", "Slaat alle informatie over een reis op")
@@ -16,10 +16,10 @@ Rel(frontend, backend, "1: verstuurt inloggegevens naar", "JSON/REST")
 
 Rel(backend, backend, "2: verifieert inloggegevens")
 
-Rel(backend, db, "3: selecteert de gebruiker", "SQL/JdbcTemplate")
-Rel(db, backend, "4: verstuurt de gebruikersdata", "SQL")
+Rel(backend, db, "3: selecteert de gebruiker in", "SQL/JdbcTemplate")
+Rel(db, backend, "4: verstuurt de gebruikersdata naar", "SQL")
 Rel(backend, backend, "5: controleert of het gehashte wachtwoord overeenkomt")
-Rel(backend, frontend, "6: verstuurt authenticatie terug", "JSON/REST")
+Rel(backend, frontend, "6: verstuurt authenticatie terug naar", "JSON/REST")
 
 SHOW_FLOATING_LEGEND()
 

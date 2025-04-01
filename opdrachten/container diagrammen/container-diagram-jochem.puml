@@ -1,5 +1,5 @@
 @startuml
-title C4 Container diagram voor TripTop
+title C4 Container diagram voor Triptop
 !include <C4/C4_Container.puml>
 
 top to bottom direction
@@ -9,7 +9,7 @@ SHOW_PERSON_OUTLINE()
 Person(reiziger, "Reiziger", "Primaire gebruiker van het systeem. Kan reizen plannen en afstemmen", $type="Person")
 Person(reisagent, "ReisAgent", "Is te raadplegen voor tweedelijns support", $type="Person")
 
-System_Boundary(system, "TripTop omgeving") {
+System_Boundary(system, "Triptop omgeving") {
     Container(triptop, "Backend", "Container: Java en Spring Boot", "Behandeld de businesslogica van de applicatie")
     Container(triptopUI, "Triptop Applicatie", "Container: Javascript en React", "Toont the UI aan de gebruikers")
     Container(db, "Database", "Container: SSMS", "Opslag voor de data van de applicatie")

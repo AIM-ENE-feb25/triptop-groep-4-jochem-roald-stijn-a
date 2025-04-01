@@ -1,5 +1,5 @@
 @startuml
-title C4 Component diagram voor Booking
+title C4 Component diagram: Verschillende boekingsservices integreren
 !include <C4/C4_Component.puml>
 top to bottom direction
 
@@ -12,20 +12,20 @@ Component(bookingController, "BookingController", "Spring Boot RestController", 
 Component(bookingService, "BookingService", "Spring Boot Service", "Verwerkt resultaten van booking services en zet om naar domeinobjecten")
 Component(bookingAdapter, "BookingAdapter", "Spring Boot Component", "Aanroepen van booking services")
 Component(BookingComAdapter, "BookingComAdapter", "Spring Boot Component", "Adapter voor Booking.com API")
-Component(tripAdvisorAdapter, "TripAdvisorAdapter", "Spring Boot Component", "Adapter voor TripAdvisor API")
+Component(tripAdvisorAdapter, "TripadvisorAdapter", "Spring Boot Component", "Adapter voor Tripadvisor API")
 Component(eigenBeheerHandler, "EigenBeheerHandler", "Spring Boot Component", "Eigen beheer van boekingen")
 }
-System_Ext(bookingComApi, "BookingCom API", "API van Booking.com")
-System_Ext(tripAdvisorApi, "TripAdvisor API", "API van TripAdvisor")
+System_Ext(bookingComApi, "Booking.com API", "API van Booking.com")
+System_Ext(tripAdvisorApi, "Tripadvisor API", "API van Tripadvisor")
 
 Rel(Frontend, bookingController, "plant reizen en stemt af via", "JSON/REST")
-Rel(bookingController, bookingService, "verwerkt boekingen via", "Method call")
-Rel(bookingService, bookingAdapter, "roept booking service aan via", "Method call")
+Rel(bookingController, bookingService, "verwerkt boekingen via")
+Rel(bookingService, bookingAdapter, "roept booking service aan via")
 Rel_U(BookingComAdapter, bookingAdapter, "extends")
 Rel_U(tripAdvisorAdapter, bookingAdapter, "extends")
 Rel_U(eigenBeheerHandler, bookingAdapter, "extends")
-Rel(BookingComAdapter, bookingComApi, "calls")
-Rel(tripAdvisorAdapter, tripAdvisorApi, "calls")
+Rel(BookingComAdapter, bookingComApi, "calls", "JSON/REST")
+Rel(tripAdvisorAdapter, tripAdvisorApi, "calls", "JSON/REST")
 
 
 SHOW_FLOATING_LEGEND()

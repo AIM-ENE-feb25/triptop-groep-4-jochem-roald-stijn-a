@@ -1,5 +1,5 @@
 @startuml
-title C4 Class Diagram - Backend
+title C4 Class Diagram: Alternatieve bouwstenen aanbieden
 
 'hide circle
 skinparam linetype ortho
@@ -70,8 +70,8 @@ package "api" {
 StandardJourneyStrategy .u.|> JourneyStrategy
 AlternativeJourneyStrategy .u.|> JourneyStrategy
 
-JourneyServiceImpl .l.> Transport
-JourneyServiceImpl --> JourneyStrategy
+JourneyServiceImpl .l.> "transport 1" Transport
+JourneyServiceImpl --> "journeyStrategy 1" JourneyStrategy
 
 JourneyController --> "journeyService 1" JourneyService
 JourneyServiceImpl .u.|> JourneyService
