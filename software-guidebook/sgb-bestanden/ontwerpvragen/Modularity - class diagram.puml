@@ -1,5 +1,5 @@
 @startuml
-title C4 Class Diagram - Backend
+title C4 Class Diagram: Alternatieve bouwstenen aanbieden
 
 'hide circle
 skinparam linetype ortho
