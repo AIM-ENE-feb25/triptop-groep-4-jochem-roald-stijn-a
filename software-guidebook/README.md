@@ -114,7 +114,7 @@ De volgende ontwerpvraag is uitgewerkt door **Jochem**:
 
 > Hoe bied je de gebruiker op basis van zelfgekozen bouwstenen alternatieve bouwstenen aan, bijvoorbeeld als een bepaalde overnachting niet beschikbaar is of om een keuze te geven tussen vervoer per auto, trein of bus
 
-De ontwerpvraag wordt uitgewerkt door middel van het **Strategy Design Pattern**.
+De ontwerpvraag wordt uitgewerkt door middel van het **Strategy Design Pattern**. De keuze hiervoor is uitgelegd bij [ADR-005](#85-adr-005-pattern-voor-alternatieve-bouwstenen).
 
 #### 4.1.1. Componenten en verantwoordelijkheden
 
@@ -521,7 +521,7 @@ Geaccepteerd
 - Meer API-verzoeken kunnen leiden tot hogere kosten.
 - Mogelijk langere laadtijden voor gebruikers, vooral bij trage API-responses.
 
-### 8.5. ADR-005 Strategy Pattern voor Alternatieve Bouwstenen
+### 8.5. ADR-005 Pattern voor Alternatieve Bouwstenen
 
 #### Context
 
@@ -562,53 +562,6 @@ Geaccepteerd
 - Elke bouwsteen kan afzonderlijk worden getest.
 - In een code met weinig algoritmes maak je de code te ingewikkeld.
 - Een gebruiker moet een idee hebben wat hun keuze doet, wanneer ze een strategy kiezen.
-
-[//]: # (### 8.5. ADR-005 TITLE)
-
-[//]: # ()
-[//]: # (> [!TIP])
-
-[//]: # (> These documents have names that are short noun phrases. For example, "ADR 1: Deployment on Ruby on Rails 3.0.10" or "ADR 9: LDAP for Multitenant Integration". The whole ADR should be one or two pages long. We will write each ADR as if it is a conversation with a future developer. This requires good writing style, with full sentences organized into paragraphs. Bullets are acceptable only for visual style, not as an excuse for writing sentence fragments. &#40;Bullets kill people, even PowerPoint bullets.&#41;)
-
-[//]: # ()
-[//]: # (#### Context)
-
-[//]: # ()
-[//]: # (> [!TIP])
-
-[//]: # (> This section describes the forces at play, including technological, political, social, and project local. These forces are probably in tension, and should be called out as such. The language in this section is value-neutral. It is simply describing facts about the problem we're facing and points out factors to take into account or to weigh when making the final decision.)
-
-[//]: # ()
-[//]: # (#### Alternatieven)
-
-[//]: # ()
-[//]: # (> [!TIP])
-
-[//]: # (> This section describes the options that were considered, and gives some indication as to why the chosen option was selected.)
-
-[//]: # ()
-[//]: # (#### Besluit)
-
-[//]: # ()
-[//]: # (> [!TIP])
-
-[//]: # (> This section describes our response to the forces/problem. It is stated in full sentences, with active voice. "We will …")
-
-[//]: # ()
-[//]: # (#### Status)
-
-[//]: # ()
-[//]: # (> [!TIP])
-
-[//]: # (> A decision may be "proposed" if the project stakeholders haven't agreed with it yet, or "accepted" once it is agreed. If a later ADR changes or reverses a decision, it may be marked as "deprecated" or "superseded" with a reference to its replacement.)
-
-[//]: # ()
-[//]: # (#### Consequenties)
-
-[//]: # ()
-[//]: # (> [!TIP])
-
-[//]: # (> This section describes the resulting context, after applying the decision. All consequences should be listed here, not just the "positive" ones. A particular decision may have positive, negative, and neutral consequences, but all of them affect the team and project in the future. -->)
 
 ## 9. Deployment, Operation and Support
 
