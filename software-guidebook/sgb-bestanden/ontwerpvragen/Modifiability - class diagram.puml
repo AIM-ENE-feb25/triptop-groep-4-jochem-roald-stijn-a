@@ -1,5 +1,5 @@
 @startuml
-title C4 Class Diagram - Booking
+title C4 Class Diagram: Verschillende boekingsservices integreren
 
 
 package "backend" {
@@ -14,7 +14,7 @@ class BookingComAdapter {
     + makeBooking(booking: Booking)
 }
 
-class TripAdvisorAdapter {
+class TripadvisorAdapter {
     + getBookings(): List<Booking>
     + makeBooking(booking: Booking)
 }
@@ -37,11 +37,11 @@ class BookingService {
 }
 
 IBookingAdapter <|.. BookingComAdapter
-IBookingAdapter <|.. TripAdvisorAdapter
+IBookingAdapter <|.. TripadvisorAdapter
 IBookingAdapter <|.. EigenBeheerHandler
-BookingComAdapter --> "BookingCom API"
-TripAdvisorAdapter --> "TripAdvisor API"
+BookingComAdapter --> "bookingComAPI 1" "Booking.com API"
+TripadvisorAdapter --> "tripAdvisorAPI 1" "Tripadvisor API"
 
-BookingController --> BookingService
-BookingService --> IBookingAdapter
+BookingController --> "bookingService 1" BookingService
+BookingService --> "iBookingAdapter 1" IBookingAdapter
 @enduml

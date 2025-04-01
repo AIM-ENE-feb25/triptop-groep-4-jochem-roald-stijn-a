@@ -1,5 +1,5 @@
 @startuml
-title C4 Class Diagram - Backend
+title C4 Class Diagram: Externe services die niet beschikbaar zijn
 
 'hide circle
 'skinparam linetype ortho
@@ -40,6 +40,10 @@ package "api" {
         queryParams: HashMap<String, String>
         bodyHash: String
     }
+
+    enum Method {
+        GET, POST, PUT, DELETE
+    }
 }
 
 package "repository" {
@@ -55,17 +59,11 @@ package "repository" {
     }
 }
 
-package "shared" {
-    enum Method {
-        GET, POST, PUT, DELETE
-    }
-}
-
 FlightsController --> "flightService 1" FlightsService
 FlightsServiceImpl .u.|> FlightsService
 FlightsServiceImpl --> "externalAPIHandler 1" ExternalAPIHandler
 ExternalAPIHandlerImpl .u.|> ExternalAPIHandler
-ExternalAPIHandlerImpl --> "cacheRepository 1" CacheRepository
+ExternalAPIHandlerImpl -r-> "cacheRepository 1" CacheRepository
 RedisCacheRepository .u.|> CacheRepository
 ExternalAPIHandlerImpl ..> "endpoint 1" Endpoint
 Endpoint ..> "method 1" Method

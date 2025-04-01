@@ -1,6 +1,6 @@
 @startuml
 !include <C4/C4_Component.puml>
-title Component diagram
+title C4 Component diagram: Alternatieve bouwstenen aanbieden
 
 LAYOUT_TOP_DOWN()
 SHOW_PERSON_OUTLINE()
@@ -14,14 +14,13 @@ Container_Boundary(backend, "Backend") {
     Component(apiHandler, "ExternalAPIHandler", "Spring Boot Component", "Aanroepen van externe services en afhandelen van fouten en retries")
 }
 
-System_Ext(api, "Externe API", "API van externe service")
+System_Ext(api, "Externe API", "API van externe service zoals Booking.com of Tripadvisor")
 
 Rel(frontend, controller, "maakt API verzoeken voor generieke data naar", "JSON/REST")
-Rel(controller, service, "stuurt request door om af te handelen naar", "Method call")
-Rel(service, strategy, "past functionaliteit aan op een strategy via", "Method call")
-Rel(strategy, apiHandler, "roept externe service aan via", "Method call")
+Rel(controller, service, "stuurt request door om af te handelen naar")
+Rel(service, strategy, "past functionaliteit aan op een strategy via")
+Rel(strategy, apiHandler, "roept externe service aan via")
 Rel(apiHandler, api, "maakt API verzoeken voor generieke data naar", "JSON/REST")
 
 SHOW_FLOATING_LEGEND()
 @enduml
-
