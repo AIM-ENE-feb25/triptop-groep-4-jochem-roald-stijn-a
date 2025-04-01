@@ -531,26 +531,25 @@ Denk bijvoorbeeld aan het zoeken voor een toepasselijke reis. Stel je probeert e
 #### Alternatieven
 
 We hebben de volgende opties overwogen om alternatieve bouwstenen te beheren. Hieronder volgt een vergelijkingstabel op basis van verschillende criteria.
-We zoeken een beter oplossing dan if-else statements voor het geven van alternatieven. Hiervoor kijken we vooral naar extensibility, coupling, en cohesion.
-Om gebruikers de optie te geven om uit meerdere alternatieven te kiezen geven we is het handiger als 
+We zoeken een beter oplossing dan if-else statements voor het geven van alternatieven. Hiervoor kijken we vooral naar uitbreidbaarheid, koppeling, en cohesie.
+Aangezien het de bedoeling is om alternatieve bouwstenen aan te geven in een bepaalde situatie vallen de gekozen patterns binnen behavioral design patterns. Dit betekent dat we als alternatieven Strategy en State pattern hebben.
 
-| **Optie**               | **Flexibiliteit** | **Onderhoudbaarheid** | **Uitbreidbaarheid** | **Testbaarheid** |
-|-------------------------|-------------------|-----------------------|----------------------|------------------|
-| **Conditionele Logica** | -                 | --                    | --                   | --               |
-| **Strategy Pattern**    | ++                | ++                    | ++                   | ++               |
-| **Factory Pattern**     | +                 | +                     | ++                   | +                |
+| **Optie**               | **Uitbreidbaarheid** | **Lage koppeling** | **Hoge cohesie** |
+|-------------------------|----------------------|--------------------|------------------|
+| **Strategy Pattern**    | ++                   | ++                 | ++               |
+| **State Pattern**       | ++                   | +                  | +                |
 
-| **Optie**               | **Extensibility** | **Coupling** | **Cohesion** |
-|-------------------------|-------------------|--------------|--------------|
-| **Strategy Pattern**    | ++                | ++           | ++           |
-| **State Pattern**       |                   |              |              |
+Aangezien beide patterns de mogelijkheid geven om makkelijk een nieuwe state/strategy toe te voegen zonder dat dit de code van andere states/strategies beïnvloed (Open/Closed Principle) zijn ze even uitbreidbaar.
+Beide hebben lage koppeling, maar een strategy pattern is toch iets lager aangezien de strategieën meer gescheiden kunnen worden gehouden dan states. States kunnen namelijk nog afhankelijk van elkaars logica zijn.
+In het geval van complexere logica zal een state pattern ook wat lagere cohesie hebben als een strategy pattern, aangezien er meer interacties tussen toestanden kunnen optreden.
 
-Aangezien het de bedoeling is om alternatieve bouwstenen aan te geven in een bepaalde situatie vallen de gekozen patterns binnen behavioral design patterns.
-
+In principe zijn beide patterns een goede oplossing, maar het ligt voornamelijk ook aan de situatie.
+Als we gebruikers de keuze willen geven tussen bepaalde alternatieven is een strategy pattern beter.
+Maar als we het aantonen van alternatieven automatisch willen afhandelen is het handiger om een state pattern te gebruiken.
 
 #### Besluit
 
-We kiezen voor het **Strategy Pattern** om alternatieve bouwstenen flexibel te beheren en dynamisch te wisselen.
+Aangezien op de ontwerpvraag de focus voornamelijk op strategy pattern is gezet kiezen we voor het **Strategy Pattern** aangezien deze pattern de mogelijkheid geeft om tijdens de runtime de strategy te veranderen. Dit sluit aan op de functionaliteit die wij willen realiseren voor de gebruiker.
 
 #### Status
 
@@ -560,8 +559,9 @@ Geaccepteerd
 
 - Nieuwe alternatieven kunnen eenvoudig worden toegevoegd zonder de bestaande code te breken.
 - De logica wordt minder complex, waardoor het onderhoud van de applicatie gemakkelijker wordt.
-- Het is mogelijk om snel nieuwe strategieën te implementeren zonder dat dit invloed heeft op andere onderdelen van de applicatie.
 - Elke bouwsteen kan afzonderlijk worden getest.
+- In een code met weinig algoritmes maak je de code te ingewikkeld.
+- Een gebruiker moet een idee hebben wat hun keuze doet, wanneer ze een strategy kiezen.
 
 [//]: # (### 8.5. ADR-005 TITLE)
 
