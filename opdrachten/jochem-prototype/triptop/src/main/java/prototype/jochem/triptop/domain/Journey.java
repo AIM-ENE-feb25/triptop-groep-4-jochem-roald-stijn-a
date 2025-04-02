@@ -8,14 +8,14 @@ public class Journey {
     private double price;
     private Transport transport;
 
-    public Journey(String origin, String destination, String departureDate, String returnDate, double price, Transport transport) {
-        setOrigin(origin);
-        setDestination(destination);
-        setDepartureDate(departureDate);
-        setReturnDate(returnDate);
-        setPrice(price);
-        setTransport(transport);
-    }
+//    public Journey(String origin, String destination, String departureDate, String returnDate, double price, Transport transport) {
+//        setOrigin(origin);
+//        setDestination(destination);
+//        setDepartureDate(departureDate);
+//        setReturnDate(returnDate);
+//        setPrice(price);
+//        setTransport(transport);
+//    }
 
 
     public String getOrigin() {
@@ -54,7 +54,7 @@ public class Journey {
         return price;
     }
 
-    public void setPrice(double price) {
+    public void setPrice(Double price) {
         this.price = price;
     }
 

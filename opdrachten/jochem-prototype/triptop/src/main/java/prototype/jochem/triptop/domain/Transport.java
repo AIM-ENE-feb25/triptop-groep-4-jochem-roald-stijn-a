@@ -4,5 +4,6 @@ public enum Transport {
     HUURAUTO,
     VLIEGTUIG,
     TREIN,
-    BUS
+    BUS,
+    TAXI
 }
