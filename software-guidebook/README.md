@@ -531,7 +531,7 @@ Denk bijvoorbeeld aan het zoeken voor een toepasselijke reis. Stel je probeert e
 #### Alternatieven
 
 We hebben de volgende opties overwogen om alternatieve bouwstenen te beheren. Hieronder volgt een vergelijkingstabel op basis van verschillende criteria.
-We zoeken een beter oplossing dan if-else statements voor het geven van alternatieven. Hiervoor kijken we vooral naar uitbreidbaarheid, koppeling, en cohesie.
+We zoeken een betere oplossing dan if-else statements voor het geven van alternatieven. Hiervoor kijken we vooral naar uitbreidbaarheid, koppeling, en cohesie.
 Aangezien het de bedoeling is om alternatieve bouwstenen aan te geven in een bepaalde situatie vallen de gekozen patterns binnen behavioral design patterns. Dit betekent dat we als alternatieven Strategy en State pattern hebben.
 
 | **Optie**               | **Uitbreidbaarheid** | **Lage koppeling** | **Hoge cohesie** |
