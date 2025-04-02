@@ -3,22 +3,15 @@ package com.triptop.externe_service_prototype.api;
 import com.mashape.unirest.http.HttpResponse;
 import com.mashape.unirest.http.Unirest;
 import com.mashape.unirest.http.exceptions.UnirestException;
-import com.triptop.externe_service_prototype.exception.NotImplementedException;
 import com.triptop.externe_service_prototype.repository.CacheRepository;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Component;
 
-import javax.swing.text.html.Option;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
-import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
-@Service
+@Component
 public class ExternalAPIHandlerImpl implements ExternalAPIHandler {
     private final CacheRepository cacheRepository;
 
@@ -27,20 +20,37 @@ public class ExternalAPIHandlerImpl implements ExternalAPIHandler {
         this.cacheRepository = cacheRepository;
     }
 
-    public Optional<Response> call(Endpoint endpoint) {
-        Optional<Response> apiResponse = callExternalAPI(endpoint);
+    public Optional<Response> sendRequest(Request request, boolean dataMayGetOutdated) {
+        if (dataMayGetOutdated) {
+            Optional<Response> apiResponse = callExternalAPI(request);
 
-        if (apiResponse.isPresent()) {
-            cacheRepository.save(endpoint, apiResponse.get(), 1000);
+            if (apiResponse.isEmpty()) {
+                return cacheRepository.get(request);
+            }
+
+            cacheRepository.save(request, apiResponse.get(), 1000 * 60 * 60 * 24); // 24 hours
+            return apiResponse;
+        } else {
+            Optional<Response> cachedResponse = cacheRepository.get(request);
+
+            if (cachedResponse.isPresent()) {
+                return cachedResponse;
+            }
+
+            Optional<Response> apiResponse = callExternalAPI(request);
+            if (apiResponse.isPresent()) {
+                cacheRepository.save(request, apiResponse.get(), 0);
+            }
+
             return apiResponse;
         }
-
-        return cacheRepository.get(endpoint);
     }
 
-    private Optional<Response> callExternalAPI(Endpoint endpoint) {
-        String url = endpoint.url();
-        Map<String, String> headers = endpoint.headers();
+    private Optional<Response> callExternalAPI(Request request) {
+        String url = request.url();
+        Map<String, String> headers = request.headers();
+
+        System.out.println("Calling external API with URL: " + url);
 
         try {
             HttpResponse<String> apiResponse = Unirest.get(url)

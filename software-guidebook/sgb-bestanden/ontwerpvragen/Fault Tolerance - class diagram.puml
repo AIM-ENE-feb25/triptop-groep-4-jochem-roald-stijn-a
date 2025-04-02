@@ -24,18 +24,18 @@ package "service" {
 
 package "api" {
     interface ExternalAPIHandler {
-        call(endpoint: Endpoint): String
+        call(endpoint: Endpoint): Optional<Response>
     }
 
     class ExternalAPIHandlerImpl {
         MAX_RETRIES: int
         RETRY_DELAY: Duration
-        call(endpoint: Endpoint): String
-        getCachedResponse(endpoint: Endpoint): Optional<String>
-        cacheResponse(endpoint: Endpoint, response: String): void
+        call(endpoint: Endpoint): Optional<Response>
+        getCachedResponse(endpoint: Endpoint): Optional<Response>
+        cacheResponse(endpoint: Endpoint, response: Response): void
     }
 
-    class Endpoint {
+    class Endpoint <<record>> {
         url: String
         queryParams: HashMap<String, String>
         bodyHash: String
@@ -44,17 +44,27 @@ package "api" {
     enum Method {
         GET, POST, PUT, DELETE
     }
+
+    class Response <<record>> {
+        statusCode: int
+        body: JSONObject
+        origin: Origin
+    }
+
+    enum Origin {
+        EXTERNAL_API, CACHE
+    }
 }
 
 package "repository" {
     interface CacheRepository {
-        save(key: Endpoint, response: String, duration: Duration): void
-        get(key: Endpoint): Optional<String>
+        save(key: Endpoint, response: Response, duration: Duration): void
+        get(key: Endpoint): Optional<Response>
     }
 
     class RedisCacheRepository {
-        save(key: Endpoint, response: String, duration: Duration): void
-        get(key: Endpoint): Optional<String>
+        save(key: Endpoint, response: Response, duration: Duration): void
+        get(key: Endpoint): Optional<Response>
         generateKey(endpoint: Endpoint): String
     }
 }
@@ -63,9 +73,9 @@ FlightsController --> "flightService 1" FlightsService
 FlightsServiceImpl .u.|> FlightsService
 FlightsServiceImpl --> "externalAPIHandler 1" ExternalAPIHandler
 ExternalAPIHandlerImpl .u.|> ExternalAPIHandler
-ExternalAPIHandlerImpl -r-> "cacheRepository 1" CacheRepository
+ExternalAPIHandlerImpl --> "cacheRepository 1" CacheRepository
 RedisCacheRepository .u.|> CacheRepository
-ExternalAPIHandlerImpl ..> "endpoint 1" Endpoint
 Endpoint ..> "method 1" Method
+Response ..> "origin 1" Origin
 
 @enduml

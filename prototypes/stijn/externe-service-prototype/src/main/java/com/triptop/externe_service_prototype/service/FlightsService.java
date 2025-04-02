@@ -6,5 +6,5 @@ import java.util.Date;
 
 public interface FlightsService {
     String getAirportId(String airportName);
-    double getFlightPrice(String origin, String destination, Date departureDate, Date returnDate);
+    double getFlightPrice(String origin, String destination, String departureDate, String returnDate);
 }

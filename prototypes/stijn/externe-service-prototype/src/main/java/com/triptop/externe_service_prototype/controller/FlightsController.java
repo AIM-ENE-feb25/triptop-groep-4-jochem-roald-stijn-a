@@ -1,5 +1,6 @@
 package com.triptop.externe_service_prototype.controller;
 
+import com.triptop.externe_service_prototype.exception.NotImplementedException;
 import com.triptop.externe_service_prototype.service.FlightsService;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.ResponseEntity;
@@ -25,7 +26,7 @@ public class FlightsController {
     }
 
     @GetMapping("/getFlightPrice")
-    public ResponseEntity<Double> getFlightPrice(@RequestParam String origin, @RequestParam String destination, @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) Date departureDate, @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) Date returnDate) {
+    public ResponseEntity<Double> getFlightPrice(@RequestParam String origin, @RequestParam String destination, @RequestParam String departureDate, @RequestParam String returnDate) {
         return ResponseEntity.ok(flightsService.getFlightPrice(origin, destination, departureDate, returnDate));
     }
 }
