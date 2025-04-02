@@ -35,15 +35,15 @@ public class ExternalAPIHandlerImpl implements ExternalAPIHandler {
 
             if (apiResponse.isEmpty()) {
                 System.out.println("External API call failed. Checking cache");
-                return cacheRepository.get(request);
+                return cacheRepository.get(request.url());
             }
 
             System.out.println("Saving response to cache");
-            cacheRepository.save(request, apiResponse.get(), 60 * 60 * 24); // 24 hours
+            cacheRepository.save(request.url(), apiResponse.get(), 60 * 60 * 24); // 24 hours
             return apiResponse;
         } else {
             System.out.println("Checking cache");
-            Optional<Response> cachedResponse = cacheRepository.get(request);
+            Optional<Response> cachedResponse = cacheRepository.get(request.url());
 
             if (cachedResponse.isPresent()) {
                 return cachedResponse;
@@ -53,7 +53,7 @@ public class ExternalAPIHandlerImpl implements ExternalAPIHandler {
             Optional<Response> apiResponse = callExternalAPI(request);
             if (apiResponse.isPresent()) {
                 System.out.println("Saving response to cache");
-                cacheRepository.save(request, apiResponse.get(), 10); // 10 minutes for testing purposes. Should be null
+                cacheRepository.save(request.url(), apiResponse.get(), 10); // 10 minutes for testing purposes. Should be null
             }
 
             return apiResponse;

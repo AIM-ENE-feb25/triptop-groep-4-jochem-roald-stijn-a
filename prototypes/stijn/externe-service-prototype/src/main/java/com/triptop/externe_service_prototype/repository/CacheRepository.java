@@ -6,6 +6,6 @@ import com.triptop.externe_service_prototype.api.Response;
 import java.util.Optional;
 
 public interface CacheRepository {
-    void save(Request request, Response response, Integer keepForSeconds);
-    Optional<Response> get(Request request);
+    void save(String url, Response response, Integer keepForSeconds);
+    Optional<Response> get(String url);
 }

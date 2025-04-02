@@ -4,9 +4,7 @@ import com.triptop.externe_service_prototype.api.Request;
 import com.triptop.externe_service_prototype.api.ExternalAPIHandler;
 import com.triptop.externe_service_prototype.api.Response;
 import com.triptop.externe_service_prototype.exception.NotFoundException;
-import com.triptop.externe_service_prototype.exception.NotImplementedException;
 import com.triptop.externe_service_prototype.exception.RequestFailedException;
-import org.apache.http.impl.execchain.RequestAbortedException;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -15,7 +13,6 @@ import org.springframework.stereotype.Service;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
-import java.util.Map;
 import java.util.Optional;
 
 @Service
@@ -39,15 +36,17 @@ public class FlightsServiceImpl implements FlightsService {
                 getCommonHeaders()
         );
 
-        // TODO: dataMeyGetOutdated should be true
+        // TODO: dataMeyGetOutdated should be true. False for testing
         Optional<Response> response = externalAPIHandler.sendRequest(request, false);
 
         if (response.isPresent()) {
-            if (response.get().StatusCode() < 200 || response.get().StatusCode() >= 300) {
-                throw new RequestFailedException("Request failed with status code " + response.get().StatusCode());
+            if (response.get().statusCode() < 200 || response.get().statusCode() >= 300) {
+                throw new RequestFailedException("Request failed with status code " + response.get().statusCode());
             }
 
-            JSONObject minPriceInfo = response.get().Body().getJSONObject("data").getJSONObject("aggregation").getJSONObject("minPrice");
+            System.out.println("Received response from " + response.get().origin());
+
+            JSONObject minPriceInfo = response.get().body().getJSONObject("data").getJSONObject("aggregation").getJSONObject("minPrice");
 
             int units = minPriceInfo.getInt("units");
             int nanos = minPriceInfo.getInt("nanos");
@@ -69,17 +68,18 @@ public class FlightsServiceImpl implements FlightsService {
         Optional<Response> response = externalAPIHandler.sendRequest(request, false);
 
         if (response.isPresent()) {
-            if (response.get().StatusCode() < 200 || response.get().StatusCode() >= 300) {
-                throw new RequestFailedException("Request failed with status code " + response.get().StatusCode());
+            if (response.get().statusCode() < 200 || response.get().statusCode() >= 300) {
+                throw new RequestFailedException("Request failed with status code " + response.get().statusCode());
             }
 
-            return response.get().Body().getJSONArray("data").getJSONObject(0).getString("id");
+            System.out.println("Received response from " + response.get().origin());
+
+            return response.get().body().getJSONArray("data").getJSONObject(0).getString("id");
         } else {
             throw new NotFoundException("Airport with name " + query + " not found.");
         }
     }
 
-    // get common headers
     private HashMap<String, String> getCommonHeaders() {
         HashMap<String, String> headers = new HashMap<>();
         headers.put("x-rapidapi-key", rapidapiKey);

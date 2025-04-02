@@ -2,5 +2,11 @@ package com.triptop.externe_service_prototype.api;
 
 import org.json.JSONObject;
 
-public record Response(int StatusCode, JSONObject Body, Origin Origin) {
+/**
+ * Represents an HTTP response with a status code, body, and origin.
+ * @param statusCode The status code of the API response.
+ * @param body The body of the response.
+ * @param origin The origin of the response.
+ */
+public record Response(int statusCode, JSONObject body, Origin origin) {
 }
