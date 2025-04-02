@@ -256,8 +256,8 @@ Hieronder zijn de interfaces van de componenten die van belang zijn voor de ontw
 
   ```java
   public interface CacheRepository {
-      void save(Endpoint key, String response, Duration duration);
-      String get(Endpoint key);
+      void save(Endpoint key, Response response, Duration duration);
+      Optional<Response> get(Endpoint key);
   }
 
   public record Endpoint(Method method, String url, HashMap<String, String> queryParams, String bodyHash) {
@@ -274,6 +274,12 @@ Hieronder zijn de interfaces van de componenten die van belang zijn voor de ontw
       }
   }
 
+  public record Response(int statusCode, JSONObject body, Origin origin) {}
+
+  public enum Origin {
+      EXTERNAL_API, CACHE
+  }
+
   public enum Method {
       GET, POST, PUT, DELETE
   }
@@ -282,7 +288,7 @@ Hieronder zijn de interfaces van de componenten die van belang zijn voor de ontw
 - **ExternalAPIHandler**:
   ```java
   public interface ExternalAPIHandler {
-      String call(Endpoint endpoint);
+      Optional<Response> call(Endpoint endpoint);
   }
   ```
 
@@ -295,7 +301,7 @@ Hieronder is een dynamisch container diagram uitgewerkt die de volgorde van aanr
 > 
 > In dit diagram geldt: als er op een pijl binnen de container boundary geen technologie staat, betekent dit dat het een method call is.
 > 
-> De relaties naar de Externe API zijn slecht te lezen doordat ze overlappen. Deze connecties zijn beter te lezen in [het bestand zelf](./sgb-bestanden/ontwerpvragen/Fault%20Tolerance%20-%20volgorde%20van%20aanroepen.puml).
+> Als de relaties niet goed te lezen zijn, is het originele .puml bestand [hier te vinden](./sgb-bestanden/ontwerpvragen/Fault%20Tolerance%20-%20volgorde%20van%20aanroepen.puml).
 > 
 > De beslissing om de nieuwste API-data voor de cache te laten gaan is vastgelegd in [ADR-004: Nieuwste API data gaat voor cache](#84-adr-004-nieuwste-api-data-gaat-voor-cache).
 
