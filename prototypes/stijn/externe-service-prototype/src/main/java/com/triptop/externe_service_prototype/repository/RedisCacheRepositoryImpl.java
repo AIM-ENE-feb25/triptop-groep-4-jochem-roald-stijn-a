@@ -3,48 +3,44 @@ package com.triptop.externe_service_prototype.repository;
 import com.triptop.externe_service_prototype.api.Origin;
 import com.triptop.externe_service_prototype.api.Request;
 import com.triptop.externe_service_prototype.api.Response;
-import com.triptop.externe_service_prototype.exception.NotImplementedException;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Repository;
 import redis.clients.jedis.UnifiedJedis;
 
-import java.util.HashMap;
 import java.util.Optional;
 
 @Repository
 public class RedisCacheRepositoryImpl implements CacheRepository {
-    UnifiedJedis unifiedjedis;
+    UnifiedJedis unifiedJedis;
 
     public RedisCacheRepositoryImpl(@Value("${redis.url}") String redisUrl) {
-        unifiedjedis = new UnifiedJedis(redisUrl);
+        unifiedJedis = new UnifiedJedis(redisUrl);
     }
 
     @Override
-    public void save(Request key, Response response, int durationMs) {
-        System.out.println("Saving to Redis");
-        String convertedRequestToString = convertRequestToString(key);
-        JSONObject responseBody = response.Body();
+    public void save(Request request, Response response, Integer keepForSeconds) {
+        String key = request.url();
+        String value = response.Body().toString();
 
-        unifiedjedis.set(convertedRequestToString, responseBody.toString());
+        if (keepForSeconds == null) {
+            unifiedJedis.set(key, value);
+            return;
+        }
+
+        unifiedJedis.setex(key, keepForSeconds, value);
     }
 
     @Override
-    public Optional<Response> get(Request key) {
-        System.out.println("Getting from Redis");
-        String convertedRequestToString = convertRequestToString(key);
+    public Optional<Response> get(Request request) {
+        String key = request.url();
 
-        String responseBodyString = unifiedjedis.get(convertedRequestToString);
+        String responseBodyString = unifiedJedis.get(key);
         if (responseBodyString == null) {
-            System.out.println("No data found in Redis");
             return Optional.empty();
         }
 
         JSONObject responseBody = new JSONObject(responseBodyString);
         return Optional.of(new Response(200, responseBody, Origin.REDIS_CACHE));
-    }
-
-    private String convertRequestToString(Request request) {
-        return "url:" + request.url() + ",headers:" + request.headers().toString() + ",body:" + request.body();
     }
 }

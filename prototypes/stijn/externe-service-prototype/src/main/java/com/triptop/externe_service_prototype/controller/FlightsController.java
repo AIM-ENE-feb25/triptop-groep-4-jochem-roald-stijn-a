@@ -1,15 +1,11 @@
 package com.triptop.externe_service_prototype.controller;
 
-import com.triptop.externe_service_prototype.exception.NotImplementedException;
 import com.triptop.externe_service_prototype.service.FlightsService;
-import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-
-import java.util.Date;
 
 @RestController
 @RequestMapping("/flights")
@@ -21,8 +17,8 @@ public class FlightsController {
     }
 
     @GetMapping("/getAirportId")
-    public ResponseEntity<String> getAirportId(@RequestParam String airportName) {
-        return ResponseEntity.ok(flightsService.getAirportId(airportName));
+    public ResponseEntity<String> getAirportId(@RequestParam String query) {
+        return ResponseEntity.ok(flightsService.getAirportId(query));
     }
 
     @GetMapping("/getFlightPrice")

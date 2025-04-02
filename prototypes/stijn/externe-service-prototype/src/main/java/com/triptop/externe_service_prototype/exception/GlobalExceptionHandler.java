@@ -15,4 +15,9 @@ public class GlobalExceptionHandler {
     public ResponseEntity<String> handleNotFoundException(NotFoundException e) {
         return ResponseEntity.status(404).body(e.getMessage());
     }
+
+    @ExceptionHandler(RequestFailedException.class)
+    public ResponseEntity<String> handleRequestFailedException(RequestFailedException e) {
+        return ResponseEntity.status(500).body(e.getMessage());
+    }
 }
