@@ -19,8 +19,15 @@ public class AlternativeJourneyStrategy implements JourneyStrategy {
     @Override
     public List<Journey> getJourneys(String origin, String destination, String departureDate, String returnDate, double price, Transport transport) throws UnirestException {
         List<Journey> journeys = new ArrayList<>();
-        String response = externalAPIHandler.getTaxiTrips(origin);
 
+        getJourneysFromTransportType(externalAPIHandler.getTaxiTrips(origin), Transport.TAXI, journeys);
+        getJourneysFromTransportType(externalAPIHandler.getFlightTrips(origin), Transport.VLIEGTUIG, journeys);
+        getJourneysFromTransportType(externalAPIHandler.getCarRentalTrips(origin), Transport.HUURAUTO, journeys);
+
+        return journeys;
+    }
+
+    public void getJourneysFromTransportType(String response, Transport transport, List<Journey> journeys) {
         JSONObject jsonResponse = new JSONObject(response);
         JSONArray tripsArray = jsonResponse.getJSONArray("data");
 
@@ -33,11 +40,9 @@ public class AlternativeJourneyStrategy implements JourneyStrategy {
             journey.setDepartureDate(null);
             journey.setReturnDate(null);
             journey.setPrice(0.0);
-            journey.setTransport(Transport.TAXI);
+            journey.setTransport(transport);
 
             journeys.add(journey);
         }
-
-        return journeys;
     }
 }
