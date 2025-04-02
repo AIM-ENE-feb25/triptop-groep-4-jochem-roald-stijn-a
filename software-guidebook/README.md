@@ -561,8 +561,7 @@ Geaccepteerd
 - De logica wordt minder complex, waardoor het onderhoud van de applicatie gemakkelijker wordt.
 - Elke bouwsteen kan afzonderlijk worden getest.
 - In een code met weinig algoritmes maak je de code te ingewikkeld.
-- Een gebruiker moet een idee hebben wat hun keuze doet, wanneer ze een strategy kiezen.
-
+- Een gebruiker moet een idee hebben wat hun keuze doet, wanneer ze een strategie kiezen.
 ## 9. Deployment, Operation and Support
 
 > [!TIP]
