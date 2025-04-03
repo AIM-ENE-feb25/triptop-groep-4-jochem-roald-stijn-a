@@ -24,9 +24,9 @@ Rel(BookingComAdapter, bookingComApi, "4a: roept externe service aan", "JSON/RES
 Rel(tripAdvisorAdapter, tripAdvisorApi, "4b: roept externe service aan", "JSON/REST")
 Rel_U(bookingComApi, BookingComAdapter, "5a: retourneert resultaat aan", "JSON/REST")
 Rel_U(tripAdvisorApi, tripAdvisorAdapter, "5b: retourneert resultaat aan", "JSON/REST")
-Rel_U(BookingComAdapter, bookingService, "6a: retourneert resultaat aan", "JSON/REST")
-Rel_U(tripAdvisorAdapter, bookingService, "6b: retourneert resultaat aan", "JSON/REST")
-Rel_U(bookingService, bookingController, "7: retourneert samengevoegd resultaat aan", "JSON/REST")
+Rel_U(BookingComAdapter, bookingService, "6a: retourneert resultaat aan")
+Rel_U(tripAdvisorAdapter, bookingService, "6b: retourneert resultaat aan")
+Rel_U(bookingService, bookingController, "7: retourneert samengevoegd resultaat aan")
 Rel_U(bookingController, Frontend, "8: retourneert resultaat aan", "JSON/REST")
 
 
