@@ -1,5 +1,5 @@
 package com.example.demo;
 
 public interface IBookingAdapter {
-    Hotel[] searchHotels();
+    Hotel[] searchHotels(String checkInDate, String checkOutDate);
 }

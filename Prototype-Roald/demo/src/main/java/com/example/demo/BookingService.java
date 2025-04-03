@@ -14,10 +14,10 @@ public class BookingService {
         new TripAdvisorAdapter()
     };
 
-    public Hotel[] searchHotels() {
+    public Hotel[] searchHotels(String checkInDate, String checkOutDate) {
         List<Hotel> allHotels = new ArrayList<>();
         for (IBookingAdapter adapter : adapters) {
-            Hotel[] AdapterHotels = adapter.searchHotels();
+            Hotel[] AdapterHotels = adapter.searchHotels(checkInDate, checkOutDate);
             if (AdapterHotels != null) {
                 allHotels.addAll(Arrays.asList(AdapterHotels));
             }

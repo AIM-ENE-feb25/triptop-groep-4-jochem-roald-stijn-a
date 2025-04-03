@@ -10,14 +10,15 @@ import org.json.JSONObject;
 public class BookingComAdapter implements IBookingAdapter {
 
     @Override
-    public Hotel[] searchHotels(/*String location, String checkInDate, String checkOutDate*/) {
+    public Hotel[] searchHotels(/*String location,*/ String checkInDate, String checkOutDate) {
 
-        //TODO: search for hotel location using API and implement checkInDate and checkOutDate
+        //TODO: search for hotel location using API
 
+        String url = "https://booking-com15.p.rapidapi.com/api/v1/hotels/searchHotels?dest_id=-2092174&search_type=CITY&arrival_date=" + checkInDate + "&departure_date=" + checkOutDate + "&adults=1&children_age=0%2C17&room_qty=1&page_number=1&units=metric&temperature_unit=c&languagecode=en-us&currency_code=AED&location=US";
         Unirest.setTimeouts(0, 0);
         HttpResponse<String> response = null;
         try {
-            response = Unirest.get("https://booking-com15.p.rapidapi.com/api/v1/hotels/searchHotels?dest_id=-2092174&search_type=CITY&arrival_date=2025-04-23&departure_date=2025-04-30&adults=1&children_age=0%2C17&room_qty=1&page_number=1&units=metric&temperature_unit=c&languagecode=en-us&currency_code=AED&location=US")
+            response = Unirest.get(url)
                     .header("x-rapidapi-host", "booking-com15.p.rapidapi.com")
                     .header("x-rapidapi-key", "c2a11c5dc5mshc8163f22cd6e049p1b5d09jsn77de5b5baf7C")
                     .asString();

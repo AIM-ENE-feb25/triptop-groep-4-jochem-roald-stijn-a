@@ -3,7 +3,7 @@ package com.example.demo;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 public class BookingController {
@@ -15,8 +15,8 @@ public class BookingController {
     }
 
     @GetMapping("/hotels/search")
-    public ResponseEntity<Hotel[]> searchHotels() {
-        Hotel[] hotels = bookingService.searchHotels();
+    public ResponseEntity<Hotel[]> searchHotels(@RequestParam String checkInDate, @RequestParam String checkOutDate) {
+        Hotel[] hotels = bookingService.searchHotels(checkInDate, checkOutDate);
         if (hotels.length > 0) {
             return ResponseEntity.ok(hotels);
         } else {
