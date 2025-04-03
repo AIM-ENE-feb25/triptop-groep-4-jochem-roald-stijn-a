@@ -64,6 +64,9 @@ public class ExternalAPIHandlerImpl implements ExternalAPIHandler {
         String url = request.url();
         Map<String, String> headers = request.headers();
 
+        // // Simulate error in API call
+        // return Optional.empty();
+
         try {
             HttpResponse<String> apiResponse = Unirest.get(url)
                     .headers(headers)

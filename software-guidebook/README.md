@@ -545,7 +545,7 @@ Geaccepteerd
 - We moeten de database in docker draaien.
 - Alle huidige developers kunnen meteen beginnen met implementeren
 
-### 8.4. ADR-004 Nieuwste API data gaat voor cache
+### 8.4. ADR-004 Nieuwste API-data gaat voor cache
 
 #### Context
 
@@ -554,14 +554,15 @@ Actuele reisgegevens zijn cruciaal vanwege snel veranderende prijzen en beschikb
 #### Alternatieven
 
 | Strategie                  | Beschrijving                                                                                          | Actualiteit van gegevens | Prestaties | Betrouwbaarheid |
-| -------------------------- | ----------------------------------------------------------------------------------------------------- | ------------------------ | ---------- | --------------- |
+|----------------------------|-------------------------------------------------------------------------------------------------------|--------------------------|------------|-----------------|
 | **API-first**              | Altijd eerst de API aanroepen, cache alleen gebruiken als fallback wanneer de API niet beschikbaar is | ++                       | -          | +               |
 | **Stale-while-revalidate** | Eerst cache tonen (indien beschikbaar), dan API op de achtergrond aanroepen om cache te verversen     | -                        | ++         | -               |
 | **Cache-first**            | Altijd cache gebruiken als die beschikbaar is, API alleen aanroepen als cache leeg of verlopen is     | -                        | ++         | --              |
+| **Hybrid**                 | Combinatie van API-first en Cache-first, afhankelijk van de veranderlijkheid van de data              | ++                       | ++         | +               |
 
 #### Besluit
 
-We kiezen voor de API-first strategie: altijd eerst de API aanroepen voor actuele data en alleen terugvallen op cache bij onbeschikbaarheid. Dit garandeert actuele informatie en voorkomt frustratie door verouderde gegevens. Andere strategieën bieden minder betrouwbaarheid of actualiteit.
+~~We kiezen voor de API-first strategie: altijd eerst de API aanroepen voor actuele data en alleen terugvallen op cache bij onbeschikbaarheid. Dit garandeert actuele informatie en voorkomt frustratie door verouderde gegevens. Andere strategieën bieden minder betrouwbaarheid of actualiteit.~~
 
 #### Status
 
@@ -569,7 +570,7 @@ Geaccepteerd
 
 #### Consequenties
 
-**Positieve consequenties:**
+<!-- **Positieve consequenties:**
 
 - Gebruikers krijgen altijd de meest actuele informatie over prijzen, beschikbaarheid en andere reisgegevens.
 - Verhoogde betrouwbaarheid van de getoonde informatie.
@@ -577,7 +578,7 @@ Geaccepteerd
 **Negatieve consequenties:**
 
 - Meer API-verzoeken kunnen leiden tot hogere kosten.
-- Mogelijk langere laadtijden voor gebruikers, vooral bij trage API-responses.
+- Mogelijk langere laadtijden voor gebruikers, vooral bij trage API-responses. -->
 
 ### 8.5. ADR-005 Pattern voor Alternatieve Bouwstenen
 
@@ -638,7 +639,7 @@ Deze sectie beschrijft de vereisten en stappen om de Triptop-applicatie te insta
 De applicatie maakt gebruik van Redis als cache voor externe API-responses. Start Redis met de docker-compose.yml door in de root van het project de volgende command uit te voeren:
 
 ```bash
-docker compose up -d
+  docker compose up -d
 ```
 
 Dit start een Redis server op poort 6379 (geconfigureerd in het .env bestand).
