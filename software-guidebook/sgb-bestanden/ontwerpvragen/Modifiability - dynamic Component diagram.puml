@@ -8,7 +8,7 @@ Container(Frontend, "Frontend", "Javascript en React", "Toont de UI voor het pla
 
 
 Container_Boundary(backend, "Backend") {
-Component(bookingController, "BookingController", "Spring Boot RestController", "Verwerkt requests van de frontend en geeft door aan de juiste service")
+Component(bookingController, "BookingController", "Spring Boot Controller", "Verwerkt requests van de frontend en geeft door aan de juiste service")
 Component(bookingService, "BookingService", "Spring Boot Service", "Verwerkt resultaten van booking services en zet om naar domeinobjecten")
 Component(BookingComAdapter, "BookingComAdapter", "Spring Boot Component", "Adapter voor Booking.com API")
 Component(tripAdvisorAdapter, "TripadvisorAdapter", "Spring Boot Component", "Adapter voor Tripadvisor API")
