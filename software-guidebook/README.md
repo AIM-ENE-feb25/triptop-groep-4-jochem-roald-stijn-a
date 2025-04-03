@@ -178,7 +178,8 @@ Hieronder is een class diagram uitgewerkt die de classes en functies weergeeft d
 ![Modularity - class diagram-C4_Class_Diagram___Backend.svg](sgb-bestanden%2Fontwerpvragen%2FModularity%20-%20class%20diagram-C4_Class_Diagram___Backend.svg)
 > **Figuur 6:** Class diagram van alternatieve bouwstenen aanbieden
 > 
-> TODO Jochem: uitleg
+> In dit diagram is de werking te zien van het prototype. Ongeacht het feit dat in het prototype niet alles van het domein Journey wordt behandeld hebben we wel het hele domein aangetoond om te laten zien hoe het er uiteindelijk uit komt te zien.
+> De strategieën die worden behandeld zijn een standaard- en alternatieve strategie. In de standaard strategie wordt alleen een taxi trip behandeld, terwijl in de alternatieve strategie zowel taxi als huurauto en vlucht wordt behandeld.
 
 ### 4.2. Modifiability - Verschillende boekingsservices integreren
 De volgende ontwerpvraag is uitgewerkt door **Roald**:
