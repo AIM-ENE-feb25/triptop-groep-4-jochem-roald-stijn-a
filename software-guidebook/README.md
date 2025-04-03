@@ -185,7 +185,7 @@ Hieronder is een class diagram uitgewerkt die de klassen en functies weergeeft d
 > In dit diagram is de werking te zien van het prototype. Ongeacht het feit dat in het prototype niet alles van het domein Journey wordt behandeld hebben we wel het hele domein aangetoond om te laten zien hoe het er uiteindelijk uit komt te zien.
 > De strategieën die worden behandeld zijn een standaard- en alternatieve strategie. In de standaard strategie wordt alleen een taxi trip behandeld, terwijl in de alternatieve strategie zowel taxi als huurauto en vlucht wordt behandeld.
 >
-> Dit klassendiagram maakt gebruik van de volgende design principles:
+> Dit klassendiagram maakt gebruik van de volgende design principes:
 > - Program to an Interface
 > - Single Responsibility Principle
 > - Open/Closed Principle
@@ -322,7 +322,7 @@ Hieronder is een class diagram uitgewerkt die de klassen en functies weergeeft d
 > 
 > In dit klassendiagram maakt ExternalAPIHandlerImpl gebruik van het **Facade Design Pattern**, omdat het een eenvoudige interface biedt voor het ophalen van responses, zonder dat de gebruiker hoeft af te weten van de onderliggende cache-implementatie.
 > 
-> Het diagram maakt gebruik van de volgende design principles:
+> Het diagram maakt gebruik van de volgende design principes:
 > - Program to an Interface
 > - Dependency Inversion Principle
 > - Single Responsibility Principle
@@ -359,22 +359,24 @@ Bij het ontwikkelen van de applicatie zijn de volgende beperkingen vastgesteld:
 - Alleen **Booking.com** en **Tripadvisor** worden gebruikt als externe systemen voor het ophalen van data.
   - Zie [ADR-001: Externe systemen](#81-adr-001-externe-systemen) voor uitleg van deze keuze.
 
-## 6. Principles
+## 6. Design principes
 
-> [!IMPORTANT]
-> Beschrijf zelf de belangrijkste architecturele en design principes die zijn toegepast in de software.
+Bij het ontwikkelen van de TripTop-applicatie hebben we een aantal belangrijke architecturele en design principes toegepast om de kwaliteit, onderhoudbaarheid en uitbreidbaarheid van de software te waarborgen. 
+Deze principes hebben ons geholpen om een robuuste en flexibele architectuur te creëren die kan voldoen aan de veranderende eisen van onze gebruikers.
+De gekozen principes zijn afgestamd uit de design patterns die wij hebben toegepast in onze ontwerpvragen.
 
+De principes die we bewust hebben toegepast zijn onder andere:
 - Program to an Interface
 - Single Responsibility Principle
 - Open/Closed Principle
 - Dependency Inversion Principle
 
-## 7. Software Architecture
+## 7. Software Architectuur
 
 ### 7.1. Containers
 
-[//]: # "> [!IMPORTANT]"
-[//]: # "> Voeg toe: Container Diagram plus een Dynamic Diagram van een aantal scenario's inclusief begeleidende tekst."
+In dit hoofdstuk wordt het container diagram aangetoond die de applicatie vormt.
+Daarnaast zijn er ook twee dynamische container diagrammen die het inloggen en boeken van een reis beschrijven.
 
 #### 7.1.1. Container diagram
 
@@ -412,11 +414,13 @@ In de dynamische container diagrammen is te zien hoe de containers met elkaar co
 > Aangezien we nog niet weten hoe Mollie geïmplementeerd wordt, houdt dit diagram op bij de betaling.
 
 ### 7.2. Componenten
+Hieronder staat de component diagram van Triptop. Hierin zijn de design patterns verwerkt die we hebben gekozen voor onze ontwerpvragen.
 
 ![component-diagram-C4_Component_diagram__Triptop_backend.svg](sgb-bestanden%2Fcomponent-diagram-C4_Component_diagram__Triptop_backend.svg)
 > **Figuur 14:** Component diagram van de Triptop backend
-> [!IMPORTANT]
-> Voeg toe: Component Diagram plus een Dynamic Diagram van een aantal scenario's inclusief begeleidende tekst.
+> 
+> Alle componenten in dit diagram zijn generiek. Dit houdt in dat het toegepast kan worden op alle bouwstenen en dus niet specifiek voor één bouwsteen geldt.
+> Bij een service heb je de optie om een strategy te gebruiken of niet. Strategies worden voornamelijk gebruikt voor alternatieve opties bij een bouwsteen.
 
 ### 7.3. Design & Code
 
@@ -434,13 +438,10 @@ Hieronder wordt aangegeven waar die diagrammen te vinden zijn per ontwerpvraag:
   - [Component diagram](#433-component-diagrammen)
   - [Class diagram](#434-klassen-en-functies)
   - [Sequence diagram](#435-sequentie-diagram)
-> [!IMPORTANT]
-> Voeg toe: Per ontwerpvraag een Class Diagram plus een Sequence Diagram van een aantal scenario's inclusief begeleidende tekst.
 
 ## 8. Architectural Decision Records
 
-<!-- > [!IMPORTANT]
-> Voeg toe: 3 tot 5 ADR's die beslissingen beschrijven die zijn genomen tijdens het ontwerpen en bouwen van de software. -->
+In dit hoofdstuk worden een aantal architecturale beslissingen beschreven die zijn genomen tijdens het ontwerpen en bouwen van de prototypes.
 
 ### 8.1. ADR-001 Externe systemen
 
@@ -474,7 +475,7 @@ Geaccepteerd
 
 #### Consequenties
 
-- Als een van de externe systemen uit valt zal gelijk een groot deel van de mogelijkheden op onze website niet meer zichtbaar zijn.
+- Als een van de externe systemen uit valt, zal gelijk een groot deel van de mogelijkheden op onze website niet meer zichtbaar zijn.
 - Doordat we slechts twee externe systemen gebruiken, kunnen we informatie sneller ophalen en efficiënt verwerken. Dit vermindert de complexiteit van onze integratie en verhoogt de stabiliteit.
 - Er zijn minder kosten aan het gebruiken van externe systemen.
 - Minder API's betekend minder onderhoud.
@@ -532,7 +533,7 @@ Geaccepteerd
 #### Consequenties
 
 - We moeten de database in docker draaien.
-- Alle huidige developers kunnen meteen beginnen met implementere
+- Alle huidige developers kunnen meteen beginnen met implementeren
 
 ### 8.4. ADR-004 Nieuwste API data gaat voor cache
 
