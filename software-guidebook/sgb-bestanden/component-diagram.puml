@@ -1,0 +1,40 @@
+@startuml
+!include <C4/C4_Component.puml>
+title C4 Component diagram: Triptop backend
+
+LAYOUT_TOP_DOWN()
+SHOW_PERSON_OUTLINE()
+
+Container(frontend, "Frontend", "Javascript en React", "Toont de UI voor het planproces van de reiziger en het ticketsysteem van de reisagent")
+
+Container_Boundary(backend, "Backend") {
+    'Jochem
+    Component(controller, "Generieke controller", "Spring Boot RestController", "Verwerkt requests van de frontend en geeft door aan de juiste service")
+    Component(service, "Generieke service", "Spring Boot Service", "Verwerkt resultaten van externe services en zet om naar domeinobjecten")
+    Component(strategy, "Generieke strategy", "POJO", "Dynamisch toepassen van verschillende strategieën op basis van context en criteria")
+    Component(apiHandler, "ExternalAPIHandler", "POJO", "Aanroepen van externe services en cachen van resultaten")
+    'Roald
+    Component(adapter, "Generieke adapter", "POJO", "Standaardiseert het resultaat van externe API calls")
+    'Stijn
+    Component(cacheRepo, "CacheRepository", "POJO", "Opslaan en ophalen van resultaten in de cache")
+}
+
+ContainerDb(cache, "Cache", "Redis", "Cachen van resultaten van externe services")
+
+System_Ext(api, "Externe API", "API van externe service zoals Booking.com of Tripadvisor")
+
+'Jochem
+Rel(frontend, controller, "maakt API verzoeken voor generieke data naar", "JSON/REST")
+Rel(controller, service, "stuurt request door om af te handelen naar")
+Rel(service, strategy, "past functionaliteit aan op een strategy via")
+Rel(strategy, adapter, "roept externe service aan via")
+Rel(apiHandler, api, "maakt API verzoeken voor actuele data naar", "JSON/REST")
+'Roald
+Rel(service, adapter, "roept externe service aan via")
+Rel(adapter, apiHandler, "vraagt api data op aan")
+'Stijn
+Rel(apiHandler, cacheRepo, "vraagt of slaat resultaat op in de cache")
+Rel(cacheRepo, cache, "vraagt of slaat resultaat op in de cache", "Jedis")
+
+SHOW_FLOATING_LEGEND()
+@enduml
