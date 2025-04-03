@@ -1,0 +1,36 @@
+@startuml
+title C4 Component diagram: Verschillende boekingsservices integreren
+!include <C4/C4_Component.puml>
+top to bottom direction
+
+
+Container(Frontend, "Frontend", "Javascript en React", "Toont de UI voor het planproces van de reiziger en het ticketsysteem van de reisagent.")
+
+
+Container_Boundary(backend, "Backend") {
+Component(bookingController, "BookingController", "Spring Boot RestController", "Verwerkt requests van de frontend en geeft door aan de juiste service")
+Component(bookingService, "BookingService", "Spring Boot Service", "Verwerkt resultaten van booking services en zet om naar domeinobjecten")
+Component(BookingComAdapter, "BookingComAdapter", "Spring Boot Component", "Adapter voor Booking.com API")
+Component(tripAdvisorAdapter, "TripadvisorAdapter", "Spring Boot Component", "Adapter voor Tripadvisor API")
+}
+System_Ext(bookingComApi, "Booking.com API", "API van Booking.com")
+System_Ext(tripAdvisorApi, "Tripadvisor API", "API van Tripadvisor")
+
+Rel(Frontend, bookingController, "1: stuurt verzoek", "JSON/REST")
+Rel(bookingController, bookingService, "2: stuurt verzoek door")
+Rel(bookingService, BookingComAdapter, "3a: vraagt data op via")
+Rel(bookingService, tripAdvisorAdapter, " 3b: vraagt data op via")
+Rel(BookingComAdapter, bookingComApi, "4a: roept externe service aan", "JSON/REST")
+Rel(tripAdvisorAdapter, tripAdvisorApi, "4b: roept externe service aan", "JSON/REST")
+Rel_U(bookingComApi, BookingComAdapter, "5a: retourneert resultaat aan", "JSON/REST")
+Rel_U(tripAdvisorApi, tripAdvisorAdapter, "5b: retourneert resultaat aan", "JSON/REST")
+Rel_U(BookingComAdapter, bookingService, "6a: retourneert resultaat aan", "JSON/REST")
+Rel_U(tripAdvisorAdapter, bookingService, "6b: retourneert resultaat aan", "JSON/REST")
+Rel_U(bookingService, bookingController, "7: retourneert samengevoegd resultaat aan", "JSON/REST")
+Rel_U(bookingController, Frontend, "8: retourneert resultaat aan", "JSON/REST")
+
+
+
+SHOW_FLOATING_LEGEND()
+
+@enduml
