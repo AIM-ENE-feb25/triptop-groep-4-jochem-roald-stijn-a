@@ -24,6 +24,9 @@ public class TripAdvisorAdapter implements IBookingAdapter {
         } catch (UnirestException ignored) {
         }
         JSONObject jsonBody = new JSONObject(response.getBody());
+        if (jsonBody.optJSONObject("data") == null) {
+            return new Hotel[0];
+        }
         JSONArray APIHotelData = jsonBody.getJSONObject("data").getJSONArray("data");
 
         Hotel[] hotels = new Hotel[APIHotelData.length()];
