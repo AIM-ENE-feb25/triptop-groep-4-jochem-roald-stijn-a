@@ -61,10 +61,12 @@ public class FlightsServiceImpl implements FlightsService {
     public String getAirportId(String query) {
         String encodedQuery = URLEncoder.encode(query, StandardCharsets.UTF_8);
 
+        // Create a request object
         Request request = new Request(
                 "https://booking-com15.p.rapidapi.com/api/v1/flights/searchDestination?query=" + encodedQuery,
                 getCommonHeaders()
         );
+        // Send the request to the apiHandler
         Optional<Response> response = externalAPIHandler.sendRequest(request, false);
 
         if (response.isPresent()) {
