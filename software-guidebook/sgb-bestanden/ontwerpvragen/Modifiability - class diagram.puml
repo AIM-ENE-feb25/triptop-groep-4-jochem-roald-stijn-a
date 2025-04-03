@@ -5,43 +5,48 @@ title C4 Class Diagram: Verschillende boekingsservices integreren
 package "backend" {
 
 interface IBookingAdapter {
-    + getBookings(): List<Booking>
-    + makeBooking(booking: Booking)
+    + searchHotels(String location, String checkInDate, String CheckOutDate): Hotel[]
 }
 
 class BookingComAdapter {
-    + getBookings(): List<Booking>
-    + makeBooking(booking: Booking)
+    + searchHotels(String location, String checkInDate, String CheckOutDate): Hotel[]
 }
 
 class TripadvisorAdapter {
-    + getBookings(): List<Booking>
-    + makeBooking(booking: Booking)
-}
-
-class EigenBeheerHandler {
-    + getBookings(): List<Booking>
-    + makeBooking(booking: Booking)
+    + searchHotels(String location, String checkInDate, String CheckOutDate): Hotel[]
 }
 
 class BookingController {
-    + getBookings(): List<Booking>
-    + makeBooking(booking: Booking)
+    + searchHotels(String location, String checkInDate, String CheckOutDate): Hotel[]
 }
 
 class BookingService {
-    + getBookings(): List<Booking>
-    + makeBooking(booking: Booking)
+    + searchHotels(String location, String checkInDate, String CheckOutDate): Hotel[]
+}
+
+class Hotel {
+    - String name
+    - String location
+    - String checkInDate
+    - String checkOutDate
+
+    + String getName()
+    + void setName(String name)
+    + String getLocation()
+    + void setLocation(String location)
+    + String getCheckInDate()
+    + void setCheckInDate(String checkInDate)
+    + String getCheckOutDate()
+    + void setCheckOutDate(String checkOutDate)
 }
 
 }
 
 IBookingAdapter <|.. BookingComAdapter
 IBookingAdapter <|.. TripadvisorAdapter
-IBookingAdapter <|.. EigenBeheerHandler
-BookingComAdapter --> "bookingComAPI 1" "Booking.com API"
+BookingComAdapter --> "bookingComAPI 1" "BookingCom API"
 TripadvisorAdapter --> "tripAdvisorAPI 1" "Tripadvisor API"
 
 BookingController --> "bookingService 1" BookingService
-BookingService --> "iBookingAdapter 1" IBookingAdapter
+BookingService --> "iBookingAdapter *" IBookingAdapter
 @enduml
