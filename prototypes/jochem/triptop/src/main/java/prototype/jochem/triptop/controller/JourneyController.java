@@ -19,7 +19,7 @@ public class JourneyController {
     }
 
     @GetMapping("/journeys")
-    public List<Journey> getAllJourneys(
+    public List<Journey> getJourneys(
             @RequestParam String strategy,
             @RequestParam(required = false) String origin,
             @RequestParam(required = false) String destination,
