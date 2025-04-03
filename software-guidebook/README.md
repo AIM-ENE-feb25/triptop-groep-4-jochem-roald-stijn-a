@@ -226,69 +226,54 @@ De ontwerpvraag wordt uitgewerkt door middel van het **Facade Design Pattern**.
 
 Als eerst is er een overzicht gemaakt van de componenten en hun verantwoordelijkheden die van belang zijn voor de ontwerpvraag.
 
-- **Generieke controller**: Verantwoordelijk voor het verwerken van requests van de frontend en het doorgeven aan de juiste service.
-- **Generieke service**: Verantwoordelijk voor het verwerken van de resultaten van externe services en het omzetten naar domeinobjecten.
-- **ExternalAPIHandler**: Verantwoordelijk voor het aanroepen van externe services, het afhandelen van fouten en retries, en het cachen van resultaten om fault tolerance te bieden.
-- **CacheRepository**: Verantwoordelijk voor het opslaan en ophalen van resultaten in de cache. Wordt gebruikt door de ExternalAPIHandler.
-- Buiten container: **Cache**: Verantwoordelijk voor het cachen van resultaten van externe services.
+- **FlightsController**: Verantwoordelijk voor het verwerken van requests van de frontend en het doorgeven aan de FlightsService.
+- **FlightsServiceImpl**: Verantwoordelijk voor het verwerken van de resultaten van externe services en het omzetten naar domeinobjecten.
+- **ExternalAPIHandlerImpl**: Verantwoordelijk voor het aanroepen van externe services, het afhandelen van fouten, en het cachen van resultaten om fault tolerance te bieden.
+- **RedisCacheRepositoryImpl**: Verantwoordelijk voor het opslaan en ophalen van resultaten in de cache. Wordt gebruikt door de ExternalAPIHandler.
+- Buiten container: **Redis**: Verantwoordelijk voor het cachen van resultaten van externe services.
 
 #### 4.3.2. Interfaces
 
 Hieronder zijn de interfaces van de componenten die van belang zijn voor de ontwerpvraag uitgewerkt. Deze interfaces geven een overzicht van de methodes die de componenten aanbieden.
 
-- **Generieke controller**:
+- **FlightsController**:
   ```
-  GET /flights
-  Body: {
+  GET /flights/getFlightPrice
+  Parameters: {
       origin: string,
       destination: string,
-      departureDate: Date,
-      returnDate: Date
+      departureDate: string,
+      returnDate: string
   }
   ```
-- **Generieke service**:
+- **FlightsService**:
   ```java
   public interface FlightsService {
-      List<Flight> getFlights(String origin, String destination, Date departureDate, Date returnDate);
+      String getAirportId(String query);
+      double getFlightPrice(String origin, String destination, String departureDate, String returnDate);
   }
   ```
-- **CacheRepository**:
-
-  ```java
-  public interface CacheRepository {
-      void save(Endpoint key, Response response, Duration duration);
-      Optional<Response> get(Endpoint key);
-  }
-
-  public record Endpoint(Method method, String url, HashMap<String, String> queryParams, String bodyHash) {
-      public Endpoint(Method method, String url, HashMap<String, String> queryParams) {
-          this(method, url, queryParams, "");
-      }
-
-      public Endpoint(Method method, String url, String body) {
-          this(method, url, new HashMap<>(), body);
-      }
-
-      public Endpoint(Method method, String url) {
-          this(method, url, new HashMap<>(), "");
-      }
-  }
-
-  public record Response(int statusCode, JSONObject body, Origin origin) {}
-
-  public enum Origin {
-      EXTERNAL_API, CACHE
-  }
-
-  public enum Method {
-      GET, POST, PUT, DELETE
-  }
-  ```
-
 - **ExternalAPIHandler**:
   ```java
   public interface ExternalAPIHandler {
-      Optional<Response> call(Endpoint endpoint);
+      Optional<Response> sendRequest(Request request, boolean dataMayGetOutdated);
+  }
+  ```
+- **CacheRepository**:
+  ```java
+  public interface CacheRepository {
+      void save(String url, Response response, Integer keepForSeconds);
+      Optional<Response> get(String url);
+  }
+  ```
+- **Request en Response**:
+  ```java
+  public record Request(String url, HashMap<String, String> headers) {}
+  
+  public record Response(int statusCode, JSONObject body, Origin origin) {}
+  
+  public enum Origin {
+      EXTERNAL_API, REDIS_CACHE
   }
   ```
 
@@ -312,10 +297,27 @@ Hieronder is een class diagram uitgewerkt die de klassen en functies weergeeft d
 ![Fault Tolerance - class diagram](sgb-bestanden/ontwerpvragen/Fault%20Tolerance%20-%20class%20diagram-C4_Class_Diagram___Backend.svg)
 > **Figuur 10:** Class diagram van externe services
 > 
-> Dit klassendiagram maakt gebruik van de volgende design principles:
+> In dit klassendiagram maakt ExternalAPIHandlerImpl gebruik van het **Facade Design Pattern**, omdat het een eenvoudige interface biedt voor het ophalen van responses, zonder dat de gebruiker hoeft af te weten van de onderliggende cache-implementatie.
+> 
+> Het diagram maakt gebruik van de volgende design principles:
 > - Program to an Interface
-> - Law of Demeter
 > - Dependency Inversion Principle
+> - Single Responsibility Principle
+
+#### 4.3.5. Sequence diagram
+
+Hieronder is een sequence diagram uitgewerkt die de volgorde van aanroepen weergeeft voor verschillende scenario's.
+
+![Fault Tolerance - sequence diagram](sgb-bestanden/ontwerpvragen/Fault%20Tolerance%20-%20sequence%20diagram-Sequence_diagram__Externe_services_die_niet_beschikbaar_zijn.svg)
+> **Figuur 11:** Sequence diagram van externe services
+> 
+> Dit sequence diagram toont twee belangrijke scenario's voor fault tolerance:
+> 
+> 1. **Scenario 1 (dataMayGetOutdated = false)**: Eerst wordt de cache gecontroleerd. Als er een cache hit is, wordt het gecachte resultaat teruggegeven. Als er een cache miss is, wordt de externe API aangeroepen. Als de API succesvol is, wordt het resultaat gecached en teruggegeven. Als de API faalt, wordt een NotFoundException gegooid.
+> 
+> 2. **Scenario 2 (dataMayGetOutdated = true)**: Eerst wordt de externe API aangeroepen. Als de API succesvol is, wordt het resultaat gecached en teruggegeven. Als de API faalt, wordt de cache gecontroleerd. Als er een cache hit is, wordt het gecachte resultaat teruggegeven. Als er een cache miss is, wordt een NotFoundException gegooid.
+> 
+> Deze aanpak zorgt ervoor dat de applicatie blijft functioneren, zelfs wanneer externe services niet beschikbaar zijn, door terug te vallen op gecachte resultaten wanneer nodig.
 
 ## 5. Constraints
 
