@@ -235,6 +235,8 @@ Hieronder is een class diagram uitgewerkt die de classes en functies weergeeft d
 > 
 > TODO Roald: uitleg
 
+#### 4.2.5. Sequentie diagram
+
 ### 4.3. Fault Tolerance - Externe services die niet beschikbaar zijn
 
 De volgende ontwerpvraag is uitgewerkt door **Stijn**:
@@ -325,7 +327,7 @@ Hieronder is een class diagram uitgewerkt die de klassen en functies weergeeft d
 > - Dependency Inversion Principle
 > - Single Responsibility Principle
 
-#### 4.3.5. Sequence diagram
+#### 4.3.5. Sequentie diagram
 
 Hieronder is een sequence diagram uitgewerkt die de volgorde van aanroepen weergeeft voor verschillende scenario's.
 
@@ -411,11 +413,27 @@ In de dynamische container diagrammen is te zien hoe de containers met elkaar co
 
 ### 7.2. Componenten
 
+![component-diagram-C4_Component_diagram__Triptop_backend.svg](sgb-bestanden%2Fcomponent-diagram-C4_Component_diagram__Triptop_backend.svg)
+> **Figuur 14:** Component diagram van de Triptop backend
 > [!IMPORTANT]
 > Voeg toe: Component Diagram plus een Dynamic Diagram van een aantal scenario's inclusief begeleidende tekst.
 
 ### 7.3. Design & Code
 
+De klassendiagrammen en sequentie diagrammen zijn uitgewerkt in de verschillende ontwerpvragen. 
+Hieronder wordt aangegeven waar die diagrammen te vinden zijn per ontwerpvraag:
+- [Modularity - Alternatieve bouwstenen aanbieden](#41-modularity---alternatieve-bouwstenen-aanbieden)
+  - [Component diagram](#413-component-diagrammen)
+  - [Class diagram](#414-klassen-en-functies)
+  - [Sequence diagram](#415-sequentie-diagram)
+- [Modifiability - Verschillende boekingsservices integreren](#42-modifiability---verschillende-boekingsservices-integreren)
+  - [Component diagram](#423-component-diagrammen)
+  - [Class diagram](#424-klassen-en-functies)
+  - [Sequence diagram](#425-sequentie-diagram)
+- [Fault Tolerance - Externe services die niet beschikbaar zijn](#43-fault-tolerance---externe-services-die-niet-beschikbaar-zijn)
+  - [Component diagram](#433-component-diagrammen)
+  - [Class diagram](#434-klassen-en-functies)
+  - [Sequence diagram](#435-sequentie-diagram)
 > [!IMPORTANT]
 > Voeg toe: Per ontwerpvraag een Class Diagram plus een Sequence Diagram van een aantal scenario's inclusief begeleidende tekst.
 
@@ -591,6 +609,7 @@ Geaccepteerd
 - Elke bouwsteen kan afzonderlijk worden getest.
 - In een code met weinig algoritmes maak je de code te ingewikkeld.
 - Een gebruiker moet een idee hebben wat hun keuze doet, wanneer ze een strategie kiezen.
+
 ## 9. Deployment, Operation and Support
 
 > [!TIP]
