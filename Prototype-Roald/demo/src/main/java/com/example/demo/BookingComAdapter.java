@@ -10,9 +10,9 @@ import org.json.JSONObject;
 public class BookingComAdapter implements IBookingAdapter {
 
     @Override
-    public Hotel[] searchHotels(/*String location,*/ String checkInDate, String checkOutDate) {
+    public Hotel[] searchHotels(String location, String checkInDate, String checkOutDate) {
 
-        //TODO: search for hotel location using API
+        int dest_id = -2092174; //TODO: get dest_id from location search
 
         String url = "https://booking-com15.p.rapidapi.com/api/v1/hotels/searchHotels?dest_id=-2092174&search_type=CITY&arrival_date=" + checkInDate + "&departure_date=" + checkOutDate + "&adults=1&children_age=0%2C17&room_qty=1&page_number=1&units=metric&temperature_unit=c&languagecode=en-us&currency_code=AED&location=US";
         Unirest.setTimeouts(0, 0);

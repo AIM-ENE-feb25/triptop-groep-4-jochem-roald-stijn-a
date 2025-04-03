@@ -15,8 +15,8 @@ public class BookingController {
     }
 
     @GetMapping("/hotels/search")
-    public ResponseEntity<Hotel[]> searchHotels(@RequestParam String checkInDate, @RequestParam String checkOutDate) {
-        Hotel[] hotels = bookingService.searchHotels(checkInDate, checkOutDate);
+    public ResponseEntity<Hotel[]> searchHotels(@RequestParam String location, @RequestParam String checkInDate, @RequestParam String checkOutDate) {
+        Hotel[] hotels = bookingService.searchHotels(location, checkInDate, checkOutDate);
         if (hotels.length > 0) {
             return ResponseEntity.ok(hotels);
         } else {

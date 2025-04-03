@@ -9,11 +9,11 @@ import org.json.JSONObject;
 public class TripAdvisorAdapter implements IBookingAdapter {
 
     @Override
-    public Hotel[] searchHotels(/*String location,*/ String checkInDate, String checkOutDate) {
+    public Hotel[] searchHotels(String location, String checkInDate, String checkOutDate) {
 
-        //TODO: search for hotel location using API
+        int geoId = 60763; //TODO: get geoId from location search
 
-        String url = "https://tripadvisor16.p.rapidapi.com/api/v1/hotels/searchHotels?geoId=60763&checkIn=" + checkInDate + "&checkOut=" + checkOutDate + "&pageNumber=1&currencyCode=USD";
+        String url = "https://tripadvisor16.p.rapidapi.com/api/v1/hotels/searchHotels?geoId=" + geoId + "&checkIn=" + checkInDate + "&checkOut=" + checkOutDate + "&pageNumber=1&currencyCode=USD";
         Unirest.setTimeouts(0, 0);
         HttpResponse<String> response = null;
         try {
