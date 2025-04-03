@@ -1,0 +1,98 @@
+@startuml
+title Sequence diagram: Externe services die niet beschikbaar zijn
+
+actor Frontend
+participant FlightsController
+participant FlightsServiceImpl
+participant ExternalAPIHandlerImpl
+participant BookingAPI
+participant RedisCacheRepositoryImpl
+participant UnifiedJedis
+
+Frontend -> FlightsController: GET /flights/getFlightPrice\n(origin, destination, departureDate, returnDate)
+FlightsController -> FlightsServiceImpl: getFlightPrice(origin, destination, departureDate, returnDate)
+
+note over FlightsServiceImpl: Maakt Request object met URL en headers
+
+== Scenario 1: dataMayGetOutdated = false (eerst cache controleren) ==
+
+FlightsServiceImpl -> ExternalAPIHandlerImpl: sendRequest(request, false)
+
+note over ExternalAPIHandlerImpl: dataMayGetOutdated = false\nEerst cache controleren
+
+ExternalAPIHandlerImpl -> RedisCacheRepositoryImpl: get(url)
+RedisCacheRepositoryImpl -> UnifiedJedis: get(url)
+
+alt Cache hit
+    UnifiedJedis --> RedisCacheRepositoryImpl: cached response
+    RedisCacheRepositoryImpl --> ExternalAPIHandlerImpl: Optional<Response> met Origin.REDIS_CACHE
+    ExternalAPIHandlerImpl --> FlightsServiceImpl: Response uit cache
+    FlightsServiceImpl --> FlightsController: Verwerkt resultaat
+    FlightsController --> Frontend: 200 OK met vluchtprijs (van cache)
+
+else Cache miss
+    UnifiedJedis --> RedisCacheRepositoryImpl: null
+    RedisCacheRepositoryImpl --> ExternalAPIHandlerImpl: Optional.empty()
+
+    ExternalAPIHandlerImpl -> BookingAPI: HTTP GET request
+
+    alt API succesvol
+        BookingAPI --> ExternalAPIHandlerImpl: HTTP 200 OK met resultaat
+        ExternalAPIHandlerImpl -> RedisCacheRepositoryImpl: save(url, response, 10)
+        RedisCacheRepositoryImpl -> UnifiedJedis: setex(url, 10, value)
+        ExternalAPIHandlerImpl --> FlightsServiceImpl: Response met Origin.EXTERNAL_API
+        FlightsServiceImpl --> FlightsController: Verwerkt resultaat
+        FlightsController --> Frontend: 200 OK met vluchtprijs (van API)
+
+    else API faalt
+        BookingAPI --> ExternalAPIHandlerImpl: Exception of timeout
+        ExternalAPIHandlerImpl --> FlightsServiceImpl: Optional.empty()
+        FlightsServiceImpl --> FlightsController: NotFoundException
+        FlightsController --> Frontend: 404 Not Found
+    end
+end
+
+
+== Scenario 2: dataMayGetOutdated = true (eerst API aanroepen, fallback naar cache) ==
+
+FlightsServiceImpl -> ExternalAPIHandlerImpl: sendRequest(request, true)
+
+note over ExternalAPIHandlerImpl: dataMayGetOutdated = true\nEerst API aanroepen, fallback naar cache
+
+ExternalAPIHandlerImpl -> BookingAPI: HTTP GET request
+
+alt API succesvol
+    BookingAPI --> ExternalAPIHandlerImpl: HTTP 200 OK met resultaat
+    ExternalAPIHandlerImpl -> RedisCacheRepositoryImpl: save(url, response, 24*60*60)
+    RedisCacheRepositoryImpl -> UnifiedJedis: setex(url, 86.400, value)
+    ExternalAPIHandlerImpl --> FlightsServiceImpl: Response met Origin.EXTERNAL_API
+    FlightsServiceImpl --> FlightsController: Verwerkt resultaat
+    FlightsController --> Frontend: 200 OK met vluchtprijs (van API)
+
+else API faalt
+    BookingAPI --> ExternalAPIHandlerImpl: Exception of timeout
+
+    note over ExternalAPIHandlerImpl: Fallback naar cache
+
+    ExternalAPIHandlerImpl -> RedisCacheRepositoryImpl: get(url)
+    RedisCacheRepositoryImpl -> UnifiedJedis: get(url)
+
+    alt Cache hit
+        UnifiedJedis --> RedisCacheRepositoryImpl: cached response
+        RedisCacheRepositoryImpl --> ExternalAPIHandlerImpl: Optional<Response> met Origin.REDIS_CACHE
+        ExternalAPIHandlerImpl --> FlightsServiceImpl: Response uit cache
+        FlightsServiceImpl --> FlightsController: Verwerkt resultaat
+        FlightsController --> Frontend: 200 OK met vluchtprijs (van cache)
+
+    else Cache miss
+        UnifiedJedis --> RedisCacheRepositoryImpl: null
+        RedisCacheRepositoryImpl --> ExternalAPIHandlerImpl: Optional.empty()
+        ExternalAPIHandlerImpl --> FlightsServiceImpl: Optional.empty()
+        FlightsServiceImpl --> FlightsController: NotFoundException
+        FlightsController --> Frontend: 404 Not Found
+    end
+
+end
+
+
+@enduml
