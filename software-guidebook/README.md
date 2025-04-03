@@ -221,7 +221,7 @@ Hieronder zijn de interfaces van de componenten die van belang zijn voor de ontw
 
 #### 4.2.3. Component diagrammen
 Hieronder is een component diagram uitgewerkt die de componenten en hun verantwoordelijkheden weergeeft. Dit diagram geeft een overzicht van de componenten en hun verantwoordelijkheden.
-![Modifiability - Component diagram.svg](sgb-bestanden/ontwerpvragen/Modifiability%20-%20Component%20diagram.svg)
+![Modifiability - dynamic Component diagram-C4_Component_diagram__Verschillende_boekingsservices_integreren.svg](sgb-bestanden/ontwerpvragen/Modifiability%20-%20dynamic%20Component%20diagram-C4_Component_diagram__Verschillende_boekingsservices_integreren.svg)
 > **Figuur 7:** Component diagram van verschillende boekingsservices integreren
 > 
 > In dit diagram geldt: als er op een pijl binnen de container boundary geen technologie staat, betekent dit dat het een method call is.
@@ -230,7 +230,9 @@ Hieronder is een component diagram uitgewerkt die de componenten en hun verantwo
 
 #### 4.2.4. Klassen en functies
 Hieronder is een class diagram uitgewerkt die de classes en functies weergeeft die van belang zijn voor de ontwerpvraag. Dit diagram geeft een overzicht van de classes en hun verantwoordelijkheden.
-![Modifiability - class diagram.svg](sgb-bestanden%2Fontwerpvragen%2FModifiability%20-%20class%20diagram.svg)
+
+![Modifiability - class diagram-C4_Class_Diagram__Verschillende_boekingsservices_integreren.svg](sgb-bestanden/ontwerpvragen/Modifiability%20-%20class%20diagram-C4_Class_Diagram__Verschillende_boekingsservices_integreren.svg)
+
 > **Figuur 8:** Class diagram van verschillende boekingsservices integreren
 > 
 > TODO Roald: uitleg
