@@ -1,0 +1,99 @@
+@startuml
+
+actor Reiziger
+
+autonumber
+
+participant controller as "controller:\nJourneyController"
+participant service as "service:\nJourneyServiceImpl"
+participant stanstrategy as "strategy:\nStandardJourneyStrategy"
+participant altstrategy as "strategy:\nAlternativeJourneyStrategy"
+participant journey as "Journey"
+participant api as "api handler:\nExternalAPIHandlerImpl"
+participant booking as "external api:\nBookingAPI"
+
+group Scenario 1: Ophalen van reizen bij een standaard strategie
+Reiziger -> controller: GET /journeys/getAllJourneys\n\
+    (strategy = "StandardJourney", origin)
+
+'Selecteren van de strategie
+controller -> service: setJourneyStrategy("StandardJourney")
+service -> stanstrategy: new StandardJourneyStrategy()
+
+'Verkrijgen van de reizen
+controller -> service: getJourneys(origin)
+service -> stanstrategy: getJourneys(origin)
+
+stanstrategy -> journey: journeys = new ArrayList<journey>()
+stanstrategy -> api: getTaxiTrips(origin)
+api -> booking: GET /taxi/searchLocation?query="origin"
+booking --> api: HTTP 200 OK met resultaat
+api --> stanstrategy: response
+loop voor elke taxi trip
+    stanstrategy -> journey: journey = new Journey()
+    stanstrategy -> journey: [alle setters aanroepen]
+    stanstrategy -> stanstrategy: journeys.add(journey)
+end
+
+stanstrategy --> service: journeys
+service --> controller: journeys
+controller --> Reiziger: 200 OK met lijst van taxi trips
+end
+
+autonumber
+
+group Scenario 2: Ophalen van reizen bij een alternatieve strategie
+Reiziger -> controller: GET /journeys/getAllJourneys\n\
+    (strategy = "AlternativeJourney", origin)
+
+'Selecteren van de strategie
+controller -> service: setJourneyStrategy("AlternativeJourney")
+service -> altstrategy: new AlternativeJourneyStrategy()
+
+'Verkrijgen van de reizen
+controller -> service: getJourneys(origin)
+service -> altstrategy: getJourneys(origin)
+
+altstrategy -> journey: journeys = new ArrayList<journey>()
+altstrategy -> altstrategy: getJourneysFromTransportType\n\
+    (response="externalAPIHandler.getTaxiTrips(origin)", transport="TAXI", journeys)
+altstrategy -> api: getTaxiTrips(origin)
+api -> booking: GET /taxi/searchLocation?query="origin"
+booking --> api: HTTP 200 OK met resultaat
+api --> altstrategy: response
+loop voor elke taxi trip
+    altstrategy -> journey: journey = new Journey()
+    altstrategy -> journey: [alle setters aanroepen]
+    altstrategy -> altstrategy: journeys.add(journey)
+end
+
+altstrategy -> altstrategy: getJourneysFromTransportType\n\
+    (response="externalAPIHandler.getFlightTrips(origin)", transport="VLIEGTUIG", journeys)
+altstrategy -> api: getFlightTrips(origin)
+api -> booking: GET /flights/searchDestination?query="origin"
+booking --> api: HTTP 200 OK met resultaat
+api --> altstrategy: response
+loop voor elke vlucht
+    altstrategy -> journey: journey = new Journey()
+    altstrategy -> journey: [alle setters aanroepen]
+    altstrategy -> altstrategy: journeys.add(journey)
+end
+
+altstrategy -> altstrategy: getJourneysFromTransportType\n\
+    (response="externalAPIHandler.getCarRentalTrips(origin)", transport="HUURAUTO", journeys)
+altstrategy -> api: getCarRentalTrips(origin)
+api -> booking: GET /cars/searchDestination?query="origin"
+booking --> api: HTTP 200 OK met resultaat
+api --> altstrategy: response
+loop voor elke huurauto trip
+    altstrategy -> journey: journey = new Journey()
+    altstrategy -> journey: [alle setters aanroepen]
+    altstrategy -> altstrategy: journeys.add(journey)
+end
+
+altstrategy --> service: journeys
+service --> controller: journeys
+controller --> Reiziger: 200 OK met lijst van taxi trips, huurauto trips en vluchten
+end
+
+@enduml
