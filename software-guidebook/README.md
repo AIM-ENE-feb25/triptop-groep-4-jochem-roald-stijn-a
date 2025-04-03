@@ -167,18 +167,28 @@ Hieronder is een component diagram uitgewerkt.
 ![Modularity - component diagram-C4_Component_diagram__Alternatieve_bouwstenen_aanbieden.svg](sgb-bestanden/ontwerpvragen/Modularity%20-%20component%20diagram-C4_Component_diagram__Alternatieve_bouwstenen_aanbieden.svg)
 > **Figuur 5:** Component diagram van alternatieve bouwstenen aanbieden
 >
-> In dit diagram geldt: als er op een pijl binnen de container boundary geen technologie staat, betekent dit dat het een method call is.
-> 
-> TODO Jochem: uitleg
+> In deze diagrammen gelden: als er op een pijl binnen de container boundary geen technologie staat, betekent dit dat het een method call is.
+> In deze diagrammen is de werking van een generieke strategy uitgebeeld. Met generiek wordt bedoeld dat deze strategy niet specifiek is voor een bepaalde bouwsteen, maar dat deze kan worden toegepast op verschillende bouwstenen.
+
+![Modularity - dynamic component diagram-C4_Dynamisch_Component_diagram__Alternatieve_bouwstenen_aanbieden.svg](sgb-bestanden%2Fontwerpvragen%2FModularity%20-%20dynamic%20component%20diagram-C4_Dynamisch_Component_diagram__Alternatieve_bouwstenen_aanbieden.svg)
+> **Figuur 6:** Component diagram van alternatieve bouwstenen aanbieden
+>
+> We gaan ervan uit dat een gebruiker zelf de strategy kiest zoals aangetoond in [ADR-005](#85-adr-005-pattern-voor-alternatieve-bouwstenen).
 
 #### 4.1.4. Klassen en functies
 
 Hieronder is een class diagram uitgewerkt die de classes en functies weergeeft die van belang zijn voor de ontwerpvraag.
 
 ![Modularity - class diagram-C4_Class_Diagram___Backend.svg](sgb-bestanden%2Fontwerpvragen%2FModularity%20-%20class%20diagram-C4_Class_Diagram___Backend.svg)
-> **Figuur 6:** Class diagram van alternatieve bouwstenen aanbieden
+> **Figuur 7:** Class diagram van alternatieve bouwstenen aanbieden
 > 
-> TODO Jochem: uitleg
+> In dit diagram is de werking te zien van het prototype. Ongeacht het feit dat in het prototype niet alles van het domein Journey wordt behandeld hebben we wel het hele domein aangetoond om te laten zien hoe het er uiteindelijk uit komt te zien.
+> De strategieën die worden behandeld zijn een standaard- en alternatieve strategie. In de standaard strategie wordt alleen een taxi trip behandeld, terwijl in de alternatieve strategie zowel taxi als huurauto en vlucht wordt behandeld.
+>
+> Dit klassendiagram maakt gebruik van de volgende design principles:
+> - Program to an Interface
+> - Single Responsibility Principle
+> - Open/Closed Principle
 
 ### 4.2. Modifiability - Verschillende boekingsservices integreren
 De volgende ontwerpvraag is uitgewerkt door **Roald**:
