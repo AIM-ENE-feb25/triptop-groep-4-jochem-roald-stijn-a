@@ -1,20 +1,26 @@
 package com.example.demo;
 
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 
 @Controller
 public class BookingController {
 
-    @RequestMapping("/getBookings")
-    public String[] getBookings() {
-        String[] bookings = BookingService.getBookings();
-        return bookings;
+    private final BookingService bookingService;
+
+    public BookingController(BookingService bookingService) {
+        this.bookingService = bookingService;
     }
 
-    @RequestMapping("/makeBooking")
-    public String makeBooking(String booking) {
-        BookingService.makeBooking(booking);
-        return "Booking made: " + booking;
+    @GetMapping("/hotels/search")
+    public ResponseEntity<Hotel[]> searchHotels() {
+        Hotel[] hotels = bookingService.searchHotels();
+        if (hotels.length > 0) {
+            return ResponseEntity.ok(hotels);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
     }
 }
