@@ -195,7 +195,7 @@ Hieronder is een class diagram uitgewerkt die de klassen en functies weergeeft d
 Hieronder is een sequentie diagram uitgewerkt die de werking van het kiezen van een strategy weergeeft.
 
 ![Modularity - sequence diagram.svg](sgb-bestanden%2Fontwerpvragen%2FModularity%20-%20sequence%20diagram.svg)
-> **Figuur 7:** Sequentie diagram van alternatieve bouwstenen aanbieden
+> **Figuur 8:** Sequentie diagram van alternatieve bouwstenen aanbieden
 > 
 > In dit diagram is de werking te zien van het prototype.
 > Aangezien in het prototype alleen gebruik wordt gemaakt van de origin van het Journey domein, hebben we de rest van het domein weggelaten om verwarring te voorkomen.
@@ -223,7 +223,7 @@ Hieronder zijn de interfaces van de componenten die van belang zijn voor de ontw
 #### 4.2.3. Component diagrammen
 Hieronder is een component diagram uitgewerkt die de componenten en hun verantwoordelijkheden weergeeft. Dit diagram geeft een overzicht van de componenten en hun verantwoordelijkheden.
 ![Modifiability - dynamic Component diagram-C4_Component_diagram__Verschillende_boekingsservices_integreren.svg](sgb-bestanden/ontwerpvragen/Modifiability%20-%20dynamic%20Component%20diagram-C4_Component_diagram__Verschillende_boekingsservices_integreren.svg)
-> **Figuur 7:** Component diagram van verschillende boekingsservices integreren
+> **Figuur 9:** Component diagram van verschillende boekingsservices integreren
 > 
 > In dit diagram geldt: als er op een pijl binnen de container boundary geen technologie staat, betekent dit dat het een method call is.
 > 
@@ -234,7 +234,7 @@ Hieronder is een class diagram uitgewerkt die de classes en functies weergeeft d
 
 ![Modifiability - class diagram-C4_Class_Diagram__Verschillende_boekingsservices_integreren.svg](sgb-bestanden/ontwerpvragen/Modifiability%20-%20class%20diagram-C4_Class_Diagram__Verschillende_boekingsservices_integreren.svg)
 
-> **Figuur 8:** Class diagram van verschillende boekingsservices integreren
+> **Figuur 10:** Class diagram van verschillende boekingsservices integreren
 > 
 > TODO Roald: uitleg
 
@@ -242,6 +242,10 @@ Hieronder is een class diagram uitgewerkt die de classes en functies weergeeft d
 Hieronder is een sequentie diagram uitgewerkt die de volgorde van aanroepen weergeeft voor verschillende scenario's. Dit diagram geeft een overzicht van de volgorde van aanroepen en de interactie tussen de componenten.
 
 ![Modifiability - sequence diagram-Sequentiediagram__Verschillende_boekingsservices_integreren.svg](sgb-bestanden/ontwerpvragen/Modifiability%20-%20sequence%20diagram-Sequentiediagram__Verschillende_boekingsservices_integreren.svg)
+
+> **Figuur 11:** Sequentie diagram van verschillende boekingsservices integreren
+> 
+> TODO Roald: uitleg
 
 ### 4.3. Fault Tolerance - Externe services die niet beschikbaar zijn
 
@@ -311,7 +315,7 @@ Hieronder zijn de interfaces van de componenten die van belang zijn voor de ontw
 Hieronder is een dynamisch container diagram uitgewerkt die de volgorde van aanroepen van externe services weergeeft.
 
 ![Fault Tolerance - volgorde van aanroepen](sgb-bestanden/ontwerpvragen/Fault%20Tolerance%20-%20volgorde%20van%20aanroepen-Volgorde_van_aanroepen.svg)
-> **Figuur 9:** Dynamisch component diagram van externe services
+> **Figuur 12:** Dynamisch component diagram van externe services
 > 
 > In dit diagram geldt: als er op een pijl binnen de container boundary geen technologie staat, betekent dit dat het een method call is.
 > 
@@ -324,7 +328,7 @@ Hieronder is een dynamisch container diagram uitgewerkt die de volgorde van aanr
 Hieronder is een class diagram uitgewerkt die de klassen en functies weergeeft die van belang zijn voor de ontwerpvraag.
 
 ![Fault Tolerance - class diagram](sgb-bestanden/ontwerpvragen/Fault%20Tolerance%20-%20class%20diagram-C4_Class_Diagram___Backend.svg)
-> **Figuur 10:** Class diagram van externe services
+> **Figuur 13:** Class diagram van externe services
 > 
 > In dit klassendiagram maakt ExternalAPIHandlerImpl gebruik van het **Facade Design Pattern**, omdat het een eenvoudige interface biedt voor het ophalen van responses, zonder dat de gebruiker hoeft af te weten van de onderliggende cache-implementatie.
 > 
@@ -338,7 +342,7 @@ Hieronder is een class diagram uitgewerkt die de klassen en functies weergeeft d
 Hieronder is een sequence diagram uitgewerkt die de volgorde van aanroepen weergeeft voor verschillende scenario's.
 
 ![Fault Tolerance - sequence diagram](sgb-bestanden/ontwerpvragen/Fault%20Tolerance%20-%20sequence%20diagram-Sequence_diagram__Externe_services_die_niet_beschikbaar_zijn.svg)
-> **Figuur 11:** Sequence diagram van externe services
+> **Figuur 14:** Sequence diagram van externe services
 > 
 > Dit sequence diagram toont twee belangrijke scenario's voor fault tolerance:
 > 
@@ -389,7 +393,7 @@ Daarnaast zijn er ook twee dynamische container diagrammen die het inloggen en b
 In het container diagram is te zien hoe de verschillende containers met elkaar communiceren. De containers zijn de verschillende onderdelen van de applicatie. In dit geval zijn dat de front-end, back-end, database, cache en de externe API's.
 
 ![container diagram](sgb-bestanden/container-diagram-C4_Container_diagram__TripTop.svg)
-> **Figuur 11:** Container diagram van de Triptop-applicatie
+> **Figuur 15:** Container diagram van de Triptop-applicatie
 > 
 > Dit diagram geeft een overzicht van de verschillende containers binnen het systeem dat in [figuur 1](#2-context) is beschreven.
 > 
@@ -404,7 +408,7 @@ In de dynamische container diagrammen is te zien hoe de containers met elkaar co
 ##### 7.1.2.1 Inloggen
 
 ![dynamisch-container-diagram-inloggen](sgb-bestanden/dynamisch-container-diagram-inloggen-C4_Dynamisch_container_diagram__inloggen_op_TripTop.svg)
-> **Figuur 12:** Dynamisch container diagram van inloggen op TripTop
+> **Figuur 16:** Dynamisch container diagram van inloggen op TripTop
 > 
 > In dit diagram geldt: als er op een pijl binnen de systeemgrens geen technologie staat, betekent dit dat het een method call is.
 > 
@@ -413,7 +417,7 @@ In de dynamische container diagrammen is te zien hoe de containers met elkaar co
 ##### 7.1.2.2 Reis boeken
 
 ![dynamisch-container-diagram-reis-boeken](sgb-bestanden/dynamisch-container-diagram-reis-boeken-C4_Dynamisch_container_diagram__een_reis_boeken_op_TripTop.svg)
-> **Figuur 13:** Dynamisch container diagram van een reis boeken op TripTop
+> **Figuur 17:** Dynamisch container diagram van een reis boeken op TripTop
 >
 > Hier wordt in stappen uitgelegd hoe een gebruiker een reis boekt op de website. De containers zijn gebaseerd op [het container diagram in figuur 11](#711-container-diagram).
 > 
@@ -423,7 +427,7 @@ In de dynamische container diagrammen is te zien hoe de containers met elkaar co
 Hieronder staat de component diagram van Triptop. Hierin zijn de design patterns verwerkt die we hebben gekozen voor onze ontwerpvragen.
 
 ![component-diagram-C4_Component_diagram__Triptop_backend.svg](sgb-bestanden%2Fcomponent-diagram-C4_Component_diagram__Triptop_backend.svg)
-> **Figuur 14:** Component diagram van de Triptop backend
+> **Figuur 18:** Component diagram van de Triptop backend
 > 
 > Alle componenten in dit diagram zijn generiek. Dit houdt in dat het toegepast kan worden op alle bouwstenen en dus niet specifiek voor één bouwsteen geldt.
 > Bij een service heb je de optie om een strategy te gebruiken of niet. Strategies worden voornamelijk gebruikt voor alternatieve opties bij een bouwsteen.
