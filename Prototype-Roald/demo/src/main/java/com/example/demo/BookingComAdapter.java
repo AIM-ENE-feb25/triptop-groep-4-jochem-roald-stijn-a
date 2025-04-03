@@ -14,7 +14,7 @@ public class BookingComAdapter implements IBookingAdapter {
 
         int dest_id = -2092174; //TODO: get dest_id from location search
 
-        String url = "https://booking-com15.p.rapidapi.com/api/v1/hotels/searchHotels?dest_id=-2092174&search_type=CITY&arrival_date=" + checkInDate + "&departure_date=" + checkOutDate + "&adults=1&children_age=0%2C17&room_qty=1&page_number=1&units=metric&temperature_unit=c&languagecode=en-us&currency_code=AED&location=US";
+        String url = "https://booking-com15.p.rapidapi.com/api/v1/hotels/searchHotels?dest_id=" + dest_id + "&search_type=CITY&arrival_date=" + checkInDate + "&departure_date=" + checkOutDate + "&adults=1&children_age=0%2C17&room_qty=1&page_number=1&units=metric&temperature_unit=c&languagecode=en-us&currency_code=AED&location=US";
         Unirest.setTimeouts(0, 0);
         HttpResponse<String> response = null;
         try {
