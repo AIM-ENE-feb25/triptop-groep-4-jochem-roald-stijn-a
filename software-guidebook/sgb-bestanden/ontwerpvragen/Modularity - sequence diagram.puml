@@ -1,4 +1,5 @@
 @startuml
+title Sequentie diagram: Alternatieve bouwstenen aanbieden
 
 actor Reiziger
 

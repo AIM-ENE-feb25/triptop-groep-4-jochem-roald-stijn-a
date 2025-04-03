@@ -164,7 +164,7 @@ De ontwerpvraag wordt uitgewerkt door middel van het **Strategy Design Pattern**
 
 Hieronder is een component diagram uitgewerkt.
 
-![Modularity - component diagram-C4_Component_diagram__Alternatieve_bouwstenen_aanbieden.svg](sgb-bestanden/ontwerpvragen/Modularity%20-%20component%20diagram-C4_Component_diagram__Alternatieve_bouwstenen_aanbieden.svg)
+![Modularity - component diagram-C4_Component_diagram__Alternatieve_bouwstenen_aanbieden.svg](sgb-bestanden%2Fontwerpvragen%2FModularity%20-%20component%20diagram-C4_Component_diagram__Alternatieve_bouwstenen_aanbieden.svg)
 > **Figuur 5:** Component diagram van alternatieve bouwstenen aanbieden
 >
 > In deze diagrammen gelden: als er op een pijl binnen de container boundary geen technologie staat, betekent dit dat het een method call is.
