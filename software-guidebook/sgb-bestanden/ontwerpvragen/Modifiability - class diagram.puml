@@ -29,15 +29,6 @@ class Hotel {
     - String location
     - String checkInDate
     - String checkOutDate
-
-    + String getName()
-    + void setName(String name)
-    + String getLocation()
-    + void setLocation(String location)
-    + String getCheckInDate()
-    + void setCheckInDate(String checkInDate)
-    + String getCheckOutDate()
-    + void setCheckOutDate(String checkOutDate)
 }
 
 }
