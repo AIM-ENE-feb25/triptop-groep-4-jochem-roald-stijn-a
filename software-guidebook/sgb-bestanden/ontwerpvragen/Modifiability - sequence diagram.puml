@@ -1,0 +1,29 @@
+@startuml
+title Sequentiediagram: Verschillende boekingsservices integreren
+
+actor Gebruiker
+participant BookingController
+participant BookingService
+participant BookingComAdapter
+participant TripAdvisorAdapter
+
+Gebruiker -> BookingController: GET /hotels/search\n(location, checkInDate, checkOutDate)
+BookingController -> BookingService: searchHotels(location, checkInDate, checkOutDate)
+
+loop Voor elke adapter in adapters[]
+    BookingService -> BookingComAdapter: searchHotels(location, checkInDate, checkOutDate)
+    BookingComAdapter --> BookingService: Hotel[]
+
+    BookingService -> TripAdvisorAdapter: searchHotels(location, checkInDate, checkOutDate)
+    TripAdvisorAdapter --> BookingService: Hotel[]
+end
+
+BookingService --> BookingController: Gecombineerde lijst van hotels
+
+alt Hotels gevonden
+    BookingController --> Gebruiker: HTTP 200 OK met hotel lijst
+else Geen hotels gevonden
+    BookingController --> Gebruiker: HTTP 404 Not Found
+end
+
+@enduml

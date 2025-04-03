@@ -239,6 +239,9 @@ Hieronder is een class diagram uitgewerkt die de classes en functies weergeeft d
 > TODO Roald: uitleg
 
 #### 4.2.5. Sequentie diagram
+Hieronder is een sequentie diagram uitgewerkt die de volgorde van aanroepen weergeeft voor verschillende scenario's. Dit diagram geeft een overzicht van de volgorde van aanroepen en de interactie tussen de componenten.
+
+![Modifiability - sequence diagram-Sequentiediagram__Verschillende_boekingsservices_integreren.svg](sgb-bestanden/ontwerpvragen/Modifiability%20-%20sequence%20diagram-Sequentiediagram__Verschillende_boekingsservices_integreren.svg)
 
 ### 4.3. Fault Tolerance - Externe services die niet beschikbaar zijn
 
