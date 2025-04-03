@@ -1,0 +1,32 @@
+@startuml
+!include <C4/C4_Component.puml>
+title C4 Dynamisch Component diagram: Alternatieve bouwstenen aanbieden
+
+LAYOUT_TOP_DOWN()
+SHOW_PERSON_OUTLINE()
+
+Container(frontend, "Frontend", "Javascript en React", "Toont de UI voor het planproces van de reiziger en het ticketsysteem van de reisagent")
+
+Container_Boundary(backend, "Backend") {
+    Component(controller, "Generieke controller", "Spring Boot RestController", "Verwerkt requests van de frontend en geeft door aan de juiste service")
+    Component(service, "Generieke service", "Spring Boot Service", "Verwerkt resultaten van externe services en zet om naar domeinobjecten")
+    Component(strategy, "Generieke strategy", "Spring Boot Component", "Dynamisch toepassen van verschillende strategieën op basis van context en criteria")
+    Component(apiHandler, "ExternalAPIHandler", "Spring Boot Component", "Aanroepen van externe services en afhandelen van fouten en retries")
+}
+
+System_Ext(api, "Externe API", "API van externe service zoals Booking.com of Tripadvisor")
+
+Rel_D(frontend, controller, "1: verstuurt een API verzoek met een gekozen strategy", "JSON/REST")
+Rel_D(controller, service, "2: stuurt request door om af te handelen naar")
+Rel_R(service, service, "3: selecteert een strategy op basis van de gekozen strategy")
+Rel_D(service, strategy, "4: past functionaliteit aan op de gekozen strategy via")
+Rel_D(strategy, apiHandler, "5: roept externe service aan via")
+Rel_D(apiHandler, api, "6: roept externe service aan", "JSON/REST")
+Rel_U(api, apiHandler, "7: retourneert resultaat aan", "JSON/REST")
+Rel_U(apiHandler, strategy, "8: retourneert verwerkt resultaat aan")
+Rel_U(strategy, service, "9: retourneert resultaat aan", "JSON/REST")
+Rel_U(service, controller, "10: retourneert resultaat aan", "JSON/REST")
+Rel_U(controller, frontend, "11: retourneert resultaat aan", "JSON/REST")
+
+SHOW_FLOATING_LEGEND()
+@enduml
