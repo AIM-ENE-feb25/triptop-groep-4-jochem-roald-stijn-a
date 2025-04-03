@@ -488,12 +488,12 @@ Binnen deze applicatie worden er een hoop API requests gedaan. Deze requests kun
 
 #### Alternatieven
 
-| Methode           | Beschrijving                         | Implementatie | Snelheid | Flexibiliteit |
+| **Methode**           | **Beschrijving**                         | **Implementatie** | **Snelheid** | **Flexibiliteit** |
 | ----------------- | ------------------------------------ | ------------- | -------- | ------------- |
-| Synchroon         | Requests achter elkaar versturen     | ++            | --       | +             |
-| CompletableFuture | Snel en flexibel voor meerdere calls | -             | ++       | +             |
-| ExecutorService   | Als je expliciet threadbeheer wilt   | --            | ++       | -             |
-| Spring @Async     | Voor betere Spring-integratie        | --            | ++       | -             |
+| **Synchroon**         | Requests achter elkaar versturen     | ++            | --       | +             |
+| **CompletableFuture** | Snel en flexibel voor meerdere calls | -             | ++       | +             |
+| **ExecutorService**   | Als je expliciet threadbeheer wilt   | --            | ++       | -             |
+| **Spring @Async**     | Voor betere Spring-integratie        | --            | ++       | -             |
 
 #### Besluit
 
@@ -535,7 +535,7 @@ Geaccepteerd
 - We moeten de database in docker draaien.
 - Alle huidige developers kunnen meteen beginnen met implementeren
 
-### 8.4. ADR-004 Nieuwste API-data gaat voor cache
+### 8.4. ADR-004 Hybride aanpak voor API-aanroepen en caching
 
 #### Context
 
@@ -543,7 +543,7 @@ Actuele reisgegevens zijn cruciaal vanwege snel veranderende prijzen en beschikb
 
 #### Alternatieven
 
-| Strategie                  | Beschrijving                                                                                          | Actualiteit van gegevens | Prestaties | Betrouwbaarheid |
+| Aanpak                  | Beschrijving                                                                                          | Actualiteit van gegevens | Prestaties | Betrouwbaarheid |
 |----------------------------|-------------------------------------------------------------------------------------------------------|--------------------------|------------|-----------------|
 | **API-first**              | Altijd eerst de API aanroepen, cache alleen gebruiken als fallback wanneer de API niet beschikbaar is | ++                       | -          | +               |
 | **Stale-while-revalidate** | Eerst cache tonen (indien beschikbaar), dan API op de achtergrond aanroepen om cache te verversen     | -                        | ++         | -               |
@@ -552,13 +552,29 @@ Actuele reisgegevens zijn cruciaal vanwege snel veranderende prijzen en beschikb
 
 #### Besluit
 
-~~We kiezen voor de API-first strategie: altijd eerst de API aanroepen voor actuele data en alleen terugvallen op cache bij onbeschikbaarheid. Dit garandeert actuele informatie en voorkomt frustratie door verouderde gegevens. Andere strategieën bieden minder betrouwbaarheid of actualiteit.~~
+We kiezen voor de **hybride** aanpak omdat dit het beste biedt van API-first en Cache-first. De aanpak wordt bepaald door de veranderlijkheid van de data:
+- **API-first**: Voor data die regelmatig verandert (zoals prijzen en beschikbaarheid)
+- **Cache-first**: Voor data die nooit verandert (zoals ID's en statische informatie)
+
+Deze aanpak biedt de beste balans tussen actualiteit, prestaties en betrouwbaarheid. Door per endpoint te bepalen welke aanpak het beste werkt, kunnen we de voordelen van beide benaderingen combineren.
+
+<!-- We kiezen voor de API-first aanpak: altijd eerst de API aanroepen voor actuele data en alleen terugvallen op cache bij onbeschikbaarheid. Dit garandeert actuele informatie en voorkomt frustratie door verouderde gegevens. Andere aanpakken bieden minder betrouwbaarheid of actualiteit. -->
 
 #### Status
 
 Geaccepteerd
 
 #### Consequenties
+
+**Positieve consequenties:**
+- Gebruikers krijgen snellere responstijden voor onveranderlijke data zoals ID's
+- Minder onnodige API-aanroepen zorgen voor lagere kosten
+- Actuele informatie voor veranderlijke data zoals prijzen en beschikbaarheid
+- Betere gebruikerservaring door de combinatie van snelheid en actualiteit
+
+**Negatieve consequenties:**
+- We moeten per endpoint bepalen welke aanpak het beste werkt
+- Iets complexere implementatie dan een enkele aanpak
 
 <!-- **Positieve consequenties:**
 
