@@ -8,22 +8,22 @@ SHOW_PERSON_OUTLINE()
 Container(frontend, "Frontend", "Javascript en React", "Toont de UI voor het planproces van de reiziger en het ticketsysteem van de reisagent")
 
 Container_Boundary(backend, "Backend") {
-    Component(controller, "Generieke controller", "Spring Boot RestController", "Verwerkt requests van de frontend en geeft door aan de juiste service")
-    Component(service, "Generieke service", "Spring Boot Service", "Verwerkt resultaten van externe services en zet om naar domeinobjecten")
-    Component(apiHandler, "ExternalAPIHandler", "POJO", "Aanroepen van externe services, afhandelen van fouten en retries, en cachen van resultaten")
-    Component(cacheRepo, "CacheRepository", "POJO", "Opslaan en ophalen van resultaten in de cache")
+    Component(controller, "FlightsController", "Spring Boot RestController", "Verwerkt requests van de frontend en geeft door aan de juiste service")
+    Component(service, "FlightsServiceImpl", "Spring Boot Service", "Verwerkt resultaten van externe services en zet om naar domeinobjecten")
+    Component(apiHandler, "ExternalAPIHandlerImpl", "POJO", "Aanroepen van externe services en cachen van resultaten")
+    Component(cacheRepo, "RedisCacheRepositoryImpl", "POJO", "Opslaan en ophalen van resultaten in de cache")
 }
 
-System_Ext(api, "Externe API", "API van externe service zoals Booking.com of Tripadvisor")
+System_Ext(api, "Booking.com API", "API van externe service zoals Booking.com")
 
 ContainerDb(cache, "Cache", "Redis", "Cachen van resultaten van externe services")
 
 Rel_D(frontend, controller, "1: verstuurt naar", "JSON/REST")
 Rel_D(controller, service, "2: stuurt request door om af te handelen naar")
-Rel_D(service, apiHandler, "3: roept externe service aan via")
+Rel_D(service, apiHandler, "3: roept sendRequest aan met request en dataMayGetOutdated")
 
-' Eerste poging - externe API aanroepen
-Rel_D(apiHandler, api, "4: roept externe service aan", "JSON/REST")
+' Pad 1 - Externe API aanroepen
+Rel_D(apiHandler, api, "4: roept externe API aan", "JSON/REST")
 
 ' Succespad - externe API werkt
 Rel_U(api, apiHandler, "5a: retourneert resultaat aan", "JSON/REST")
@@ -31,26 +31,20 @@ Rel_R(apiHandler, cacheRepo, "6a: slaat resultaat op in cache")
 Rel_D(cacheRepo, cache, "7a: slaat resultaat op in", "Jedis")
 Rel_U(cache, cacheRepo, "8a: bevestigt opslag", "Jedis")
 Rel_L(cacheRepo, apiHandler, "9a: retourneert resultaat aan")
-Rel_U(apiHandler, service, "10a: retourneert verwerkt resultaat aan")
-Rel_U(service, controller, "11a: retourneert resultaat aan", "JSON/REST")
+Rel_U(apiHandler, service, "10a: retourneert Response met Origin.EXTERNAL_API")
 
-' Foutpad - externe API faalt bij eerste poging
+' Foutpad - externe API faalt
 Rel_U(api, apiHandler, "5b: fout of timeout", "JSON/REST")
 
-' Retry mechanisme
-Rel_D(apiHandler, api, "6b: probeert opnieuw na korte wachttijd (retry 1)", "JSON/REST")
-Rel_U(api, apiHandler, "7b: fout of timeout", "JSON/REST")
-Rel_D(apiHandler, api, "8b: probeert opnieuw na langere wachttijd (retry 2)", "JSON/REST")
-Rel_U(api, apiHandler, "9b: fout of timeout", "JSON/REST")
-
 ' Fallback naar cache
-Rel_R(apiHandler, cacheRepo, "10b: vraagt eerder resultaat op uit cache")
-Rel_D(cacheRepo, cache, "11b: vraagt resultaat op uit", "Jedis")
-Rel_U(cache, cacheRepo, "12b: retourneert eerder resultaat aan", "Jedis")
-Rel_L(cacheRepo, apiHandler, "13b: retourneert eerder resultaat aan")
-Rel_U(apiHandler, service, "14b: retourneert gecached resultaat aan")
-Rel_U(service, controller, "15b: retourneert verwerkt resultaat aan")
-Rel_U(controller, frontend, "16b: retourneert resultaat aan", "JSON/REST")
+Rel_R(apiHandler, cacheRepo, "6b: vraagt resultaat op uit cache")
+Rel_D(cacheRepo, cache, "7b: vraagt resultaat op uit", "Jedis")
+Rel_U(cache, cacheRepo, "8b: retourneert eerder resultaat aan", "Jedis")
+Rel_L(cacheRepo, apiHandler, "9b: retourneert Response met Origin.REDIS_CACHE")
+Rel_U(apiHandler, service, "10b: retourneert gecached resultaat aan")
+
+Rel_U(service, controller, "11: retourneert verwerkt resultaat aan")
+Rel_U(controller, frontend, "12: retourneert resultaat aan", "JSON/REST")
 
 SHOW_FLOATING_LEGEND()
 @enduml
