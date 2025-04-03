@@ -10,7 +10,6 @@ Container(Frontend, "Frontend", "Javascript en React", "Toont de UI voor het pla
 Container_Boundary(backend, "Backend") {
 Component(bookingController, "BookingController", "Spring Boot RestController", "Verwerkt requests van de frontend en geeft door aan de juiste service")
 Component(bookingService, "BookingService", "Spring Boot Service", "Verwerkt resultaten van booking services en zet om naar domeinobjecten")
-Component(bookingAdapter, "BookingAdapter", "Spring Boot Component", "Aanroepen van booking services")
 Component(BookingComAdapter, "BookingComAdapter", "Spring Boot Component", "Adapter voor Booking.com API")
 Component(tripAdvisorAdapter, "TripadvisorAdapter", "Spring Boot Component", "Adapter voor Tripadvisor API")
 }
@@ -19,9 +18,8 @@ System_Ext(tripAdvisorApi, "Tripadvisor API", "API van Tripadvisor")
 
 Rel(Frontend, bookingController, "plant reizen en stemt af via", "JSON/REST")
 Rel(bookingController, bookingService, "verwerkt boekingen via")
-Rel(bookingService, bookingAdapter, "roept booking service aan via")
-Rel_U(BookingComAdapter, bookingAdapter, "extends")
-Rel_U(tripAdvisorAdapter, bookingAdapter, "extends")
+Rel(bookingService, BookingComAdapter, "roept booking service aan via")
+Rel(bookingService, tripAdvisorAdapter, "roept booking service aan via")
 Rel(BookingComAdapter, bookingComApi, "calls", "JSON/REST")
 Rel(tripAdvisorAdapter, tripAdvisorApi, "calls", "JSON/REST")
 
