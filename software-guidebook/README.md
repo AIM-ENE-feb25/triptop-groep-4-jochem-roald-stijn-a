@@ -171,13 +171,13 @@ Hieronder is een component diagram uitgewerkt.
 > In deze diagrammen is de werking van een generieke strategy uitgebeeld. Met generiek wordt bedoeld dat deze strategy niet specifiek is voor een bepaalde bouwsteen, maar dat deze kan worden toegepast op verschillende bouwstenen.
 
 ![Modularity - dynamic component diagram-C4_Dynamisch_Component_diagram__Alternatieve_bouwstenen_aanbieden.svg](sgb-bestanden%2Fontwerpvragen%2FModularity%20-%20dynamic%20component%20diagram-C4_Dynamisch_Component_diagram__Alternatieve_bouwstenen_aanbieden.svg)
-> **Figuur 6:** Component diagram van alternatieve bouwstenen aanbieden
+> **Figuur 6:** Dynamisch component diagram van alternatieve bouwstenen aanbieden
 >
 > We gaan ervan uit dat een gebruiker zelf de strategy kiest zoals aangetoond in [ADR-005](#85-adr-005-pattern-voor-alternatieve-bouwstenen).
 
 #### 4.1.4. Klassen en functies
 
-Hieronder is een class diagram uitgewerkt die de classes en functies weergeeft die van belang zijn voor de ontwerpvraag.
+Hieronder is een class diagram uitgewerkt die de klassen en functies weergeeft die van belang zijn voor de ontwerpvraag.
 
 ![Modularity - class diagram-C4_Class_Diagram___Backend.svg](sgb-bestanden%2Fontwerpvragen%2FModularity%20-%20class%20diagram-C4_Class_Diagram___Backend.svg)
 > **Figuur 7:** Class diagram van alternatieve bouwstenen aanbieden
@@ -189,6 +189,17 @@ Hieronder is een class diagram uitgewerkt die de classes en functies weergeeft d
 > - Program to an Interface
 > - Single Responsibility Principle
 > - Open/Closed Principle
+
+#### 4.1.5 Sequentie diagram
+
+Hieronder is een sequentie diagram uitgewerkt die de werking van het kiezen van een strategy weergeeft.
+
+![Modularity - sequence diagram.svg](sgb-bestanden%2Fontwerpvragen%2FModularity%20-%20sequence%20diagram.svg)
+> **Figuur 7:** Sequentie diagram van alternatieve bouwstenen aanbieden
+> 
+> In dit diagram is de werking te zien van het prototype.
+> Aangezien in het prototype alleen gebruik wordt gemaakt van de origin van het Journey domein, hebben we de rest van het domein weggelaten om verwarring te voorkomen.
+> Ook hebben we de loops in het diagram verkort met een kleine uitleg, aangezien in elke loop heel veel methodes worden aangeroepen die een Journey aanpassen (setters) wat het diagram ontzettend groot zou maken.
 
 ### 4.2. Modifiability - Verschillende boekingsservices integreren
 De volgende ontwerpvraag is uitgewerkt door **Roald**:
