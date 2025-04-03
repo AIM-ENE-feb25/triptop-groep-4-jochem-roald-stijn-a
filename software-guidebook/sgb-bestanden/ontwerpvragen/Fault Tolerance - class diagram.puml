@@ -8,74 +8,86 @@ top to bottom direction
 
 package "controller" {
     class FlightsController {
-        getFlightPrice(origin: String, destination: String, departureDate: Date, returnDate: Date)
+        getAirportId(query: String): ResponseEntity<String>
+        getFlightPrice(origin: String, destination: String, departureDate: String, returnDate: String): ResponseEntity<Double>
     }
 }
 
 package "service" {
     interface FlightsService {
-        getFlightPrice(origin: String, destination: String, departureDate: Date, returnDate: Date): double
+        getAirportId(query: String): String
+        getFlightPrice(origin: String, destination: String, departureDate: String, returnDate: String): double
     }
 
     class FlightsServiceImpl {
-        getFlightPrice(origin: String, destination: String, departureDate: Date, returnDate: Date): double
+        rapidapiKey: String
+        getAirportId(query: String): String
+        getFlightPrice(origin: String, destination: String, departureDate: String, returnDate: String): double
+        getCommonHeaders(): HashMap<String, String>
     }
 }
 
 package "api" {
     interface ExternalAPIHandler {
-        call(endpoint: Endpoint): Optional<Response>
+        sendRequest(request: Request, dataMayGetOutdated: boolean): Optional<Response>
     }
 
     class ExternalAPIHandlerImpl {
-        MAX_RETRIES: int
-        RETRY_DELAY: Duration
-        call(endpoint: Endpoint): Optional<Response>
-        getCachedResponse(endpoint: Endpoint): Optional<Response>
-        cacheResponse(endpoint: Endpoint, response: Response): void
+        sendRequest(request: Request, dataMayGetOutdated: boolean): Optional<Response>
+        callExternalAPI(request: Request): Optional<Response>
     }
 
-    class Endpoint <<record>> {
+    class Request <<record>> {
         url: String
-        queryParams: HashMap<String, String>
-        bodyHash: String
-    }
-
-    enum Method {
-        GET, POST, PUT, DELETE
+        headers: HashMap<String, String>
     }
 
     class Response <<record>> {
         statusCode: int
         body: JSONObject
-        origin: Origin
     }
 
     enum Origin {
-        EXTERNAL_API, CACHE
+        EXTERNAL_API, REDIS_CACHE
     }
 }
 
 package "repository" {
     interface CacheRepository {
-        save(key: Endpoint, response: Response, duration: Duration): void
-        get(key: Endpoint): Optional<Response>
+        save(url: String, response: Response, keepForSeconds: Integer): void
+        get(url: String): Optional<Response>
     }
 
-    class RedisCacheRepository {
-        save(key: Endpoint, response: Response, duration: Duration): void
-        get(key: Endpoint): Optional<Response>
-        generateKey(endpoint: Endpoint): String
+    class RedisCacheRepositoryImpl {
+        unifiedJedis: UnifiedJedis
+        save(url: String, response: Response, keepForSeconds: Integer): void
+        get(url: String): Optional<Response>
     }
 }
+
+' package "exception" {
+'     class GlobalExceptionHandler {
+'         handleNotImplementedException(e: NotImplementedException): ResponseEntity<String>
+'         handleNotFoundException(e: NotFoundException): ResponseEntity<String>
+'         handleRequestFailedException(e: RequestFailedException): ResponseEntity<String>
+'     }
+
+'     class NotFoundException {
+'     }
+
+'     class NotImplementedException {
+'     }
+
+'     class RequestFailedException {
+'     }
+' }
 
 FlightsController --> "flightService 1" FlightsService
 FlightsServiceImpl .u.|> FlightsService
 FlightsServiceImpl --> "externalAPIHandler 1" ExternalAPIHandler
 ExternalAPIHandlerImpl .u.|> ExternalAPIHandler
 ExternalAPIHandlerImpl --> "cacheRepository 1" CacheRepository
-RedisCacheRepository .u.|> CacheRepository
-Endpoint ..> "method 1" Method
+RedisCacheRepositoryImpl .u.|> CacheRepository
 Response ..> "origin 1" Origin
 
 @enduml
