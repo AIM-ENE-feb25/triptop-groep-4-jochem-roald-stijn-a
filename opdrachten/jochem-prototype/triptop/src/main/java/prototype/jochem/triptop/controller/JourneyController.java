@@ -6,7 +6,6 @@ import org.springframework.web.bind.annotation.*;
 import prototype.jochem.triptop.domain.Journey;
 import prototype.jochem.triptop.domain.Transport;
 import prototype.jochem.triptop.service.JourneyService;
-import prototype.jochem.triptop.strategy.JourneyStrategy;
 
 import java.util.List;
 
