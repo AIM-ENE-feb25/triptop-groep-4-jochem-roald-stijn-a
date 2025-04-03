@@ -613,5 +613,30 @@ Geaccepteerd
 
 ## 9. Deployment, Operation and Support
 
-> [!TIP]
-> Zelf beschrijven van wat je moet doen om de software te installeren en te kunnen runnen.
+Deze sectie beschrijft de vereisten en stappen om de Triptop-applicatie te installeren en te runnen.
+
+### 9.1. Vereisten
+
+- **Java**: JDK 21 of hoger
+- **IntelliJ IDEA**: Voor ontwikkeling (met Maven integratie)
+- **Docker**: Voor het draaien van Redis cache
+
+### 9.2. Installatie en configuratie
+
+#### 9.2.1. Redis cache
+
+De applicatie maakt gebruik van Redis als cache voor externe API-responses. Start Redis met de docker-compose.yml door in de root van het project de volgende command uit te voeren:
+
+```bash
+docker compose up -d
+```
+
+Dit start een Redis server op poort 6379 (geconfigureerd in het .env bestand).
+
+#### 9.2.2. Spring Boot applicatie
+
+De Spring Boot applicatie moet worden uitgevoerd vanuit de root folder van het project om ervoor te zorgen dat alle resources correct worden geladen. Volg hiervoor de onderstaande stappen:
+1. Open het project in IntelliJ IDEA door het bestand `pom.xml` in de root folder te openen. IntelliJ herkent dan automatisch dat het om een Maven-project gaat.
+2. Run de applicatie via de main class.
+
+> **Let op:** Het openen van het project vanuit een subfolder kan leiden tot problemen, zoals het niet correct laden van resources. Zorg er daarom altijd voor dat het project vanuit de root folder wordt geopend.
