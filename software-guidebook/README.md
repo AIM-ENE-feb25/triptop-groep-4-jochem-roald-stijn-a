@@ -543,28 +543,32 @@ Voorgesteld
 
 #### Context
 
-We moeten een keuze maken voor een database voor de applicatie.
+Voor de applicatie moet een database gekozen worden. 
+De database moet geschikt zijn voor productieomgevingen, goed kunnen samenwerken met Java Spring Boot, en ontwikkelaars moeten er efficiënt mee kunnen werken.
+
 
 #### Alternatieven
 
 | Database      | Kennis | Open Source |
-| ------------- | ------ | ----------- |
+| ------------- |--------| ----------- |
 | MS SQL Server | +      | -           |
 | PostgreSQL    | -      | +           |
-| MySQL         |        | +           |
+| MySQL         | -      | +           |
 
 #### Besluit
 
-We kiezen voor MS SQL Server als database omdat we al ervaring hebben met deze database.
-
+We kiezen voor MS SQL Server als database. 
+De belangrijkste reden hiervoor is dat het team hier al veel ervaring mee heeft, waardoor we gelijk kunnen beginnen met ontwikkelen zonder dat we ons eerst moeten inwerken in een nieuwe database. 
+Daarnaast is MS SQL Server een robuuste database die goed samenwerkt met Java Spring Boot.
 #### Status
 
 Geaccepteerd
 
 #### Consequenties
 
-- We moeten de database in docker draaien.
-- Alle huidige developers kunnen meteen beginnen met implementeren
+- We draaien de database in Docker om platformonafhankelijk lokaal te kunnen ontwikkelen. 
+- Alle huidige developers kunnen direct aan de slag zonder extra inwerktijd of leercurve. 
+- We zijn afhankelijk van een closed-source oplossing, wat op de lange termijn gevolgen kan hebben voor kosten of migratie.
 
 ### 8.4. ADR-004 Hybride aanpak voor API-aanroepen en caching
 
