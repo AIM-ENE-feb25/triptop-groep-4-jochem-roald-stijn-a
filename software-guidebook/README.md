@@ -248,7 +248,7 @@ Hieronder is een component diagram uitgewerkt die de componenten en hun verantwo
 > 
 > In dit diagram geldt: als er op een pijl binnen de container boundary geen technologie staat, betekent dit dat het een method call is.
 > 
-> TODO Roald: uitleg
+> Pijlen met een a en b geven aan dat de volgorde van aanroepen niet uitmaakt. Dit betekent ook dat de aanroepen gelijktijdig zouden kunnen plaatsvinden.
 
 #### 4.2.4. Klassen en functies
 Hieronder is een class diagram uitgewerkt die de classes en functies weergeeft die van belang zijn voor de ontwerpvraag. Dit diagram geeft een overzicht van de classes en hun verantwoordelijkheden.
@@ -257,7 +257,7 @@ Hieronder is een class diagram uitgewerkt die de classes en functies weergeeft d
 
 > **Figuur 10:** Class diagram van verschillende boekingsservices integreren
 > 
-> TODO Roald: uitleg
+> In dit klassendiagram implementeren alle adapters de BookingAdapter interface. Dit zorgt ervoor dat het systeem uitbreidbaar is. Als er een nieuwe boekingsservice wordt toegevoegd, hoeft alleen de adapter voor die service te worden geïmplementeerd.
 
 #### 4.2.5. Sequentie diagram
 Hieronder is een sequentie diagram uitgewerkt die de volgorde van aanroepen weergeeft voor verschillende scenario's. Dit diagram geeft een overzicht van de volgorde van aanroepen en de interactie tussen de componenten.
@@ -266,7 +266,7 @@ Hieronder is een sequentie diagram uitgewerkt die de volgorde van aanroepen weer
 
 > **Figuur 11:** Sequentie diagram van verschillende boekingsservices integreren
 > 
-> TODO Roald: uitleg
+> De loop in dit diagram geeft aan dat in alle relevante API's naar hotels wordt gezocht. Dit betekent dat de API's van Booking.com en Triptop worden aangeroepen.
 
 ### 4.3. Fault Tolerance - Externe services die niet beschikbaar zijn
 
