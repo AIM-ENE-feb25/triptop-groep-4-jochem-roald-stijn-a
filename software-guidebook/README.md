@@ -217,8 +217,29 @@ De ontwerpvraag wordt uitgewerkt door middel van het **Adapter Design Pattern**.
 
 
 #### 4.2.2. Interfaces
-Hieronder zijn de interfaces van de componenten die van belang zijn voor de ontwerpvraag uitgewerkt. Deze interfaces geven een overzicht van de methodes die de componenten aanbieden.
+Onderstaande interfaces definiëren de contracten voor de integratie van de boekingsservices:
 
+- **BookingController**:
+  ```
+  GET /hotels/search
+  Parameters: {
+        location: string,
+        checkInDate: string,
+        checkOutDate: string,
+  }
+  ```
+- **BookingService**:
+  ```java
+    public interface BookingService {
+        Hotel[] searchHotels(String location, String checkInDate, String checkOutDate);
+    }
+    ```
+- **BookingAdapter**:
+  ```java
+    public interface BookingAdapter {
+        Hotel[] searchHotels(String location, String checkInDate, String checkOutDate);
+    }
+    ```
 
 #### 4.2.3. Component diagrammen
 Hieronder is een component diagram uitgewerkt die de componenten en hun verantwoordelijkheden weergeeft. Dit diagram geeft een overzicht van de componenten en hun verantwoordelijkheden.
