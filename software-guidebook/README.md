@@ -589,7 +589,7 @@ We kiezen voor de **hybride** aanpak omdat dit het beste biedt van API-first en 
 
 Deze aanpak biedt de beste balans tussen actualiteit, prestaties en betrouwbaarheid. Door per endpoint te bepalen welke aanpak het beste werkt, kunnen we de voordelen van beide benaderingen combineren.
 
-<!-- We kiezen voor de API-first aanpak: altijd eerst de API aanroepen voor actuele data en alleen terugvallen op cache bij onbeschikbaarheid. Dit garandeert actuele informatie en voorkomt frustratie door verouderde gegevens. Andere aanpakken bieden minder betrouwbaarheid of actualiteit. -->
+~~We kiezen voor de API-first aanpak: altijd eerst de API aanroepen voor actuele data en alleen terugvallen op cache bij onbeschikbaarheid. Dit garandeert actuele informatie en voorkomt frustratie door verouderde gegevens. Andere aanpakken bieden minder betrouwbaarheid of actualiteit.~~
 
 #### Status
 
@@ -665,7 +665,7 @@ Deze sectie beschrijft de vereisten en stappen om de Triptop-applicatie te insta
 
 ### 9.1. Vereisten
 
-- **Java**: JDK 21 of hoger
+- **Java**: JDK 17 (LTS)
 - **IntelliJ IDEA**: Voor ontwikkeling (met Maven integratie)
 - **Docker**: Voor het draaien van Redis cache
 
