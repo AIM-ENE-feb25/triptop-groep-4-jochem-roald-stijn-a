@@ -205,7 +205,8 @@ Hieronder is een sequentie diagram uitgewerkt die de werking van het kiezen van 
 De volgende ontwerpvraag is uitgewerkt door **Roald**:
 > Hoe kunnen verschillende boekingsservices (zoals Booking.com en eigen beheer in Triptop) worden geïntegreerd?
 
-De ontwerpvraag wordt uitgewerkt door middel van het **Adapter Design Pattern**.
+De ontwerpvraag wordt uitgewerkt door middel van het **Adapter Design Pattern**. 
+De keuze hiervoor is uitgelegd bij [ADR-006](#86-adr-006-pattern-voor-integratie-van-verschillende-boekingsservices).
 
 #### 4.2.1. Componenten en verantwoordelijkheden
 
@@ -662,6 +663,38 @@ Geaccepteerd
 - Elke bouwsteen kan afzonderlijk worden getest.
 - In een code met weinig algoritmes maak je de code te ingewikkeld.
 - Een gebruiker moet een idee hebben wat hun keuze doet, wanneer ze een strategie kiezen.
+
+
+### 8.6. ADR-006 Pattern voor integratie van verschillende boekingsservices
+
+#### Context
+
+Onze applicatie moet meerdere boekingsservices (zoals Booking.com en een eigen TripTop-service) integreren. 
+Deze services gebruiken verschillende API's en datamodellen, terwijl we intern met één uniforme interface willen werken.
+
+#### Alternatieven
+
+We hebben de volgende opties overwogen. Hierbij ligt de focus op uitbreidbaarheid, lage koppeling en het vermijden van dubbele logica in de verwerking van externe services. 
+Omdat het gaat om het koppelen van externe systemen aan een intern contract, zijn het vooral structurele patterns die relevant zijn.
+
+| **Optie**               | **Uitbreidbaarheid** | **Lage koppeling** | **Hoge cohesie** |
+|-------------------------|----------------------|--------------------|------------------|
+| **Adapter Pattern**     | ++                   | ++                 | ++               |
+| **Facade Pattern**      | +                    | +                  | +                |
+
+- Facade Pattern viel af, omdat het vooral gericht is op het versimpelen van subsystemen richting de client, maar minder geschikt is wanneer elke externe service een specifieke vertaling vereist naar ons interne model.
+- Adapter Pattern is specifiek bedoeld voor dit soort situaties waarin bestaande interfaces (zoals externe APIs) moeten worden omgezet naar een intern bruikbare vorm.
+
+#### Besluit
+
+We kiezen voor het Adapter Pattern. 
+Elke externe service krijgt een eigen adapter die een uniforme interface implementeert. 
+Hierdoor kunnen nieuwe services eenvoudig worden toegevoegd zonder impact op de rest van de codebase.
+
+#### Status
+
+Geaccepteerd
+
 
 ## 9. Deployment, Operation and Support
 
