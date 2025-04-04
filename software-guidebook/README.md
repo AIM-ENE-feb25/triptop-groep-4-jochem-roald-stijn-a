@@ -20,7 +20,7 @@ In dit hoofdstuk wordt de context van de software beschreven. Dit omvat de gebru
 > - Rechtsboven in het diagram staat de legenda met de betekenis van de kleuren in het diagram.
 > - Het externe systeem **Mollie** is toegevoegd voor betalingen, maar de implementatie hiervan is nog onduidelijk. Dit wordt in de prototypes niet meegenomen, omdat dit geen hoofdzaak is en geen prioriteit heeft.
 > 
-> In [figuur 11](#711-container-diagram) is een container diagram te zien dat ingezoomd is op het systeem uit dit context diagram.
+> In [figuur 15](#711-container-diagram) is een container diagram te zien dat ingezoomd is op het systeem uit dit context diagram.
 
 ### 2.1. Toelichting Functionaliteit
 In het systeem kunnen reizigers reizen plannen en boeken, en wordt alle informatie opgehaald aan de hand van API's.
@@ -433,14 +433,14 @@ In de dynamische container diagrammen is te zien hoe de containers met elkaar co
 > 
 > In dit diagram geldt: als er op een pijl binnen de systeemgrens geen technologie staat, betekent dit dat het een method call is.
 > 
-> Hier wordt in stappen uitgelegd hoe een gebruiker inlogt op de website. De containers zijn gebaseerd op [het container diagram in figuur 11](#711-container-diagram). 
+> Hier wordt in stappen uitgelegd hoe een gebruiker inlogt op de website. De containers zijn gebaseerd op [het container diagram in figuur 15](#711-container-diagram). 
 
 ##### 7.1.2.2 Reis boeken
 
 ![dynamisch-container-diagram-reis-boeken](sgb-bestanden/dynamisch-container-diagram-reis-boeken-C4_Dynamisch_container_diagram__een_reis_boeken_op_TripTop.svg)
 > **Figuur 17:** Dynamisch container diagram van een reis boeken op TripTop
 >
-> Hier wordt in stappen uitgelegd hoe een gebruiker een reis boekt op de website. De containers zijn gebaseerd op [het container diagram in figuur 11](#711-container-diagram).
+> Hier wordt in stappen uitgelegd hoe een gebruiker een reis boekt op de website. De containers zijn gebaseerd op [het container diagram in figuur 15](#711-container-diagram).
 > 
 > Aangezien we nog niet weten hoe Mollie geïmplementeerd wordt, houdt dit diagram op bij de betaling.
 
