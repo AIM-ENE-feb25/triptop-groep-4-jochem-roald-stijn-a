@@ -13,7 +13,7 @@ public class TripAdvisorAdapter implements IBookingAdapter {
 
         int geoId = 60763; //TODO: get geoId from location search
 
-        String url = "https://tripadvisor16.p.rapidapi.com/api/v1/hotels/searchHotels?geoId=" + geoId + "&checkIn=" + checkInDate + "&checkOut=" + checkOutDate + "&pageNumber=1&currencyCode=USD";
+        String url = "https://tripadvisor16.p.rapidapi.com/api/v1/hotels/searchHotels?geoId=" + geoId + "&checkIn=" + checkInDate + "&checkOut=" + checkOutDate + "&pageNumber=1&currencyCode=EUR";
         Unirest.setTimeouts(0, 0);
         HttpResponse<String> response = null;
         try {
